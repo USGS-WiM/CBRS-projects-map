@@ -34,7 +34,7 @@ require([
             'includeInLayerList': true,
             'layers': {
                 'Revised Polygons' : {
-                    'url': 'https://fwsmapper.wim.usgs.gov/ArcGIS/rest/services/Wetlands/MapServer',
+                    'url': 'https://fws.wim.usgs.gov/arcgis/rest/services/CBRAMapper/GeoCBRA/MapServer',
                     'options': {
                         'id': 'wetlands',
                         'opacity': 0.75,
