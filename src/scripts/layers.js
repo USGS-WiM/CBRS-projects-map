@@ -38,7 +38,7 @@ require([
                     'options': {
                         'id': 'wetlands',
                         'opacity': 0.75,
-                        'visible': true
+                        'visible': false
                     },
                     'wimOptions': {
                         'type': 'layer',
@@ -47,8 +47,6 @@ require([
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
                         'includeLegend' : true,
-                        'moreinfo': 'http://www.fws.gov/wetlands/Data/Wetlands-V2-Product-Summary.html',
-                        'otherLayersToggled': ['wetlandsStatus', 'wetlandsRaster']
                     }
                 },
                 'Existing Polygons' : {
@@ -65,13 +63,28 @@ require([
                         'includeInLayerList': true,
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
-                        'moreinfo': 'http://www.fws.gov/wetlands/Other/Riparian-Product-Summary.html',
                         'includeLegend' : true
                     }
                 },
-            }
-        },
-        
+                    'Change Polygons' : {
+                    'url': 'https://fwsmapper.wim.usgs.gov/ArcGIS/rest/services/Riparian/MapServer',
+                    'visibleLayers': [0],
+                    'options': {
+                        'id': 'riparian',
+                        'opacity': 0.75,
+                        'visible': false
+                    },
+                    'wimOptions': {
+                        'type': 'layer',
+                        'layerType': 'agisDynamic',
+                        'includeInLayerList': true,
+                        'zoomScale': 144448,
+                        'hasOpacitySlider': true,
+                        'includeLegend' : true
+                    },
+                }
+            }   
+        }
     ];
  
 });
