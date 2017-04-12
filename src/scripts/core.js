@@ -231,6 +231,7 @@ require([
     });
     var usgsTopo = new ArcGISTiledMapServiceLayer('https://server.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer');
     var nationalMapBasemap = new ArcGISTiledMapServiceLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer');
+    var usgsImageryTopo = new ArcGISTiledMapServiceLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer');
     //on clicks to swap basemap. map.removeLayer is required for nat'l map b/c it is not technically a basemap, but a tiled layer.
     on(dom.byId('btnStreets'), 'click', function () {
         map.setBasemap('streets');
@@ -275,6 +276,11 @@ require([
 
     on(dom.byId('btnNatlMap'), 'click', function () {
         map.addLayer(nationalMapBasemap, 1);
+        map.removeLayer(usgsTopo);
+    });
+
+    on(dom.byId('btnUsgsImgTopo'), 'click', function () {
+        map.removeLayer(usgsImageryTopo, 1);
         map.removeLayer(usgsTopo);
     });
 
