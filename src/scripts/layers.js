@@ -39,12 +39,13 @@ require([
                     'options': {
                         'id': 'existingPoly',
                         'opacity': 0.75,
-                        'visible': true
+                        'visible': false
                     },
                     'wimOptions': {
                         'type': 'layer',
                         'layerType': 'agisFeature',
                         'includeInLayerList': true,
+                        'exclusiveGroupName':"Layers",
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
                         'includeLegend' : true
@@ -55,12 +56,13 @@ require([
                     'options': {
                         'id': 'revisedPoly',
                         'opacity': 0.75,
-                        'visible': true
+                        'visible': false
                     },
                     'wimOptions': {
                         'type': 'layer',
                         'layerType': 'agisFeature',
                         'includeInLayerList': true,
+                        'exclusiveGroupName':"Layers",
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
                         'includeLegend' : true,
@@ -72,12 +74,13 @@ require([
                     'options': {
                         'id': 'changePoly',
                         'opacity': 0.75,
-                        'visible': true
+                        'visible': false
                     },
                     'wimOptions': {
                         'type': 'layer',
                         'layerType': 'agisFeature',
                         'includeInLayerList': true,
+                        'exclusiveGroupName':"Layers",
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
                         'includeLegend' : true
