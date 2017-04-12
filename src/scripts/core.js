@@ -280,7 +280,7 @@ require([
     });
 
     on(dom.byId('btnUsgsImgTopo'), 'click', function () {
-        map.removeLayer(usgsImageryTopo, 1);
+        map.addLayer(usgsImageryTopo, 1);
         map.removeLayer(usgsTopo);
     });
 
