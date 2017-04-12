@@ -33,22 +33,6 @@ require([
             'showGroupHeading': false,
             'includeInLayerList': true,
             'layers': {
-                'Revised Polygons' : {
-                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/arcgis/rest/services/Project_Mapper_data/FeatureServer/0?token=I8yH85PHdLj8LVEjr5CNLhXbPgtKVEoslTQ7vOoSIPOz8_qoefVKncQY5CdV890CPRAxzN8hW5-RUeqjAQtTul_pN2vyMBvKySYPCtooUq_kauD_x0IZBuXGW0UZLQuA1H4LzoiQZkx0ww_2WfbAzSHRNEXND6VXj8IWs5QnPq3gNkYz2cvnD45t0BW0ZNj6HzlcDX3um8x-OAFLngMaKA..',
-                    'options': {
-                        'id': 'revisedPoly',
-                        'opacity': 0.75,
-                        'visible': true
-                    },
-                    'wimOptions': {
-                        'type': 'layer',
-                        'layerType': 'agisFeature',
-                        'includeInLayerList': true,
-                        'zoomScale': 144448,
-                        'hasOpacitySlider': true,
-                        'includeLegend' : true,
-                    }
-                },
                 'Existing Polygons' : {
                     'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/arcgis/rest/services/Project_Mapper_data/FeatureServer/2?token=Kamfb48mpliVW1S95aA2zmCs5-GfA1-HEIhGfzBm5KLcU8PJzynE8vvr9oW64AQY0D8aqPJhCR6iJEJ4eta2oK9bTGPSpiqaBLAktXUrMhqTbzHEA6a5dQjwsJI6HF2YPdeKS0U-9cYxKZZTEzfFvbr32k2wtDyz4bE-4VZ6MKdxoXRBGNIOHML0GRrBtqj1tAdm9_UcqGntlG5dTeRwsA..',
                     'visibleLayers': [0],
@@ -64,6 +48,22 @@ require([
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
                         'includeLegend' : true
+                    }
+                },
+                    'Revised Polygons' : {
+                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/arcgis/rest/services/Project_Mapper_data/FeatureServer/0?token=I8yH85PHdLj8LVEjr5CNLhXbPgtKVEoslTQ7vOoSIPOz8_qoefVKncQY5CdV890CPRAxzN8hW5-RUeqjAQtTul_pN2vyMBvKySYPCtooUq_kauD_x0IZBuXGW0UZLQuA1H4LzoiQZkx0ww_2WfbAzSHRNEXND6VXj8IWs5QnPq3gNkYz2cvnD45t0BW0ZNj6HzlcDX3um8x-OAFLngMaKA..',
+                    'options': {
+                        'id': 'revisedPoly',
+                        'opacity': 0.75,
+                        'visible': true
+                    },
+                    'wimOptions': {
+                        'type': 'layer',
+                        'layerType': 'agisFeature',
+                        'includeInLayerList': true,
+                        'zoomScale': 144448,
+                        'hasOpacitySlider': true,
+                        'includeLegend' : true,
                     }
                 },
                     'Change Polygons' : {
