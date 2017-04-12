@@ -55,7 +55,7 @@ require([
                     'options': {
                         'id': 'existingPoly',
                         'opacity': 0.75,
-                        'visible': false
+                        'visible': true
                     },
                     'wimOptions': {
                         'type': 'layer',
@@ -72,7 +72,7 @@ require([
                     'options': {
                         'id': 'changePoly',
                         'opacity': 0.75,
-                        'visible': false
+                        'visible': true
                     },
                     'wimOptions': {
                         'type': 'layer',

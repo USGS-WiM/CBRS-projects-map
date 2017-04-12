@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>CBRS Projects</title>
+        <title>CBRS Projects Map</title>
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -62,7 +62,7 @@
                         <a class="navbar-brand" target="_blank" href="https://www.fws.gov/wetlands/index.html">
                             <div id="titles">
                                 <div class='hidden-lg hidden-md hidden-sm' style='font-size:20px;'>CBRS</div>
-                                <div class='hidden-xs' style='font-size:20px;'>CBRS Projects</div>
+                                <div class='hidden-xs' style='font-size:20px;'>CBRS Projects Map</div>
                                 <div class='hidden-xs' style='font-size:14px;'>Coastal Barrier Resources System</div>
                             </div>
                         </a>
@@ -287,13 +287,6 @@
                 <br/><p><b>Click the map to select a watershed from which to extract wetland data.</b></p>
             </div>
         </div>
-        <script> <!-- To close alert -->
-        $(".close-alert").click(function(){
-            $(this).parent().slideUp(250);
-            map.getLayer("huc8").setVisibility(false);
-            map.graphics.clear();
-        });
-        </script>
         <style>
             .close-alert:hover{
                 cursor: pointer;
@@ -320,7 +313,7 @@
                                 <p>Venison bacon ground round pancetta bresaola pig, pastrami kielbasa frankfurter beef tail. T-bone prosciutto pork doner shoulder chicken chuck beef ribs corned beef tenderloin alcatra kielbasa.</p>
                                 <p>Salami picanha porchetta biltong. Burgdoggen ham hock rump, kevin tail chicken swine doner.</p>
                                 <p>Chuck doner boudin, tongue jerky cupim frankfurter ground round biltong venison.:</p>
-                                <br/>
+                                <br>
                                 <p>For general questions about CBRS Projects and the Map Viewer: <a target="_blank" href="mailto:Wetlands_Team@fws.gov">need_email@fws.gov</a></p>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="disclaimerTabPane"></br>
