@@ -129,7 +129,7 @@ require([
                         });*/
 
     map = new Map('mapDiv', {
-        basemap: 'hybrid',
+        basemap: 'gray',
         extent: new Extent(-8514000, 4741000, -8045000, 4912000, new SpatialReference({ wkid:3857 }))
     });
 
@@ -785,10 +785,15 @@ require([
         template.format = "PDF";
         template.layout = "Letter ANSI A Landscape test";
         template.preserveScale = false;
-        var wetlandsLegendLayer = new LegendLayer();
-        wetlandsLegendLayer.layerId = "wetlands";
-        var wetlandsRasterLegendLayer = new LegendLayer();
-        wetlandsRasterLegendLayer.layerId = "wetlandsRaster"
+        
+        var existingLegendLayer = new LegendLayer();
+        existingLegendLayer.layerId = "existingPoly";
+        
+        var revisedLegendLayer = new LegendLayer();
+        revisedLegendLayer.layerId = "revisedPoly";
+        
+        var changeLegendLayer = new LegendLayer();
+        changeLegendLayer.layerId = "changePoly"
         //legendLayer.subLayerIds = [*];
 
         var userTitle = $("#printTitle").val();
@@ -796,16 +801,16 @@ require([
         if (userTitle == "") {
             template.layoutOptions = {
                 "titleText": "Wetlands",
-                "authorText" : "National Wetlands Inventory (NWI)",
-                "copyrightText": "This page was produced by the NWI mapper",
-                "legendLayers": [wetlandsLegendLayer,wetlandsRasterLegendLayer]
+                "authorText" : "Coastal Barrier Resources System (CBRS)",
+                "copyrightText": "This page was produced by the CBRS Projects Map",
+                "legendLayers": [existingLegendLayer, revisedLegendLayer, changeLegendLayer]
             };
         } else {
             template.layoutOptions = {
                 "titleText": userTitle,
-                "authorText" : "National Wetlands Inventory (NWI)",
-                "copyrightText": "This page was produced by the NWI mapper",
-                "legendLayers": [wetlandsLegendLayer,wetlandsRasterLegendLayer]
+                "authorText" : "Coastal Barrier Resources System (CBRS)",
+                "copyrightText": "This page was produced by the CBRS Projects Map",
+                "legendLayers": [existingLegendLayer, revisedLegendLayer, changeLegendLayer]
             };
         }
 

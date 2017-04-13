@@ -39,7 +39,7 @@ require([
                     'options': {
                         'id': 'existingPoly',
                         'opacity': 0.75,
-                        'visible': false
+                        'visible': true
                     },
                     'wimOptions': {
                         'type': 'layer',
@@ -52,7 +52,7 @@ require([
                     }
                 },
                     'Revised Polygons' : {
-                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/arcgis/rest/services/Project_Mapper_data/FeatureServer/0?token=I8yH85PHdLj8LVEjr5CNLhXbPgtKVEoslTQ7vOoSIPOz8_qoefVKncQY5CdV890CPRAxzN8hW5-RUeqjAQtTul_pN2vyMBvKySYPCtooUq_kauD_x0IZBuXGW0UZLQuA1H4LzoiQZkx0ww_2WfbAzSHRNEXND6VXj8IWs5QnPq3gNkYz2cvnD45t0BW0ZNj6HzlcDX3um8x-OAFLngMaKA..',
+                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/arcgis/rest/services/Project_Mapper_data/FeatureServer/1?token=Koo90VafsD2qYdfE-B1uyJs_inAk_iE973eXtv8hbSU_Ods0QVxkk6HZazVIQOTFjMa9PVposvenLaV7nvsR65KercO2Lbp3IqST2lQmzPyJNus6z_16GPv8KrZbnqI44d5NPMo67vEyf2zNOTL9dmXMBJ41eo6sECcxAUxcnyBkuhKBPL1Csax7QtE-YKyURbsC3Hs-kM-fKvUi_dWlbA..',
                     'options': {
                         'id': 'revisedPoly',
                         'opacity': 0.75,
