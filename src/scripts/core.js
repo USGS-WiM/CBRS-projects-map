@@ -277,16 +277,20 @@ require([
     on(dom.byId('btnNatlMap'), 'click', function () {
         map.addLayer(nationalMapBasemap, 1);
         map.removeLayer(usgsTopo);
+        map.removeLayer(usgsImageryTopo);
     });
 
+    // Something is wrong here
     on(dom.byId('btnUsgsImgTopo'), 'click', function () {
         map.addLayer(usgsImageryTopo, 1);
+        map.removeLayer(nationalMapBasemap);
         map.removeLayer(usgsTopo);
     });
 
     on(dom.byId('btnUsgsTopo'), 'click', function () {
         map.addLayer(usgsTopo, 1);
         map.removeLayer(nationalMapBasemap);
+        map.removeLayer(usgsImageryTopo);
     })
 
     identifyParams = new IdentifyParameters();
