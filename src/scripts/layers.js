@@ -69,7 +69,7 @@ require([
                     }
                 },
                     'Change Polygons' : {
-                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/arcgis/rest/services/Project_Mapper_data/FeatureServer/0?token=I8yH85PHdLj8LVEjr5CNLhXbPgtKVEoslTQ7vOoSIPOz8_qoefVKncQY5CdV890CPRAxzN8hW5-RUeqjAQtTul_pN2vyMBvKySYPCtooUq_kauD_x0IZBuXGW0UZLQuA1H4LzoiQZkx0ww_2WfbAzSHRNEXND6VXj8IWs5QnPq3gNkYz2cvnD45t0BW0ZNj6HzlcDX3um8x-OAFLngMaKA..',
+                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=-LLJ4CSW25LsRmUH1My5eFqylf0GsfZFXZ67IyundjVzXtSs3ky57YdN4-Qq9sXE4bI3fxHHFmGDuWuI8_Xd5h9TArLbhpOwGi5oCVpMU-6fi-yz9gCEsImLzcTvIh5LAgm_q-rNPNLwR0no9o6QBoEfW_FSQx_4vDtRC3JVcQlJGp1KfFmv_6qMzF2tuyuT59NmuiWaI03K-yKabKKcgg..',
                     'visibleLayers': [0],
                     'options': {
                         'id': 'changePoly',
@@ -85,6 +85,24 @@ require([
                         'hasOpacitySlider': true,
                         'includeLegend' : true
                     },
+                    'polygons' : {
+                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/Project_Mapper_data/FeatureServer?token=-LLJ4CSW25LsRmUH1My5eFqylf0GsfZFXZ67IyundjVzXtSs3ky57YdN4-Qq9sXE4bI3fxHHFmGDuWuI8_Xd5h9TArLbhpOwGi5oCVpMU-6fi-yz9gCEsImLzcTvIh5LAgm_q-rNPNLwR0no9o6QBoEfW_FSQx_4vDtRC3JVcQlJGp1KfFmv_6qMzF2tuyuT59NmuiWaI03K-yKabKKcgg..',
+                    'visibleLayers': [0],
+                    'options': {
+                        'id': 'polygons',
+                        'opacity': 0.75,
+                        'visible': false
+                    },
+                    'wimOptions': {
+                        'type': 'layer',
+                        'layerType': 'agisFeature',
+                        'includeInLayerList': true,
+                        'exclusiveGroupName':"Layers",
+                        'zoomScale': 144448,
+                        'hasOpacitySlider': true,
+                        'includeLegend' : false
+                    },
+                    }
                 }
             }   
         }

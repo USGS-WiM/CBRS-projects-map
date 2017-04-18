@@ -14,9 +14,9 @@ var printCount = 0;
 var legendLayers = [];
 var measurement;
 
-var identifyTask, identifyParams;
+var queryTask, query;
 
-var aoiClicked = false;
+var polyClicked = false;
 
 require([
     'esri/map',
@@ -39,6 +39,8 @@ require([
     'esri/tasks/GeometryService',
     'esri/tasks/IdentifyParameters',
     'esri/tasks/IdentifyTask',
+    'esri/tasks/query',
+    'esri/tasks/QueryTask',
     'esri/tasks/LegendLayer',
     'esri/tasks/PrintTask',
     'esri/tasks/PrintParameters',
@@ -72,6 +74,8 @@ require([
     GeometryService,
     IdentifyParameters,
     IdentifyTask,
+    Query,
+    QueryTask,
     LegendLayer,
     PrintTask,
     PrintParameters,
@@ -301,37 +305,43 @@ require([
         map.removeLayer(usgsImageryTopo);
     })
 
-    identifyParams = new IdentifyParameters();
-    identifyParams.tolerance = 0;
-    identifyParams.returnGeometry = true;
-    identifyParams.layerOption = IdentifyParameters.LAYER_OPTION_ALL;
-    identifyParams.width  = map.width;
-    identifyParams.height = map.height;
+    query = new Query();
+    query.where = ["1=1"];
+    query.returnGeometry = true;
+    query.outFields = ["*"];
     //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
-    identifyTask = new IdentifyTask(allLayers[0].layers["Revised Polygons"].url);
+    queryTask = new QueryTask("http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=-LLJ4CSW25LsRmUH1My5eFqylf0GsfZFXZ67IyundjVzXtSs3ky57YdN4-Qq9sXE4bI3fxHHFmGDuWuI8_Xd5h9TArLbhpOwGi5oCVpMU-6fi-yz9gCEsImLzcTvIh5LAgm_q-rNPNLwR0no9o6QBoEfW_FSQx_4vDtRC3JVcQlJGp1KfFmv_6qMzF2tuyuT59NmuiWaI03K-yKabKKcgg");
 
-    //code for adding draggability to infoWindow. http://www.gavinr.com/2015/04/13/arcgis-javascript-draggable-infowindow/
-    var handle = query(".title", map.infoWindow.domNode)[0];
-    var dnd = new Moveable(map.infoWindow.domNode, {
-        handle: handle
+    //start LobiPanel
+    $("#selectionDiv").lobiPanel({
+        unpin: false,
+        reload: false,
+        minimize: false,
+        close: false,
+        expand: false,
+        editTitle: false,
+        maxWidth: 800,
+        maxHeight: 500,
     });
-    
-    // when the infoWindow is moved, hide the arrow:
-    on(dnd, 'FirstMove', function() {
-        // hide pointer and outerpointer (used depending on where the pointer is shown)
-        var arrowNode =  query(".outerPointer", map.infoWindow.domNode)[0];
-        domClass.add(arrowNode, "hidden");
-        
-        var arrowNode =  query(".pointer", map.infoWindow.domNode)[0];
-        domClass.add(arrowNode, "hidden");
-    }.bind(this));
-    //end code for adding draggability to infoWindow
 
+    $("#selectionDiv .dropdown").prepend("<div id='selectionClose' tite='close'><b>X</b></div>");
+    //$("#selectionDiv .dropdown").prepend("<div id='selectionMin' title='collapse'><b>_</b></div>");
+
+    $("#selectionMin").click(function(){
+        $("#selectionDiv").css("visibility", "hidden");
+        /*$("#selection-tools-alert").slideDown(250);*/
+    });
+
+    $("#selectionClose").click(function(){
+        $("#selectionDiv").css("visibility", "hidden");
+    });
+    //End LobiPanel
+    
     //map click handler
     on(map, "click", function(evt) {
 
-        if (aoiClicked == true) {
-            aoiClicked = false;
+        if (polyClicked == true) {
+            polyClicked = false;
             return;
         }
 
@@ -347,27 +357,29 @@ require([
         /*identifyParams.geometry = evt.mapPoint;
         identifyParams.mapExtent = map.extent;*/
 
-        QueryTask = new QueryTask('http://services.arcgis.com/v01gqwM5QqNysAAi/arcgis/rest/services/Project_Mapper_data/FeatureServer');
+        $("#selectionDiv").css("visibility", "visible");
+                var instance = $('#selectionDiv').data('lobiPanel');
+                var docHeight = $(document).height();
+                var docWidth = $(document).width();
+                var percentageOfScreen = 0.9;
 
-        query = new Query();
-        query.returnGeometry = true;
-        query.outFields = ["Unit"];
+                var instanceX = docWidth*0.5-$("#selectionDiv").width()*0.5;
+                var instanceY = docHeight*0.8-$("#selectionDiv").height()*1.0;
 
-        if (response[i].layer == 0) {
-            $("#mapDate").text(attr["Unit"]);
-        }
+
+                instance.setPosition(instanceX, instanceY);
+                if (instance.isPinned() == true) {
+                    instance.unpin();
+                }
+
         
-        if (map.getLevel() >= 12 && $("#huc-download-alert")[0].scrollHeight == 0) {
+        
+        if (map.getLevel() >= 8) {
             //the deferred variable is set to the parameters defined above and will be used later to build the contents of the infoWindow.
-            identifyTask = new IdentifyTask(allLayers[0].layers["Existing Polygons"].url);
-            var deferredResult = identifyTask.execute(identifyParams);
+            queryTask = new QueryTask("http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=-LLJ4CSW25LsRmUH1My5eFqylf0GsfZFXZ67IyundjVzXtSs3ky57YdN4-Qq9sXE4bI3fxHHFmGDuWuI8_Xd5h9TArLbhpOwGi5oCVpMU-6fi-yz9gCEsImLzcTvIh5LAgm_q-rNPNLwR0no9o6QBoEfW_FSQx_4vDtRC3JVcQlJGp1KfFmv_6qMzF2tuyuT59NmuiWaI03K-yKabKKcgg");
+            var deferredResult = queryTask.execute(query);
 
-            //Historic Wetland Identify task
-            identifyParams.geometry = evt.mapPoint;
-            identifyParams.mapExtent = map.extent;
-
-            setCursorByID("mainDiv", "wait");
-            map.setCursor("wait");
+            setCursorByID("mainDiv");
 
             deferredResult.addCallback(function(response) {
 
@@ -378,99 +390,35 @@ require([
                     var attrStatus;
 
                     for (var i = 0; i < response.length; i++) {
+                        feature = response[i].feature;
+
+                        //getting feature attributes
+                        attr = feature.attributes;
+                        
+                        var symbol;
                         if (response[i].layerId == 0) {
-                            feature = response[i].feature;
-
-                            attr = feature.attributes;
-
-                            if (response[i].layer == 0)
-                                $("#mapDate").text(attr["Unit"]);
-
-                        } else if (response[i].layerId == 1) {
-                            attrStatus = response[i].feature.attributes;
+                            $("#siteUnit").text(attr["Unit"]);
+                            symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID,
+                                new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
+                                    new dojo.Color([255,0,225]), 2), new dojo.Color([98,194,204,0])
+                            );
                         }
-
                     }
 
-                    // Code for adding wetland highlight
-                    var symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID,
-                        new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
-                        new dojo.Color([255,255,0]), 2), new dojo.Color([98,194,204,0])
-                    );
                     feature.geometry.spatialReference = map.spatialReference;
                     var graphic = feature;
                     graphic.setSymbol(symbol);
 
                     map.graphics.add(graphic);
 
-                    var projmeta = '';
-                    if (attrStatus.SUPPMAPINFO == 'None') {
-                        projmeta = " NONE";
-                    } else {
-                        projmeta = " <a target='_blank' href='" + attrStatus.SUPPMAPINFO + "'>click here</a>";
-                    }
-
-                    if (attrStatus.IMAGE_DATE == "<Null>" || attrStatus.IMAGE_DATE == "0" || attrStatus.IMAGE_DATE == 0) {
-                        attrStatus.IMAGE_DATE = projmeta;
-                    }
-
                     //ties the above defined InfoTemplate to the feature result returned from a click event
-
-                    feature.setInfoTemplate(template);
 
                     setCursorByID("mainDiv", "default");
                     map.setCursor("default");
 
                     ////map.infoWindow.show(evt.mapPoint);
 
-                } else if (response.length <= 1) {
-
-                    identifyTask = new IdentifyTask(allLayers[0].layers["changePoly"].url);
-
-                    var deferredResult = identifyTask.execute(identifyParams);
-
-                    deferredResult.addCallback(function(response) {
-
-                        if (response.length > 1) {
-
-                            var feature;
-                            var attr;
-                            var attrStatus;
-
-                            for (var i = 0; i < response.length; i++) {
-                                feature = response[i].feature;
-                                
-                                attr = feature.attributes;
-                                
-                                if (response[i].layer == 0)
-                                $("#mapDate").text(attr["Unit"]);
-                            
-
-                            // Code for adding wetland highlight
-                            var symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID,
-                                new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
-                                new dojo.Color([255,255,0]), 2), new dojo.Color([98,194,204,0])
-                            );
-                            feature.geometry.spatialReference = map.spatialReference;
-                            var graphic = feature;
-                            graphic.setSymbol(symbol);
-
-                            map.graphics.add(graphic);
-
-                            //ties the above defined InfoTemplate to the feature result returned from a click event
-
-                            feature.setInfoTemplate(template);
-
-                            map.infoWindow.setFeatures([feature]);
-                            map.infoWindow.show(evt.mapPoint);
-
-                            setCursorByID("mainDiv", "default");
-                            map.setCursor("default");
-
-                        } 
-                    }
-                });
-            }
+                } 
         });
         } 
     });
