@@ -565,7 +565,7 @@ require([
             dpi: 300
         };
         template.format = "PDF";
-        template.layout = "Letter ANSI A Landscape test";
+        template.layout = "Letter ANSI A Landscape Test";
         template.preserveScale = false;
         
         var existingLegendLayer = new LegendLayer();
