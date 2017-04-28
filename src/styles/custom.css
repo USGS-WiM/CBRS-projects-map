@@ -3,3 +3,10 @@
 .map .logo-med {
     display: none;
 }
+
+#navbar #faqNav {
+  background-color: transparent;
+  font-size: 8pt;
+  position: relative;
+  top: 1px;
+}

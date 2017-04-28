@@ -39,6 +39,7 @@ require([
     'esri/tasks/GeometryService',
     'esri/tasks/IdentifyParameters',
     'esri/tasks/IdentifyTask',
+    'esri/InfoTemplate',
     'esri/tasks/query',
     'esri/tasks/QueryTask',
     'esri/tasks/LegendLayer',
@@ -74,6 +75,7 @@ require([
     GeometryService,
     IdentifyParameters,
     IdentifyTask,
+    InfoTemplate,
     Query,
     QueryTask,
     LegendLayer,
@@ -305,13 +307,6 @@ require([
         map.removeLayer(usgsImageryTopo);
     })
 
-    query = new Query();
-    query.where = ["1=1"];
-    query.returnGeometry = true;
-    query.outFields = ["*"];
-    //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
-    queryTask = new QueryTask("http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=-LLJ4CSW25LsRmUH1My5eFqylf0GsfZFXZ67IyundjVzXtSs3ky57YdN4-Qq9sXE4bI3fxHHFmGDuWuI8_Xd5h9TArLbhpOwGi5oCVpMU-6fi-yz9gCEsImLzcTvIh5LAgm_q-rNPNLwR0no9o6QBoEfW_FSQx_4vDtRC3JVcQlJGp1KfFmv_6qMzF2tuyuT59NmuiWaI03K-yKabKKcgg");
-
     //start LobiPanel
     $("#selectionDiv").lobiPanel({
         unpin: false,
@@ -355,37 +350,29 @@ require([
         //alert("scale: " + map.getScale() + ", level: " + map.getLevel());
 
         /*identifyParams.geometry = evt.mapPoint;
-        identifyParams.mapExtent = map.extent;*/
-
-        $("#selectionDiv").css("visibility", "visible");
-                var instance = $('#selectionDiv').data('lobiPanel');
-                var docHeight = $(document).height();
-                var docWidth = $(document).width();
-                var percentageOfScreen = 0.9;
-
-                var instanceX = docWidth*0.5-$("#selectionDiv").width()*0.5;
-                var instanceY = docHeight*0.8-$("#selectionDiv").height()*1.0;
-
-
-                instance.setPosition(instanceX, instanceY);
-                if (instance.isPinned() == true) {
-                    instance.unpin();
-                }
-
+        identifyParams.mapExtent = map.extent;*/ 
         
-        
-        if (map.getLevel() >= 8) {
+        if (map.getLevel()) {
             //the deferred variable is set to the parameters defined above and will be used later to build the contents of the infoWindow.
-            queryTask = new QueryTask("http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=-LLJ4CSW25LsRmUH1My5eFqylf0GsfZFXZ67IyundjVzXtSs3ky57YdN4-Qq9sXE4bI3fxHHFmGDuWuI8_Xd5h9TArLbhpOwGi5oCVpMU-6fi-yz9gCEsImLzcTvIh5LAgm_q-rNPNLwR0no9o6QBoEfW_FSQx_4vDtRC3JVcQlJGp1KfFmv_6qMzF2tuyuT59NmuiWaI03K-yKabKKcgg");
-            var deferredResult = queryTask.execute(query);
+            /*queryTask = new QueryTask("http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=-LLJ4CSW25LsRmUH1My5eFqylf0GsfZFXZ67IyundjVzXtSs3ky57YdN4-Qq9sXE4bI3fxHHFmGDuWuI8_Xd5h9TArLbhpOwGi5oCVpMU-6fi-yz9gCEsImLzcTvIh5LAgm_q-rNPNLwR0no9o6QBoEfW_FSQx_4vDtRC3JVcQlJGp1KfFmv_6qMzF2tuyuT59NmuiWaI03K-yKabKKcgg");*/
+            
+            query = new Query();
+            query.returnGeometry = true;
+            query.outFields = ["Unit","Unit_Type"];
+            //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
+            queryTask = new QueryTask("http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=sD5BjzEiPRE_epJPnngUcl6RuDFx74E8pPRNhkbnaf70ttMmtKWr0P8q-psk0EYaJi-u8sOy1nVlQiMwrE3YMa_d9ZkeDeHgYhjuXQC8dZwa_6PCBu1CbCRf7E5wNe-RG5OnJ9QLMpPFeroZR_G6DBQL8ZQPDZPIlf9Avf5fZORQyT-_r0HVpjbO3YDfaZvI5kFAl_HAbf-CfoBoZBfMpQ..");
 
             setCursorByID("mainDiv");
+            var deferredResult = queryTask.execute(query);
+
+            infoTemplate = new InfoTemplate("${Unit}");
+
 
             deferredResult.addCallback(function(response) {
 
                 if (response.length > 1) {
 
-                    var feature;
+                    var feature = featureSet.features[0];
                     var attr;
                     var attrStatus;
 
@@ -402,6 +389,20 @@ require([
                                 new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
                                     new dojo.Color([255,0,225]), 2), new dojo.Color([98,194,204,0])
                             );
+                        }
+                         $("#selectionDiv").css("visibility", "visible");
+                            var instance = $('#selectionDiv').data('lobiPanel');
+                            var docHeight = $(document).height();
+                            var docWidth = $(document).width();
+                            var percentageOfScreen = 0.9;
+
+                            var instanceX = docWidth*0.5-$("#selectionDiv").width()*0.5;
+                            var instanceY = docHeight*0.8-$("#selectionDiv").height()*1.0;
+
+
+                            instance.setPosition(instanceX, instanceY);
+                            if (instance.isPinned() == true) {
+                                instance.unpin();
                         }
                     }
 
@@ -553,6 +554,42 @@ require([
             });
     }
 
+    // FAQ Modal controls.
+        $('#faq1header').click(function(){$('#faq1body').slideToggle(250);});
+        $('#faq2header').click(function(){$('#faq2body').slideToggle(250);});
+        $('#faq3header').click(function(){$('#faq3body').slideToggle(250);});
+        $('#faq4header').click(function(){$('#faq4body').slideToggle(250);});
+        $('#faq5header').click(function(){$('#faq5body').slideToggle(250);});
+        $('#faq6header').click(function(){$('#faq6body').slideToggle(250);});
+        $('#faq7header').click(function(){$('#faq7body').slideToggle(250);});
+        $('#faq8header').click(function(){$('#faq8body').slideToggle(250);});
+        $('#faq9header').click(function(){$('#faq9body').slideToggle(250);});
+        $('#faq10header').click(function(){$('#faq10body').slideToggle(250);});
+        $('#faq11header').click(function(){$('#faq11body').slideToggle(250);});
+        $('#faq12header').click(function(){$('#faq12body').slideToggle(250);});
+        $('#faq13header').click(function(){$('#faq13body').slideToggle(250);});
+        $('#faq14header').click(function(){$('#faq14body').slideToggle(250);});
+        $('#faq15header').click(function(){$('#faq15body').slideToggle(250);});
+        $('#faq16header').click(function(){$('#faq16body').slideToggle(250);});
+        $('#faq17header').click(function(){$('#faq17body').slideToggle(250);});
+        $('#faq18header').click(function(){$('#faq18body').slideToggle(250);});
+        $('#faq19header').click(function(){$('#faq19body').slideToggle(250);});
+        $('#faq20header').click(function(){$('#faq20body').slideToggle(250);});
+        $('#faq21header').click(function(){$('#faq21body').slideToggle(250);});
+        $('#faq22header').click(function(){$('#faq22body').slideToggle(250);});
+        $('#faq23header').click(function(){$('#faq23body').slideToggle(250);});
+        $('#faq24header').click(function(){$('#faq24body').slideToggle(250);});
+        $('#faq25header').click(function(){$('#faq25body').slideToggle(250);});
+        $('#faq26header').click(function(){$('#faq26body').slideToggle(250);});
+        $('#faq27header').click(function(){$('#faq27body').slideToggle(250);});
+        $('#faq28header').click(function(){$('#faq28body').slideToggle(250);});
+
+        $('.fullsize').click(function(){
+            var data = "<img src='"+$(this).attr('src')+"'/>";
+            var myWindow = window.open("data:text/html," + encodeURIComponent(data),"_blank");
+            myWindow.focus();
+        });
+
     function printMap() {
 
         var printParams = new PrintParameters();
@@ -640,6 +677,12 @@ require([
         // Geosearch nav menu is selected
         $('#geosearchNav').click(function(){
             showModal();
+        });
+        function showModal() {
+            $('#faqModal').modal('show');
+        }
+        $('#faqNav').click(function(){
+            $('#faqModal').modal('show');
         });
 
         function showAboutModal () {
