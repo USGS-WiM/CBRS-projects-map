@@ -32,6 +32,7 @@ require([
     'esri/geometry/Extent',
     'esri/geometry/Multipoint',
     'esri/geometry/Point',
+    'esri/geometry/Polygon',
     'esri/layers/ArcGISTiledMapServiceLayer',
     'esri/renderers/UniqueValueRenderer',
     'esri/SpatialReference',
@@ -68,6 +69,7 @@ require([
     Extent,
     Multipoint,
     Point,
+    Polygon,
     ArcGISTiledMapServiceLayer,
     UniqueValueRenderer,
     SpatialReference,
@@ -358,15 +360,58 @@ require([
             
             query = new Query();
             query.returnGeometry = true;
-            query.outFields = ["Unit","Unit_Type"];
+            query.geometry = evt.mapPoint;
+            query.outFields = ["*"];
             //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
-            queryTask = new QueryTask("http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=sD5BjzEiPRE_epJPnngUcl6RuDFx74E8pPRNhkbnaf70ttMmtKWr0P8q-psk0EYaJi-u8sOy1nVlQiMwrE3YMa_d9ZkeDeHgYhjuXQC8dZwa_6PCBu1CbCRf7E5wNe-RG5OnJ9QLMpPFeroZR_G6DBQL8ZQPDZPIlf9Avf5fZORQyT-_r0HVpjbO3YDfaZvI5kFAl_HAbf-CfoBoZBfMpQ..");
-
+            queryTask = new QueryTask("http://services.arcgis.com/v01gqwM5QqNysAAi/arcgis/rest/services/symbolizedChangePolys/FeatureServer/0?token=wk1h7tozSEJ1XK7lybWNuSJJTEsrVmwlw3wO8TCcPwi8fQ7ug7z8IaMvShmrWeEYnRy4R3VukH_pc0uUBlVKDMiYxSS7RaseDl4G39b4WSgIBXXgw6fT0iHdjTOoStc8ZpxF26A8eGoh1TJc3qVghdxHNXv9CD4u3ew1OoPyUc51yHsT_Gc51FiRxgh3AwjjIBoAjEGf93jwww8NkiBzZw..");
+            queryTask.execute(query);
             setCursorByID("mainDiv");
-            var deferredResult = queryTask.execute(query);
+            /*var deferredResult = queryTask.execute(query);*/
 
-            infoTemplate = new InfoTemplate("${Unit}");
+            infoTemplate = new esri.InfoTemplate("Site Selection", "Unit: ${Unit}<br />Unit Type: ${Unit_Type}");
 
+            var latitude = evt.mapPoint.getLatitude();
+            var longitude = evt.mapPoint.getLongitude();
+
+            query.geometry = evt.graphic.geometry;
+            queryTask.execute(query, showResults);
+
+            function showResults(featureSet) {
+                map.graphics.clear();
+
+                if (featureSet.features.length > 0) {
+                
+                var feature = featureSet.features[0];
+
+                $("#unitNum").text(feature.attributes["Unit"]);
+                $("#siteUnit").text(feature.attributes["Unit"]);
+                $("#projName").text(feature.attributes["Name"]);
+                $("#unitType").text(feature.attributes["Unit_Type"]);
+                $("#changeTyp").text(feature.attributes["Change_Typ"]);
+                /*$("#summaryUrl").text(feature.attributes["Summary_URL"]);*/
+                $("#siteUnit").text(feature.attributes["Unit"]);
+                $("#summaryUrl").html('<a href="' + feature.attributes["Summary_URL"] + '" target="_blank">Summary</a>');
+
+                /*feature.setInfoTemplate(infoTemplate);
+                map.infoWindow.setFeatures([feature]);
+                map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));     */           
+                
+            }
+             $("#selectionDiv").css("visibility", "visible");
+                    var instance = $('#selectionDiv').data('lobiPanel');
+                    var docHeight = $(document).height();
+                    var docWidth = $(document).width();
+                    var percentageOfScreen = 0.9;
+
+                    var instanceX = docWidth*0.5-$("#selectionDiv").width()*0.5;
+                    var instanceY = docHeight*0.8-$("#selectionDiv").height()*1.0;
+
+
+                    instance.setPosition(instanceX, instanceY);
+                    if (instance.isPinned() == true) {
+                        instance.unpin();
+                }
+            }
 
             deferredResult.addCallback(function(response) {
 
@@ -389,20 +434,6 @@ require([
                                 new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
                                     new dojo.Color([255,0,225]), 2), new dojo.Color([98,194,204,0])
                             );
-                        }
-                         $("#selectionDiv").css("visibility", "visible");
-                            var instance = $('#selectionDiv').data('lobiPanel');
-                            var docHeight = $(document).height();
-                            var docWidth = $(document).width();
-                            var percentageOfScreen = 0.9;
-
-                            var instanceX = docWidth*0.5-$("#selectionDiv").width()*0.5;
-                            var instanceY = docHeight*0.8-$("#selectionDiv").height()*1.0;
-
-
-                            instance.setPosition(instanceX, instanceY);
-                            if (instance.isPinned() == true) {
-                                instance.unpin();
                         }
                     }
 
