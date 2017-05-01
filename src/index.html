@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="bower_components/bootstrap-map-js/src/css/bootstrapmap.css" />
         <link rel="stylesheet" href="bower_components/bootstrap-sidebar/dist/css/sidebar.css" />
         <link rel="stylesheet" href="bower_components/lobipanel/css/lobipanel.css" />
+
         <!-- endbower -->
         <!-- endbuild -->
         <!-- CSS for the mapping components -->
@@ -21,7 +22,7 @@
 
         <!-- build:css styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
-
+        <link rel="stylesheet" href="styles/custom.css" >
         <!--<link rel="stylesheet" href="https://txpub.usgs.gov/DSS/search_api/2.0/api/search_api.css"/>-->
         <!-- endbuild -->
         <!-- build:css styles/base.css -->
@@ -89,6 +90,10 @@
                     <i class="fa fa-question-circle"></i><span class="hidden-xs">&nbsp;&nbsp;About</span>
                 </button>
 
+                <button id="faqNav" class  ="btn btn-default navbar-btn pull-right">
+                    <i class="fa fa-question-circle"></i><span class="hidden-xs">&nbsp;&nbsp;FAQ</span>
+                </button>
+
                 <!-- legend buttton for navbar. to be removed if we like the in-map legend toggle -->
                 <!--<button id="legendButtonNavBar" type="button" class="btn btn-primary navbar-btn pull-right" style="margin-right: 1em;"><span class="glyphicon glyphicon-list"></span> Legend</button>-->
                 <!-- toggle for a right sidebar (currently not in use) -->
@@ -147,77 +152,7 @@
             </div><!-- /.modal-dialog -->
         </div>
 
-        <div id="getDataModal" class="modal fade"  tabindex="-1" role="dialog" >
-            <div class="modal-dialog  modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
-                        <h4 class="modal-title">Get Data</h4>
-                    </div>
-                    <div id="getDataModalBody" class="modal-body">
-                        <ul class="nav nav-tabs" id="getDataModalTabs">
-                            <li role="presentation" class="active"><a id="readme" href="#readmeTabPane" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;Readme</a></li>
-                            <li role="presentation" ><a id="watershedTab" href="#watershedTabPane" data-toggle="tab"><i class="fa fa-download"></i>&nbsp;By Watershed</a></li>
-                            <li role="presentation" ><a id="stateTab" href="#stateTabPane" data-toggle="tab"><i class="fa fa-download"></i>&nbsp;By State</a></li>
-                            <li role="presentation" ><a id="webServicesTab" href="#webServicesTabPane" data-toggle="tab"><i class="fa fa-server"></i>&nbsp;Web Services</a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="readmeTabPane"></br>
-                                <h3>Before You Begin</h3><br/>
-                                <ul>
-                                    <li>Each State and watershed data download is available as either a compressed file <a target="_blank" href="http://www.esri.com/products/arcgis-capabilities/data-management">Geodatabase</a> or a <a target="_blank" href="http://www.esri.com/library/whitepapers/pdfs/shapefile.pdf">Shapefile</a>. Both files are compressed by using the <a target="_blank" href="https://en.wikipedia.org/wiki/ZIP_file_format">.zip</a> format and contain the following layers:
-                                    <ul><br/>
-                                        <li>Wetlands polygon data - Version 2</li>
-                                        <li>Wetlands Project Metadata - Version 2 (includes image dates and project information)</li>
-                                        <li>Wetlands Historic Map Information*</li>
-                                        <li>Riparian polygon data*</li>
-                                        <li>Riparian Project Metadata (includes image dates and project information)*</li>
-                                        <li>Historic Wetlands*</li>
-                                        <li>Historic Wetlands Project Metadata (includes image dates and project information)*</li>
-                                        <li>Watershed Boundary Dataset (WBD) HUC8 modified** </li><br/>
-                                    </ul>
-                                </ul>
-                                <div style="padding-left: 80px"><p>* If available at the requested location.<br/>** Not included in State downloads.<br/>
-                                Information about each of these layers can be found on our <a target="_blank" href="http://www.fws.gov/wetlands/Data/Metadata.html">Metadata</a> page.</p></div><br/>
-                                <ul>
-                                    <li>Not all of Alaska has been digitally mapped by the U.S. Fish and Wildlife Service. Please refer to the Wetlands Mapper Wetlands Mapping Status layer to view where wetlands have been mapped in Alaska. The state downloads include a Wetlands Project Metadata layer that identifies where and when wetlands were mapped within the state.</li>
-                                </ul>
-                                <h3>Downloading Tips</h3><br/>
-                                <ul>
-                                    <li>If an error occurs during your download, or if your downloaded file(s) is corrupted, we strongly recommend the use of a download manager. Please visit the <a target="_blank" href="http://www.fws.gov/wetlands/FAQs.html#unzip">Frequently Asked Questions</a> page for more information on this topic. For security reasons, we are not allowed to served data via FTP.</li>
-
-                                    <br/><li>Due to the amount of data being downloaded, the resulting time to download each file may take up to 60 minutes or more, and each file can range in sizes from 1MB to approximately 1GB.</li>
-                                </ul>
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="watershedTabPane"></br>
-                                <h3>Download data by watershed</h3>
-                                <!--<p>The Download by Watershed function is still under development in this application.  Please use the <a target="_blank" href="https://www.fws.gov/wetlands/apps/WetlandsMap/WetlandsMapper.html">NWI V1 Wetlands Mapper</a> to download data by watershed.</p>
-                                --><p>Click on the button below and select the (HUC 8) watershed data you wish to download.</p>
-                                <button id="showHUCs" class="btn btn-primary">Select Watershed</button>
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="webServicesTabPane"></br>
-                                <!--<p>SWI web services available here:</p>
-                                <p><a target="_blank" href="https://fws.wim.usgs.gov/arcgis/rest/services/swi">https://fws.wim.usgs.gov/arcgis/rest/services/swi</a> </p>-->
-                                <p>Many of the data layers on the Wetlands Mapper can be accessed by other applications by using the following web mapping services.</p>
-                                <p><b>REST service address (<a target="_blank" href="https://www.fws.gov/wetlands/Data/Web-Map-Services.html">more info</a>):</b><br/>
-                                    <a target="_blank" href="https://www.fws.gov/wetlands/arcgis/rest/services">https://www.fws.gov/wetlands/arcgis/rest/services</a>
-                                </p>
-                                <p><b>Web Mapping Service (WMS) address (<a target="_blank" href="https://www.fws.gov/wetlands/Data/Web-Map-Services.html">more info</a>):</b><br/>
-                                    <a target="_blank" href="https://www.fws.gov/wetlands/arcgis/services/Wetlands/MapServer/WMSServer?request=GetCapabilities&service=WMS">https://www.fws.gov/wetlands/arcgis/services/Wetlands/MapServer/WMSServer?request=GetCapabilities&service=WMS</a>
-                                </p>
-                                <p><b>Keyhole Markup Language (KML) file (<a target="_blank" href="https://www.fws.gov/wetlands/Data/Google-Earth.html">more info</a>):</b><br/>
-                                    <a target="_blank" href="https://www.fws.gov/wetlands/Data/Google-Earth.html">Wetlands-Data.kml</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button class=" btn btn-default close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;" class="btn btn-default">Close</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+        
 
         <div class="wim-alert-fixed" id="huc-download-alert"
              style="position: fixed; top: 50px; right: 325px; color: #000; background-color: #f9f9f9; border-color: rgba(0,0,0.75);">
@@ -274,6 +209,59 @@
                 </div><!-- /.modal-content -->
             </div> <!-- /.modal-dialog -->
         </div><!-- /.modal -->
+
+        <div id="faqModal" class="modal fade"  tabindex="-1" role="dialog" >
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
+                <h4 class="modal-title">Frequently Asked Questions</h4>
+            </div>
+            <div class="faq-modal-body">
+                <h4 style="margin-bottom: 15px; font-weight: 600;">Study scope</h4>
+                <div class="faq-header" id="faq1header">1. What is the purpose of this study? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq1body">
+                    Bacon ipsum dolor amet beef jerky sirloin strip steak tongue. 
+                </div>
+
+                <div class="faq-header" id="faq2header">2. Where can I get more information on this study? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq2body">
+                    MVenison ribeye strip steak ground round biltong turducken prosciutto. Tongue t-bone flank corned beef drumstick cow, filet mignon bacon salami leberkas pork belly. Brisket hamburger shank, sirloin swine boudin flank. Tri-tip short loin cow, salami brisket boudin kevin flank.
+                </div>
+
+                <div class="faq-header" id="faq3header">3. Why evaluate changes in water quality? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq3body">
+                    Swine pork tail doner chicken, brisket jerky. Swine brisket beef ribs, ground round short loin kevin landjaeger sirloin. Corned beef ground round pancetta filet mignon turducken. 
+                </div>
+
+                <div class="faq-header" id="faq4header">4. Who completed this study? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq4body">
+                    Venison kevin turducken prosciutto tail t-bone shoulder pork loin spare ribs short loin jerky biltong doner landjaeger. Tongue ham hock short loin rump bresaola. Ham short ribs short loin turkey tail spare ribs pastrami prosciutto bresaola porchetta ground round swine. Short loin burgdoggen alcatra salami ham hock. Sirloin ball tip beef ribs ribeye bacon pancetta.
+                </div>
+
+                <div class="faq-header" id="faq5header">5. What data were included in your analyses? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq5body">
+                    Landjaeger flank prosciutto pork loin jowl venison short ribs. Turkey strip steak turducken, ham porchetta boudin jerky swine shankle jowl. Sausage tenderloin drumstick salami chicken shankle landjaeger. Andouille biltong meatloaf picanha doner porchetta, ball tip swine. Corned beef turducken boudin shank beef ribs biltong tri-tip brisket sirloin salami beef bacon spare ribs pork belly pastrami. Shoulder tail beef short loin kevin tongue salami porchetta flank fatback alcatra doner spare ribs rump frankfurter.
+                </div>
+
+                <div class="faq-header" id="faq6header">6. What constituents were included in your analyses? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq6body">
+                    Boudin shank frankfurter ham doner. T-bone pork loin chuck shoulder porchetta. Sausage sirloin corned beef swine, turducken beef pig shank meatloaf short ribs. Chicken sirloin short loin jowl kielbasa, swine kevin.
+                </div>
+
+                <div class="faq-header" id="faq7header">7. What time periods did you assess in your trend analyses? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq7body">
+                    Chuck venison pig, turkey salami shankle doner pastrami t-bone meatball pork loin shoulder cow chicken. Spare ribs sirloin pig cupim, hamburger picanha boudin tenderloin pancetta chuck short loin.
+                </div>
+
+                <div class="faq-header" id="faq8header">8. Why do your trends only extend through 2012? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq8body">
+                     Sausage tenderloin drumstick salami chicken shankle landjaeger. Andouille biltong meatloaf picanha doner porchetta, ball tip swine. Corned beef turducken boudin shank beef ribs biltong tri-tip brisket sirloin salami beef bacon spare ribs pork belly pastrami.
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div> <!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
         <!-- Begin page content -->
         <div class="container-fluid keepit100">

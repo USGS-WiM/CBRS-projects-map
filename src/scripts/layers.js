@@ -86,7 +86,7 @@ require([
                         'includeLegend' : true
                     },
                     'polygons' : {
-                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/Project_Mapper_data/FeatureServer?token=-LLJ4CSW25LsRmUH1My5eFqylf0GsfZFXZ67IyundjVzXtSs3ky57YdN4-Qq9sXE4bI3fxHHFmGDuWuI8_Xd5h9TArLbhpOwGi5oCVpMU-6fi-yz9gCEsImLzcTvIh5LAgm_q-rNPNLwR0no9o6QBoEfW_FSQx_4vDtRC3JVcQlJGp1KfFmv_6qMzF2tuyuT59NmuiWaI03K-yKabKKcgg..',
+                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/?token=sD5BjzEiPRE_epJPnngUcl6RuDFx74E8pPRNhkbnaf70ttMmtKWr0P8q-psk0EYaJi-u8sOy1nVlQiMwrE3YMa_d9ZkeDeHgYhjuXQC8dZwa_6PCBu1CbCRf7E5wNe-RG5OnJ9QLMpPFeroZR_G6DBQL8ZQPDZPIlf9Avf5fZORQyT-_r0HVpjbO3YDfaZvI5kFAl_HAbf-CfoBoZBfMpQ..',
                     'visibleLayers': [0],
                     'options': {
                         'id': 'polygons',
