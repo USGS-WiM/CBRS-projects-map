@@ -405,14 +405,14 @@ require([
                 $("#changeTyp").text(feature.attributes["Change_Typ"]);
                 /*$("#summaryUrl").text(feature.attributes["Summary_URL"]);*/
                 $("#siteUnit").text(feature.attributes["Unit"]);
-                $("#summaryUrl").html('<a href="' + feature.attributes["Summary_URL"] + '" target="_blank">Summary</a>');
+                $("#summaryUrl").html('<a href="' + feature.attributes["Summary_URL"]) + $("#summaryUrl").text(feature.attributes["Summary_URL"]);
 
                 /*feature.setInfoTemplate(infoTemplate);
                 map.infoWindow.setFeatures([feature]);
                 map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));     */           
                 
             }
-            
+            // 
              $("#selectionDiv").css("visibility", "visible");
                     var instance = $('#selectionDiv').data('lobiPanel');
                     var docHeight = $(document).height();
