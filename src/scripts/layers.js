@@ -34,7 +34,7 @@ require([
             'includeInLayerList': true,
             'layers': {
                 'Existing Polygons' : {
-                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/2?token=sD5BjzEiPRE_epJPnngUcl6RuDFx74E8pPRNhkbnaf70ttMmtKWr0P8q-psk0EYaJi-u8sOy1nVlQiMwrE3YMa_d9ZkeDeHgYhjuXQC8dZwa_6PCBu1CbCRf7E5wNe-RG5OnJ9QLMpPFeroZR_G6DBQL8ZQPDZPIlf9Avf5fZORQyT-_r0HVpjbO3YDfaZvI5kFAl_HAbf-CfoBoZBfMpQ..',
+                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/projectMapper/FeatureServer/0?token=GWQZpQqimeHi_yFRbXxz-5ca6eNeillh596AOSghDnUyDOCiPGRocNJsBx4DMLGJhhj7XQU2RFH1IiSH-Y6pLV3Idx2miPH9mGT51zCWnPLGLtfY9ugflEFTUM0WStls9tqQQX6Dk3oyb8EhFVpPjmmgUEQXQcWxM8vHVA5_1811Rzy9cy0gaXEJOHUU5awkYS0_Cp9cf4cUmTu1T4AzEQ..',
                     'visibleLayers': [0],
                     'options': {
                         'id': 'existingPoly',
@@ -52,7 +52,7 @@ require([
                     }
                 },
                     'Revised Polygons' : {
-                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/1?token=sD5BjzEiPRE_epJPnngUcl6RuDFx74E8pPRNhkbnaf70ttMmtKWr0P8q-psk0EYaJi-u8sOy1nVlQiMwrE3YMa_d9ZkeDeHgYhjuXQC8dZwa_6PCBu1CbCRf7E5wNe-RG5OnJ9QLMpPFeroZR_G6DBQL8ZQPDZPIlf9Avf5fZORQyT-_r0HVpjbO3YDfaZvI5kFAl_HAbf-CfoBoZBfMpQ..',
+                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/projectMapper/FeatureServer/1?token=GWQZpQqimeHi_yFRbXxz-5ca6eNeillh596AOSghDnUyDOCiPGRocNJsBx4DMLGJhhj7XQU2RFH1IiSH-Y6pLV3Idx2miPH9mGT51zCWnPLGLtfY9ugflEFTUM0WStls9tqQQX6Dk3oyb8EhFVpPjmmgUEQXQcWxM8vHVA5_1811Rzy9cy0gaXEJOHUU5awkYS0_Cp9cf4cUmTu1T4AzEQ..',
                     'options': {
                         'id': 'revisedPoly',
                         'opacity': 0.75,
@@ -69,7 +69,7 @@ require([
                     }
                 },
                     'Change Polygons' : {
-                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/arcgis/rest/services/symbolizedChangePolys/FeatureServer/0?token=wk1h7tozSEJ1XK7lybWNuSJJTEsrVmwlw3wO8TCcPwi8fQ7ug7z8IaMvShmrWeEYnRy4R3VukH_pc0uUBlVKDMiYxSS7RaseDl4G39b4WSgIBXXgw6fT0iHdjTOoStc8ZpxF26A8eGoh1TJc3qVghdxHNXv9CD4u3ew1OoPyUc51yHsT_Gc51FiRxgh3AwjjIBoAjEGf93jwww8NkiBzZw..',
+                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/projectMapper/FeatureServer/2?token=GWQZpQqimeHi_yFRbXxz-5ca6eNeillh596AOSghDnUyDOCiPGRocNJsBx4DMLGJhhj7XQU2RFH1IiSH-Y6pLV3Idx2miPH9mGT51zCWnPLGLtfY9ugflEFTUM0WStls9tqQQX6Dk3oyb8EhFVpPjmmgUEQXQcWxM8vHVA5_1811Rzy9cy0gaXEJOHUU5awkYS0_Cp9cf4cUmTu1T4AzEQ..',
                     'visibleLayers': [0],
                     'options': {
                         'id': 'changePoly',
@@ -86,7 +86,7 @@ require([
                         'includeLegend' : true
                     },
                     'polygons' : {
-                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/?token=sD5BjzEiPRE_epJPnngUcl6RuDFx74E8pPRNhkbnaf70ttMmtKWr0P8q-psk0EYaJi-u8sOy1nVlQiMwrE3YMa_d9ZkeDeHgYhjuXQC8dZwa_6PCBu1CbCRf7E5wNe-RG5OnJ9QLMpPFeroZR_G6DBQL8ZQPDZPIlf9Avf5fZORQyT-_r0HVpjbO3YDfaZvI5kFAl_HAbf-CfoBoZBfMpQ..',
+                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/projectMapper/FeatureServer/?token=GWQZpQqimeHi_yFRbXxz-5ca6eNeillh596AOSghDnUyDOCiPGRocNJsBx4DMLGJhhj7XQU2RFH1IiSH-Y6pLV3Idx2miPH9mGT51zCWnPLGLtfY9ugflEFTUM0WStls9tqQQX6Dk3oyb8EhFVpPjmmgUEQXQcWxM8vHVA5_1811Rzy9cy0gaXEJOHUU5awkYS0_Cp9cf4cUmTu1T4AzEQ..',
                     'visibleLayers': [0],
                     'options': {
                         'id': 'polygons',

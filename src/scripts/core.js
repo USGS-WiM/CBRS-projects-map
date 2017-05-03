@@ -361,9 +361,9 @@ require([
             query = new Query();
             query.returnGeometry = true;
             query.geometry = evt.mapPoint;
-            query.outFields = ["*"];
+            query.outFields = ["Unit","Name","Unit_Type","Change_Typ","Summary_URL"];
             //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
-            queryTask = new QueryTask("http://services.arcgis.com/v01gqwM5QqNysAAi/arcgis/rest/services/symbolizedChangePolys/FeatureServer/0?token=wk1h7tozSEJ1XK7lybWNuSJJTEsrVmwlw3wO8TCcPwi8fQ7ug7z8IaMvShmrWeEYnRy4R3VukH_pc0uUBlVKDMiYxSS7RaseDl4G39b4WSgIBXXgw6fT0iHdjTOoStc8ZpxF26A8eGoh1TJc3qVghdxHNXv9CD4u3ew1OoPyUc51yHsT_Gc51FiRxgh3AwjjIBoAjEGf93jwww8NkiBzZw..");
+            queryTask = new QueryTask("http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/projectMapper/FeatureServer/2?token=GWQZpQqimeHi_yFRbXxz-5ca6eNeillh596AOSghDnUyDOCiPGRocNJsBx4DMLGJhhj7XQU2RFH1IiSH-Y6pLV3Idx2miPH9mGT51zCWnPLGLtfY9ugflEFTUM0WStls9tqQQX6Dk3oyb8EhFVpPjmmgUEQXQcWxM8vHVA5_1811Rzy9cy0gaXEJOHUU5awkYS0_Cp9cf4cUmTu1T4AzEQ..");
             queryTask.execute(query);
             setCursorByID("mainDiv");
             /*var deferredResult = queryTask.execute(query);*/
@@ -373,8 +373,9 @@ require([
             var latitude = evt.mapPoint.getLatitude();
             var longitude = evt.mapPoint.getLongitude();
 
-            query.geometry = evt.graphic.geometry;
             queryTask.execute(query, showResults);
+
+           
 
             function showResults(featureSet) {
                 map.graphics.clear();
@@ -382,10 +383,23 @@ require([
                 if (featureSet.features.length > 0) {
                 
                 var feature = featureSet.features[0];
+                
+                 var symbol;
+                 symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID,
+                            new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
+                            new dojo.Color([255,0,225]), 2), new dojo.Color([98,194,204,0])
+                        );
+                
+                feature.geometry.spatialReference = map.spatialReference;
+                    var graphic = feature;
+                    graphic.setSymbol(symbol);
+
+                    map.graphics.add(graphic);
+                
 
                 $("#unitNum").text(feature.attributes["Unit"]);
                 $("#siteUnit").text(feature.attributes["Unit"]);
-                $("#projName").text(feature.attributes["Name"]);
+                $("#unitName").text(feature.attributes["Name"]);
                 $("#unitType").text(feature.attributes["Unit_Type"]);
                 $("#changeTyp").text(feature.attributes["Change_Typ"]);
                 /*$("#summaryUrl").text(feature.attributes["Summary_URL"]);*/
@@ -397,6 +411,7 @@ require([
                 map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));     */           
                 
             }
+            
              $("#selectionDiv").css("visibility", "visible");
                     var instance = $('#selectionDiv').data('lobiPanel');
                     var docHeight = $(document).height();
