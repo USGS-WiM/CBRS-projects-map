@@ -358,6 +358,8 @@ require([
             //the deferred variable is set to the parameters defined above and will be used later to build the contents of the infoWindow.
             /*queryTask = new QueryTask("http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=-LLJ4CSW25LsRmUH1My5eFqylf0GsfZFXZ67IyundjVzXtSs3ky57YdN4-Qq9sXE4bI3fxHHFmGDuWuI8_Xd5h9TArLbhpOwGi5oCVpMU-6fi-yz9gCEsImLzcTvIh5LAgm_q-rNPNLwR0no9o6QBoEfW_FSQx_4vDtRC3JVcQlJGp1KfFmv_6qMzF2tuyuT59NmuiWaI03K-yKabKKcgg");*/
             
+
+            if (evt.graphic._graphicsLayer.layerId == 2) {
             query = new Query();
             query.returnGeometry = true;
             query.geometry = evt.mapPoint;
@@ -396,7 +398,6 @@ require([
 
                     map.graphics.add(graphic);
                 
-
                 $("#unitNum").text(feature.attributes["Unit"]);
                 $("#siteUnit").text(feature.attributes["Unit"]);
                 $("#unitName").text(feature.attributes["Name"]);
@@ -426,6 +427,7 @@ require([
                     if (instance.isPinned() == true) {
                         instance.unpin();
                 }
+            }
             }
 
             deferredResult.addCallback(function(response) {
