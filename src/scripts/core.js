@@ -430,7 +430,7 @@ require([
             }
             }
 
-            deferredResult.addCallback(function(response) {
+            /*deferredResult.addCallback(function(response) {
 
                 if (response.length > 1) {
 
@@ -468,7 +468,7 @@ require([
                     ////map.infoWindow.show(evt.mapPoint);
 
                 } 
-        });
+        });*/
         } 
     });
 
@@ -482,7 +482,7 @@ require([
         "<br/><p><b>Click the map to select a watershed from which to extract wetland data.</b></p>";
     });
 
-    var geocoder = new Geocoder({
+    /*var geocoder = new Geocoder({
         value: '',
         maxLocations: 25,
         autoComplete: true,
@@ -498,29 +498,88 @@ require([
         if (e.keyCode == 13) {
             setSearchExtent();
         }
-    });
+    });*/
 
     // Symbols
-    var sym = createPictureSymbol('../images/purple-pin.png', 0, 12, 13, 24);
+    /*var sym = createPictureSymbol('../images/purple-pin.png', 0, 12, 13, 24);*/
 
     map.on('load', function (){
         map.infoWindow.set('highlight', false);
         map.infoWindow.set('titleInBody', false);
     });
 
+  // create search_api widget in element "geosearch"
+     search_api.create( "geosearch", {
+         on_result: function(o) {
+             // what to do when a location is found
+             // o.result is geojson point feature of location with properties
+ 
+             // zoom to location
+             require(["esri/geometry/Extent"], function(Extent) {
+                 var noExtents = ["GNIS_MAJOR", "GNIS_MINOR", "ZIPCODE", "AREACODE"];
+                 var noExtentCheck = noExtents.indexOf(o.result.properties["Source"])
+                 $("#geosearchModal").modal('hide');
+                 if (noExtentCheck == -1) {
+                     map.setExtent(
+                         new esri.geometry.Extent({
+                             xmin: o.result.properties.LonMin,
+                             ymin: o.result.properties.LatMin,
+                             xmax: o.result.properties.LonMax,
+                             ymax: o.result.properties.LatMax,
+                             spatialReference: {"wkid":4326}
+                         }),
+                         true
+                     );
+                 } else {
+                     //map.setCenter();
+                     require( ["esri/geometry/Point"], function(Point) {
+                         map.centerAndZoom(
+                             new Point( o.result.properties.Lon, o.result.properties.Lat ),
+                             12
+                         );
+                     });
+                 }
+ 
+             });
+ 
+         },
+         "include_usgs_sw": true,
+         "include_usgs_gw": true,
+         "include_usgs_sp": true,
+         "include_usgs_at": true,
+         "include_usgs_ot": true,
+         "include_huc2": true,
+         "include_huc4": true,
+         "include_huc6": true,
+         "include_huc8": true,
+         "include_huc10": true,
+         "include_huc12": true,
+         
+         on_failure: function(o) {
+         $("#test").html("Sorry, a location could not be found in search for '"+o.val()+"'");
+            $("#invalidSearchLocationModal").modal('show');
+         }
+     });
+
+      $(document).ready(function(){
+         function showModal() {
+             $('#invalidSearchLocationModal').modal('show');
+         }
+     });
+
     // Geosearch functions
-    on(dom.byId('btnGeosearch'),'click', geosearch);
+    /*on(dom.byId('btnGeosearch'),'click', geosearch);*/
 
     // Optionally confine search to map extent
-    function setSearchExtent (){
-        geocoder.activeGeocoder.searchExtent = null;
+    /*function setSearchExtent (){
+        geocoder.activeGeocoder.searchExtent = null;*/
         /*if (dom.byId('chkExtent').checked === 1) {
             geocoder.activeGeocoder.searchExtent = map.extent;
         } else {
             geocoder.activeGeocoder.searchExtent = null;
         }*/
-    }
-    function geosearch() {
+    /*}*/
+    /*function geosearch() {
         setSearchExtent();
         var def = geocoder.find();
         def.then(function (res){
@@ -600,7 +659,7 @@ require([
                 'contentType': 'image/png',
                 'width':xWidth, 'height': yHeight
             });
-    }
+    }*/
 
     // FAQ Modal controls.
         $('#faq1header').click(function(){$('#faq1body').slideToggle(250);});
@@ -719,18 +778,20 @@ require([
 
     // Show modal dialog; handle legend sizing (both on doc ready)
     $(document).ready(function(){
+
+        function showModal() {
+            $('#faqModal').modal('show');
+        }
+        $('#faqNav').click(function(){
+            $('#faqModal').modal('show');
+        });
+
         function showModal() {
             $('#geosearchModal').modal('show');
         }
         // Geosearch nav menu is selected
         $('#geosearchNav').click(function(){
             showModal();
-        });
-        function showModal() {
-            $('#faqModal').modal('show');
-        }
-        $('#faqNav').click(function(){
-            $('#faqModal').modal('show');
         });
 
         function showAboutModal () {
