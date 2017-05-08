@@ -1476,3 +1476,5 @@ $(document).ready(function () {
     //});
 
 });
+
+/*function checkCookie()*/
