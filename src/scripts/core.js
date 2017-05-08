@@ -359,13 +359,13 @@ require([
             /*queryTask = new QueryTask("http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=-LLJ4CSW25LsRmUH1My5eFqylf0GsfZFXZ67IyundjVzXtSs3ky57YdN4-Qq9sXE4bI3fxHHFmGDuWuI8_Xd5h9TArLbhpOwGi5oCVpMU-6fi-yz9gCEsImLzcTvIh5LAgm_q-rNPNLwR0no9o6QBoEfW_FSQx_4vDtRC3JVcQlJGp1KfFmv_6qMzF2tuyuT59NmuiWaI03K-yKabKKcgg");*/
             
 
-            if (evt.graphic._graphicsLayer.layerId == 2) {
+            if (evt.graphic._graphicsLayer.layerId == 0) {
             query = new Query();
             query.returnGeometry = true;
             query.geometry = evt.mapPoint;
-            query.outFields = ["Unit","Name","Unit_Type","Change_Typ","Summary_URL"];
+            query.outFields = ["Unit","Name","Unit_Type","Change_Typ","Summary_URL", "Project_name","Status"];
             //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
-            queryTask = new QueryTask("http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/projectMapper/FeatureServer/2?token=GWQZpQqimeHi_yFRbXxz-5ca6eNeillh596AOSghDnUyDOCiPGRocNJsBx4DMLGJhhj7XQU2RFH1IiSH-Y6pLV3Idx2miPH9mGT51zCWnPLGLtfY9ugflEFTUM0WStls9tqQQX6Dk3oyb8EhFVpPjmmgUEQXQcWxM8vHVA5_1811Rzy9cy0gaXEJOHUU5awkYS0_Cp9cf4cUmTu1T4AzEQ..");
+            queryTask = new QueryTask("http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/projectMapper/FeatureServer/0?token=50KnCorhsD5LzoIyiygHBuyTga3ov1835mNFDwvcX2gzoLKYhJE-baCf5uHQtnrRPWnLAPIVOJWIiGwa9AMNuHU0ZvAlS9SaMzpad7AWSUsElgeVZ4rjlyDC3bMyggOZBQNqFvm4dmTODrU5QeHMUtCDdIYR7cTw4abmw_VArJDf1MCJs_OwmUCj-n2ineHQneEY0gcwIptDmdu_f_cIQQ..");
             queryTask.execute(query);
             setCursorByID("mainDiv");
             /*var deferredResult = queryTask.execute(query);*/
@@ -399,7 +399,8 @@ require([
                     map.graphics.add(graphic);
                 
                 $("#unitNum").text(feature.attributes["Unit"]);
-                $("#siteUnit").text(feature.attributes["Unit"]);
+                $("#projName").text(feature.attributes["Project_name"]);
+                $("#status").text(feature.attributes["Status"]);
                 $("#unitName").text(feature.attributes["Name"]);
                 $("#unitType").text(feature.attributes["Unit_Type"]);
                 $("#changeTyp").text(feature.attributes["Change_Typ"]);
