@@ -204,6 +204,12 @@ require([
         symbol: aoiSymbol
     });*/
 
+$(document).ready(function(){
+        function showModal() {
+             $('#firstModal').modal('show');
+         }
+    });
+
     //displays map scale on map load
     on(map, "load", function() {
         var scale =  map.getScale().toFixed(0);
@@ -211,9 +217,12 @@ require([
         var initMapCenter = webMercatorUtils.webMercatorToGeographic(map.extent.getCenter());
         $('#latitude').html(initMapCenter.y.toFixed(3));
         $('#longitude').html(initMapCenter.x.toFixed(3));
+        $('#firstModal').modal('show');
         //map.setBasemap("topo");
         //map.setBasemap("hybrid");
     });
+
+    
     //displays map scale on scale change (i.e. zoom level)
     on(map, "zoom-end", function () {
         var scale =  map.getScale().toFixed(0);

@@ -180,15 +180,23 @@
              </div>
          </div>
 
-        <div class="wim-alert-fixed" id="huc-download-alert"
-             style="position: fixed; top: 50px; right: 325px; color: #000; background-color: #f9f9f9; border-color: rgba(0,0,0.75);">
-            <i class="ion-close-round close-alert" style="float: right;"></i> <!-- Close Button - MUST INCLUDE -->
-            <div id="innerAlert">
-                <h4><b>Download Data</b></h4>
-                <p>Please review the Data Download (<a target="_blank" href="https://www.fws.gov/wetlands/Data/Data-Download.html">www.fws.gov/wetlands/Data/Data-Download.html</a>) page for information on how to download data, what is included in the download and data use limitations and disclaimer.</p>
-                <br/><p><b>Click the map to select a watershed from which to extract wetland data.</b></p>
-            </div>
-        </div>
+     <!-- User Helping Hands -->
+         <div id="firstModal" aria-hidden="true" class="modal fade overflow-y-hidden">
+             <div class="modal-dialog">
+                 <div class="arrow-left"></div>
+                 <div class="modal-content">
+                     <div class="modal-header"><h4 id="test">Welcome! Here's a quick walkthrough of the new CBRS Projects Map.</h4>
+                     </div>
+                     <div class="modal-body">
+                         <h5 style="text-align: center">First start with the Existing Polygons</h5>
+                     </div>
+                     <div class="modal-footer">
+                         <button type="button" class="btn btn-default" data-dismiss="modal">Dismiss</button>
+                     </div>
+                 </div>
+             </div>
+         </div>
+        
         <style>
             .close-alert:hover{
                 cursor: pointer;
