@@ -327,7 +327,7 @@ $(document).ready(function(){
         expand: false,
         editTitle: false,
         maxWidth: 800,
-        maxHeight: 500,
+        maxHeight: 550,
     });
 
     $("#selectionDiv .dropdown").prepend("<div id='selectionClose' tite='close'><b>X</b></div>");
@@ -372,7 +372,7 @@ $(document).ready(function(){
             query = new Query();
             query.returnGeometry = true;
             query.geometry = evt.mapPoint;
-            query.outFields = ["Unit","Name","Unit_Type","Change_Typ","Summary_URL", "Project_name","Status"];
+            query.outFields = ["Unit","Name","Unit_Type","Change_Typ","Summary_URL", "Project_name","Status","Docket_URL"];
             //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
             queryTask = new QueryTask("http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/projectMapper/FeatureServer/0?token=50KnCorhsD5LzoIyiygHBuyTga3ov1835mNFDwvcX2gzoLKYhJE-baCf5uHQtnrRPWnLAPIVOJWIiGwa9AMNuHU0ZvAlS9SaMzpad7AWSUsElgeVZ4rjlyDC3bMyggOZBQNqFvm4dmTODrU5QeHMUtCDdIYR7cTw4abmw_VArJDf1MCJs_OwmUCj-n2ineHQneEY0gcwIptDmdu_f_cIQQ..");
             queryTask.execute(query);
@@ -406,16 +406,29 @@ $(document).ready(function(){
                     graphic.setSymbol(symbol);
 
                     map.graphics.add(graphic);
-                
+
                 $("#unitNum").text(feature.attributes["Unit"]);
                 $("#projName").text(feature.attributes["Project_name"]);
                 $("#status").text(feature.attributes["Status"]);
+                $("#docketURL").html(feature.attributes["Docket_URL"]);
+
+                if ((feature.attributes["Change_Typ"]) == "Reclassification to System Unit" || "Removal" || "Reclassification to Otherwise Protected Area" || "High Hazard Area"){
+                     $("#reclassification").html('You have clicked within an area that is proposed for ' + feature.attributes["Change_Typ"]);
+                }
+                if ((feature.attributes["Change_Typ"]) == "No change"){
+                     $("#reclassification").html('You have clicked within an area that is proposed to remain within the CBRS as ' + feature.attributes["Unit"]);
+                };
+
                 $("#unitName").text(feature.attributes["Name"]);
                 $("#unitType").text(feature.attributes["Unit_Type"]);
                 $("#changeTyp").text(feature.attributes["Change_Typ"]);
-                /*$("#summaryUrl").text(feature.attributes["Summary_URL"]);*/
+                $("#summaryUrl").text(feature.attributes["Summary_URL"]);
                 $("#siteUnit").text(feature.attributes["Unit"]);
-                $("#summaryUrl").html('<a href="' + feature.attributes["Summary_URL"]) + $("#summaryUrl").text(feature.attributes["Summary_URL"]);
+
+                /*var url = $("#summaryUrl").text(feature.attributes["Summary_URL"]);
+                $("#summaryUrl").html($("#summaryUrl").attr("href",url));*/
+
+                $("#summaryUrl").html('<a href=#' + $("#summaryUrl").text(feature.attributes["Summary_URL"]));
 
                 /*feature.setInfoTemplate(infoTemplate);
                 map.infoWindow.setFeatures([feature]);

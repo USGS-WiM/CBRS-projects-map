@@ -19,3 +19,12 @@
   
   border-right:10px solid blue; 
 }
+
+#reclassification{
+  font-size: 1.2em;
+  text-align: center;
+}
+
+#popupList{
+  margin-right: 25px;
+}
