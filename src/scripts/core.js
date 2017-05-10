@@ -204,11 +204,7 @@ require([
         symbol: aoiSymbol
     });*/
 
-$(document).ready(function(){
-        function showModal() {
-             $('#firstModal').modal('show');
-         }
-    });
+
 
     //displays map scale on map load
     on(map, "load", function() {
@@ -217,10 +213,11 @@ $(document).ready(function(){
         var initMapCenter = webMercatorUtils.webMercatorToGeographic(map.extent.getCenter());
         $('#latitude').html(initMapCenter.y.toFixed(3));
         $('#longitude').html(initMapCenter.x.toFixed(3));
-        $('#firstModal').modal('show');
+        $('#welcomeModal').modal('show');
         //map.setBasemap("topo");
         //map.setBasemap("hybrid");
     });
+
 
     
     //displays map scale on scale change (i.e. zoom level)
@@ -342,6 +339,33 @@ $(document).ready(function(){
         $("#selectionDiv").css("visibility", "hidden");
     });
     //End LobiPanel
+
+    $(document).ready(function(){
+        function showModal() {
+             $('#welcomeModal').modal('show');
+         }
+
+         function showModal() {
+             $('#firstModal').modal('show');
+         }
+         $('#firstStep').click(function(){
+            $('#firstModal').modal('show');
+        });
+
+        function showModal() {
+             $('#secondModal').modal('show');
+         }
+         $('#secondStep').click(function(){
+            $('#secondModal').modal('show');
+        });
+
+        function showModal() {
+             $('#thirdModal').modal('show');
+         }
+         $('#thirdStep').click(function(){
+            $('#thirdModal').modal('show');
+        });
+    });
     
     //map click handler
     on(map, "click", function(evt) {
@@ -422,13 +446,13 @@ $(document).ready(function(){
                 $("#unitName").text(feature.attributes["Name"]);
                 $("#unitType").text(feature.attributes["Unit_Type"]);
                 $("#changeTyp").text(feature.attributes["Change_Typ"]);
-                $("#summaryUrl").text(feature.attributes["Summary_URL"]);
+                /*$("#summaryUrl").text(feature.attributes["Summary_URL"]);*/
                 $("#siteUnit").text(feature.attributes["Unit"]);
 
-                /*var url = $("#summaryUrl").text(feature.attributes["Summary_URL"]);
-                $("#summaryUrl").html($("#summaryUrl").attr("href",url));*/
+                var url = $("#summaryUrl").text(feature.attributes["Summary_URL"]);
+                $("#summaryUrl").html($("#summaryUrl").attr("href",url));
 
-                $("#summaryUrl").html('<a href=#' + $("#summaryUrl").text(feature.attributes["Summary_URL"]));
+                $("#testing").html('<a href="#"', url);
 
                 /*feature.setInfoTemplate(infoTemplate);
                 map.infoWindow.setFeatures([feature]);

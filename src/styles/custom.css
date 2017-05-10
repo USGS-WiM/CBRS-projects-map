@@ -16,15 +16,21 @@
   height: 0; 
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent; 
-  
   border-right:10px solid blue; 
 }
 
 #reclassification{
   font-size: 1.2em;
   text-align: center;
+  background-color: #e0ebff;
+  padding: 10px;
+  border-radius: 6px;
 }
 
 #popupList{
   margin-right: 25px;
+}
+
+#siteInfoPanelHeader {
+  text-align: center;
 }
