@@ -11,12 +11,76 @@
   top: 1px;
 }
 
-.arrow-left {
+.arrow-left-one {
   width: 0; 
   height: 0; 
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent; 
-  border-right:10px solid blue; 
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent; 
+  border-right: 40px solid #fff; 
+  position: fixed;
+  padding-left: 200px;
+  margin-top: 142px;
+  padding-left: 230px;
+  outline-color: black;
+  transition-property: transform;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-out;
+  transition-delay: initial;
+}
+@media (max-width: 991px) {
+  .arrow-left-one {
+    visibility: hidden;
+    display: none;
+    clear: both;
+  }
+}
+
+.arrow-left-two {
+  width: 0; 
+  height: 0; 
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent; 
+  border-right: 40px solid #fff; 
+  position: fixed;
+  padding-left: 200px;
+  margin-top: 165px;
+  padding-left: 230px;
+  outline-color: black;
+  transition-property: transform;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-out;
+  transition-delay: initial;
+}
+@media (max-width: 991px) {
+  .arrow-left-two {
+    visibility: hidden;
+    display: none;
+    clear: both;
+  }
+}
+
+.arrow-left-three {
+  width: 0; 
+  height: 0; 
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent; 
+  border-right: 40px solid #fff; 
+  position: fixed;
+  padding-left: 200px;
+  margin-top: 192px;
+  padding-left: 230px;
+  outline-color: black;
+  transition-property: transform;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-out;
+  transition-delay: initial;
+}
+@media (max-width: 991px) {
+  .arrow-left-three {
+    visibility: hidden;
+    display: none;
+    clear: both;
+  }
 }
 
 #reclassification{
@@ -34,3 +98,85 @@
 #siteInfoPanelHeader {
   text-align: center;
 }
+
+#firstuserModal{
+  width: 600px;
+  margin: 10px;
+  position: relative;
+  margin-left: 270px;
+  padding-top: 60px;
+}
+@media (max-width: 991px) {
+  #firstuserModal {
+    visibility: hidden;
+    display: none;
+    clear: both;
+  }
+}
+
+#seconduserModal{
+  width: 600px;
+  margin: 10px;
+  position: relative;
+  margin-left: 270px;
+  padding-top: 66px;
+}
+@media (max-width: 991px) {
+  #seconduserModal {
+    visibility: hidden;
+    display: none;
+    clear: both;
+  }
+}
+
+#thirduserModal{
+  width: 600px;
+  margin: 10px;
+  position: relative;
+  margin-left: 270px;
+  padding-top: 92px;
+}
+@media (max-width: 991px) {
+  #thirduserModal {
+    visibility: hidden;
+    display: none;
+    clear: both;
+  }
+}
+
+@media (max-width: 991px) {
+  #welcomeModal {
+    visibility: hidden;
+    display: none;
+    clear: both;
+  }
+}
+@media (max-width: 991px) {
+  #firstModal {
+    visibility: hidden;
+    display: none;
+    clear: both;
+  }
+}
+@media (max-width: 991px) {
+  #secondModal {
+    visibility: hidden;
+    display: none;
+    clear: both;
+  }
+}
+@media (max-width: 991px) {
+  #thirdModal {
+    visibility: hidden;
+    display: none;
+    clear: both;
+  }
+}
+
+/*@media (min-width: 991px) {
+  #mobileModal {
+    visibility: hidden;
+    display: none;
+    clear: both;
+  }
+}*/
