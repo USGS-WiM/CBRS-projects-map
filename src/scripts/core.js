@@ -213,6 +213,7 @@ require([
         var initMapCenter = webMercatorUtils.webMercatorToGeographic(map.extent.getCenter());
         $('#latitude').html(initMapCenter.y.toFixed(3));
         $('#longitude').html(initMapCenter.x.toFixed(3));
+        $('#mobileModal').modal('show');
         $('#welcomeModal').modal('show');
         setCookie();
         //map.setBasemap("topo");
@@ -382,8 +383,20 @@ require([
 
     $(document).ready(function(){
         function showModal() {
-            $('#mobileModal').modal('show');
+            $('#mobileModal').modal('show')
         }
+
+        $('#hideotherModals').click(function(){
+            $('#mobileModal').modal('hide');
+            $('#welcomeModal').modal('hide');
+            $('#firstModal').modal('hide');
+            $('#secondModal').modal('hide');
+            $('#thirdModal').modal('hide');
+        });
+
+        $('#hidemobileModal').click(function(){
+            $('#mobileModal').modal('hide');
+        });
 
         function showModal() {
              $('#welcomeModal').modal('show');
