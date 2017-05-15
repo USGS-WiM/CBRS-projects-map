@@ -407,8 +407,8 @@ require([
             $('#mobileModal').modal('close');
         });
 
-        function showModal() {
-             $('#welcomeModal').modal('show');
+        function showWelcomeModal() {
+             $('#welcomeModal').click('show');
          }
 
          function showModal() {
