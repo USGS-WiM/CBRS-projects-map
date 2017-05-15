@@ -383,7 +383,7 @@ require([
 
     $(document).ready(function(){
         function showModal() {
-            $('#mobileModal').modal('show')
+            $('#mobileModal').modal('show');
         }
 
         $('#hideotherModals').click(function(){
@@ -396,6 +396,15 @@ require([
 
         $('#hidemobileModal').click(function(){
             $('#mobileModal').modal('hide');
+        });
+
+        $('#hidedatshit').load(function(){
+            $('#mobileModal').modal('hide');
+        })
+        
+
+        $('#closemobileModal').click(function(){
+            $('#mobileModal').modal('close');
         });
 
         function showModal() {
@@ -453,9 +462,9 @@ require([
             query = new Query();
             query.returnGeometry = true;
             query.geometry = evt.mapPoint;
-            query.outFields = ["Unit","Name","Unit_Type","Change_Typ","Summary_URL", "Project_name","Status","Docket_URL"];
+            query.outFields = ["Unit","Name","Unit_Type","Change_Type","Summary_URL", "Project_name","Status","Docket_URL"];
             //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
-            queryTask = new QueryTask("http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/projectMapper/FeatureServer/0?token=50KnCorhsD5LzoIyiygHBuyTga3ov1835mNFDwvcX2gzoLKYhJE-baCf5uHQtnrRPWnLAPIVOJWIiGwa9AMNuHU0ZvAlS9SaMzpad7AWSUsElgeVZ4rjlyDC3bMyggOZBQNqFvm4dmTODrU5QeHMUtCDdIYR7cTw4abmw_VArJDf1MCJs_OwmUCj-n2ineHQneEY0gcwIptDmdu_f_cIQQ..");
+            queryTask = new QueryTask("http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/updated_projects_data/FeatureServer/0?token=LNV_o8vDaQJtNMZfphMbdYtv66qKDC1pmRkNCOoSlvDkDK0g2oeq-eVy16RU3hy-OuQveAO6yldhMS5r-_9TtVSTe6BtGJkyPPnQgIwd2MsZnkatJ3OR3dKrrNg4L1WqrnwHUDAlP1FjowIkgHNj5_ertyQN7Sh5LiENHB9DUWElT4rd3CY6HjR9YqoUeWipPUYswYvP01xqGUa4JV8YSA..");
             queryTask.execute(query);
             setCursorByID("mainDiv");
             /*var deferredResult = queryTask.execute(query);*/
@@ -502,14 +511,14 @@ require([
 
                 $("#unitName").text(feature.attributes["Name"]);
                 $("#unitType").text(feature.attributes["Unit_Type"]);
-                $("#changeTyp").text(feature.attributes["Change_Typ"]);
+                $("#changeTyp").text(feature.attributes["Change_Type"]);
                 /*$("#summaryUrl").text(feature.attributes["Summary_URL"]);*/
                 $("#siteUnit").text(feature.attributes["Unit"]);
 
-                var url = $("#summaryUrl").text(feature.attributes["Summary_URL"]);
-                $("#summaryUrl").html($("#summaryUrl").attr("href",url));
+                /*var url = $("#summaryUrl").text(feature.attributes["Summary_URL"]);
+                $("#summaryUrl").html($("#summaryUrl").attr("href",url));*/
+                $("#summaryUrl").html('<a href="' + feature.attributes["Summary_URL"]) + $("#summaryUrl").text(feature.attributes["Summary_URL"]);
 
-                $("#testing").html('<a href="#"', url);
 
                 /*feature.setInfoTemplate(infoTemplate);
                 map.infoWindow.setFeatures([feature]);

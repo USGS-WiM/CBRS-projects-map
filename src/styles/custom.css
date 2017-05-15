@@ -175,8 +175,14 @@
 
 @media (min-width: 991px) {
   #mobileModal {
-    visibility: hidden;
-    display: none;
-    clear: both;
+    display: none !important;
   }
 }
+
+/*.modal-backdrop.in{
+  display: none;
+}*/
+
+/*.modal-backdrop {
+  position: relative;
+}*/
