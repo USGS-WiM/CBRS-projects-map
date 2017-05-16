@@ -331,7 +331,7 @@
                         </div>
                         <div id="layersPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="layersPanelHeader">
                             <div id="toggle" style="padding: 2px 2px;"></div>
-                            <div class="layerHelp">Click <a class="showWelcomeModal" style="cursor:pointer;">here</a> for a quick walkthrough.</div>
+                            <div class="layerHelp">Click <a id="showWelcomeModal" style="cursor:pointer;">here</a> for a quick walkthrough.</div>
                         </div>
                     </div>
                     <!-- # closing div tag for accordion style panels -->
@@ -523,10 +523,28 @@
                         </div>
                     </div>
                 </div>
-        <!-- End Third Modal -->
+            <!-- End Third Modal -->
+        <!-- End User Helping Hands-->
+
+        <!-- Outside CBRS modal -->
+        <div id="outsideCBRS" aria-hidden="true" class="modal fade overflow-y-hidden">
+             <div class="modal-dialog">
+                 <div class="modal-content">
+                     <div class="modal-header" style="text-align: center;"><h4>No Results.</h4>
+                     </div>
+                     <div class="modal-body">
+                         <h5 style="text-align: center">This area is outside of the CBRS.</h5>
+                     </div>
+                     <div class="modal-footer">
+                         <button type="button" class="btn btn-default" data-dismiss="modal" id="hidemobileModal">Dismiss</button>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <!-- End Outside CBRS modal -->
         
 
         
-    <!-- End User Helping Hands-->
+    
     </body>
 </html>

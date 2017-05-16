@@ -410,6 +410,9 @@ require([
         function showWelcomeModal() {
              $('#welcomeModal').click('show');
          }
+         $('#showWelcomeModal').click(function(){
+             $('#welcomeModal').modal('show');
+         });
 
          function showModal() {
              $('#firstModal').modal('show');
@@ -431,8 +434,13 @@ require([
          $('#thirdStep').click(function(){
             $('#thirdModal').modal('show');
         });
-    });
+    });    
     
+   /* map.on("Click", clickHandler);
+            function clickHandler(event) {
+                $('#outsideCBRS').modal('show');
+        }*/
+
     //map click handler
     on(map, "click", function(evt) {
 
@@ -446,19 +454,12 @@ require([
         }
 
         map.graphics.clear();
-        //map.infoWindow.hide();s
 
-        //alert("scale: " + map.getScale() + ", level: " + map.getLevel());
-
-        /*identifyParams.geometry = evt.mapPoint;
-        identifyParams.mapExtent = map.extent;*/ 
         
-        if (map.getLevel()) {
-            //the deferred variable is set to the parameters defined above and will be used later to build the contents of the infoWindow.
-            /*queryTask = new QueryTask("http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=-LLJ4CSW25LsRmUH1My5eFqylf0GsfZFXZ67IyundjVzXtSs3ky57YdN4-Qq9sXE4bI3fxHHFmGDuWuI8_Xd5h9TArLbhpOwGi5oCVpMU-6fi-yz9gCEsImLzcTvIh5LAgm_q-rNPNLwR0no9o6QBoEfW_FSQx_4vDtRC3JVcQlJGp1KfFmv_6qMzF2tuyuT59NmuiWaI03K-yKabKKcgg");*/
+        if (evt.graphic != undefined && (evt.graphic._graphicsLayer.layerId == 1 || evt.graphic._graphicsLayer.layerId == 2)) {
+            console.log("other layers");
+        } else if (evt.graphic != undefined && evt.graphic._graphicsLayer.layerId == 0) {
             
-
-            if (evt.graphic._graphicsLayer.layerId == 0) {
             query = new Query();
             query.returnGeometry = true;
             query.geometry = evt.mapPoint;
@@ -468,65 +469,62 @@ require([
             queryTask.execute(query);
             setCursorByID("mainDiv");
             /*var deferredResult = queryTask.execute(query);*/
-
+            
             infoTemplate = new esri.InfoTemplate("Site Selection", "Unit: ${Unit}<br />Unit Type: ${Unit_Type}");
 
             var latitude = evt.mapPoint.getLatitude();
             var longitude = evt.mapPoint.getLongitude();
 
             queryTask.execute(query, showResults);
-
-           
-
+            
             function showResults(featureSet) {
+                
                 map.graphics.clear();
 
                 if (featureSet.features.length > 0) {
                 
-                var feature = featureSet.features[0];
-                
-                 var symbol;
-                 symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID,
-                            new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
-                            new dojo.Color([255,0,225]), 2), new dojo.Color([98,194,204,0])
-                        );
-                
-                feature.geometry.spatialReference = map.spatialReference;
-                    var graphic = feature;
-                    graphic.setSymbol(symbol);
+                    var feature = featureSet.features[0];
+                    
+                    var symbol;
+                    symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID,
+                                new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
+                                new dojo.Color([255,0,225]), 2), new dojo.Color([98,194,204,0])
+                            );
+                    
+                    feature.geometry.spatialReference = map.spatialReference;
+                        var graphic = feature;
+                        graphic.setSymbol(symbol);
 
-                    map.graphics.add(graphic);
+                        map.graphics.add(graphic);
 
-                $("#unitNum").text(feature.attributes["Unit"]);
-                $("#projName").text(feature.attributes["Project_name"]);
-                $("#status").text(feature.attributes["Status"]);
-                $("#docketURL").html(feature.attributes["Docket_URL"]);
+                    $("#unitNum").text(feature.attributes["Unit"]);
+                    $("#projName").text(feature.attributes["Project_name"]);
+                    $("#status").text(feature.attributes["Status"]);
+                    $("#docketURL").html(feature.attributes["Docket_URL"]);
 
-                if ((feature.attributes["Change_Typ"]) == "Reclassification to System Unit" || "Removal" || "Reclassification to Otherwise Protected Area" || "High Hazard Area"){
-                     $("#reclassification").html('You have clicked within an area that is proposed for ' + feature.attributes["Change_Typ"]);
+                    if ((feature.attributes["Change_Typ"]) == "Reclassification to System Unit" || "Removal" || "Reclassification to Otherwise Protected Area" || "High Hazard Area"){
+                        $("#reclassification").html('You have clicked within an area that is proposed for ' + feature.attributes["Change_Typ"]);
+                    }
+                    if ((feature.attributes["Change_Typ"]) == "No change"){
+                        $("#reclassification").html('You have clicked within an area that is proposed to remain within the CBRS as ' + feature.attributes["Unit"]);
+                    };
+
+                    $("#unitName").text(feature.attributes["Name"]);
+                    $("#unitType").text(feature.attributes["Unit_Type"]);
+                    $("#changeTyp").text(feature.attributes["Change_Type"]);
+                    /*$("#summaryUrl").text(feature.attributes["Summary_URL"]);*/
+                    $("#siteUnit").text(feature.attributes["Unit"]);
+
+                    /*var url = $("#summaryUrl").text(feature.attributes["Summary_URL"]);
+                    $("#summaryUrl").html($("#summaryUrl").attr("href",url));*/
+                    $("#summaryUrl").html('<a href="' + feature.attributes["Summary_URL"]) + $("#summaryUrl").text(feature.attributes["Summary_URL"]);
+                    
+
+                    /*feature.setInfoTemplate(infoTemplate);
+                    map.infoWindow.setFeatures([feature]);
+                    map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));     */           
                 }
-                if ((feature.attributes["Change_Typ"]) == "No change"){
-                     $("#reclassification").html('You have clicked within an area that is proposed to remain within the CBRS as ' + feature.attributes["Unit"]);
-                };
-
-                $("#unitName").text(feature.attributes["Name"]);
-                $("#unitType").text(feature.attributes["Unit_Type"]);
-                $("#changeTyp").text(feature.attributes["Change_Type"]);
-                /*$("#summaryUrl").text(feature.attributes["Summary_URL"]);*/
-                $("#siteUnit").text(feature.attributes["Unit"]);
-
-                /*var url = $("#summaryUrl").text(feature.attributes["Summary_URL"]);
-                $("#summaryUrl").html($("#summaryUrl").attr("href",url));*/
-                $("#summaryUrl").html('<a href="' + feature.attributes["Summary_URL"]) + $("#summaryUrl").text(feature.attributes["Summary_URL"]);
-
-
-                /*feature.setInfoTemplate(infoTemplate);
-                map.infoWindow.setFeatures([feature]);
-                map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));     */           
-                
-            }
-            // 
-             $("#selectionDiv").css("visibility", "visible");
+                $("#selectionDiv").css("visibility", "visible");
                     var instance = $('#selectionDiv').data('lobiPanel');
                     var docHeight = $(document).height();
                     var docWidth = $(document).width();
@@ -540,9 +538,13 @@ require([
                     if (instance.isPinned() == true) {
                         instance.unpin();
                 }
+                    
             }
-            }
+        }  else {
+            $('#outsideCBRS').modal('show');
+        }
 
+            
             /*deferredResult.addCallback(function(response) {
 
                 if (response.length > 1) {
@@ -582,8 +584,10 @@ require([
 
                 } 
         });*/
-        } 
     });
+
+    
+   
 
     $(document).on("click", "#showHUCs", function() {
         event.preventDefault();
@@ -773,7 +777,7 @@ require([
                 'width':xWidth, 'height': yHeight
             });
     }*/
-
+ 
     // FAQ Modal controls.
         $('#faq1header').click(function(){$('#faq1body').slideToggle(250);});
         $('#faq2header').click(function(){$('#faq2body').slideToggle(250);});
@@ -892,6 +896,17 @@ require([
     // Show modal dialog; handle legend sizing (both on doc ready)
     $(document).ready(function(){
 
+        function showSiteModal(){
+            $('#selectionDiv').modal('hide');
+            $('#outsideCBRS').modal('hide');
+        }
+
+        $('#siteModal').load(function(){
+            showSiteModal();
+            alert("worked");
+        });
+        
+
         function showModal() {
             $('#faqModal').modal('show');
         }
@@ -913,6 +928,10 @@ require([
         $('#aboutNav').click(function(){
             showAboutModal();
         });
+
+        function showCBRSModal () {
+            $('#outsideCBRS').modal('show');
+        }
 
         $("#html").niceScroll();
         $("#sidebar").niceScroll();
