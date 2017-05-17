@@ -213,50 +213,46 @@ require([
         var initMapCenter = webMercatorUtils.webMercatorToGeographic(map.extent.getCenter());
         $('#latitude').html(initMapCenter.y.toFixed(3));
         $('#longitude').html(initMapCenter.x.toFixed(3));
-        $('#mobileModal').modal('show');
-        $('#welcomeModal').modal('show');
-        setCookie();
+
+
+        if (document.cookie.includes("CBRScookie")){
+            $('#mobileModal').modal('hide');
+            $('#welcomeModal').modal('hide');
+        } else {
+            $('#mobileModal').modal('show');
+            $('#welcomeModal').modal('show');
+            checkCookie();
+        }
         //map.setBasemap("topo");
-        //map.setBasemap("hybrid");
+        //map.setBasemap("laurenhybrid");
     });
 
-    // COOKIE MONSTA
-    function setCookie(cname,cvalue,exdays) {
-        var date = new Date();
-        date.setTime(date.getTime() + (exdays*24*60*60));
-        var expires = "expires=" + date.toUTCString();
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires="+d.toUTCString();
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
 
-    function getCookie(cname){
+    function getCookie(cname) {
         var name = cname + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
-        
-        for(var i =0; i <ca.length; i++) {
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
             var c = ca[i];
             while (c.charAt(0) == ' ') {
                 c = c.substring(1);
             }
             if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length)
+                return c.substring(name.length, c.length);
             }
         }
         return "";
     }
 
     function checkCookie() {
-        var user=getCookie("username");
-        if (user != "") {
-            alert("Welcome again " + user);
-        } else {
-        user = prompt("Please enter your name:","");
-        if (user != "" && user != null) {
-            setCookie("username", user, 30);
-        }
-        }
-    }
-
+        var user = "You have returned!";
+        setCookie("CBRScookie", user, 365);
+}
 
     
     //displays map scale on scale change (i.e. zoom level)
@@ -383,8 +379,12 @@ require([
 
     $(document).ready(function(){
         function showModal() {
+            $('#mobileModal').modal({backdrop: 'static'});
             $('#mobileModal').modal('show');
         }
+        $('#hidemobileModal').click(function(){
+            $('#mobileModal').modal('hide');
+        });
 
         $('#hideotherModals').click(function(){
             $('#mobileModal').modal('hide');
@@ -392,19 +392,6 @@ require([
             $('#firstModal').modal('hide');
             $('#secondModal').modal('hide');
             $('#thirdModal').modal('hide');
-        });
-
-        $('#hidemobileModal').click(function(){
-            $('#mobileModal').modal('hide');
-        });
-
-        $('#hidedatshit').load(function(){
-            $('#mobileModal').modal('hide');
-        })
-        
-
-        $('#closemobileModal').click(function(){
-            $('#mobileModal').modal('close');
         });
 
         function showWelcomeModal() {
@@ -419,6 +406,7 @@ require([
          }
          $('#firstStep').click(function(){
             $('#firstModal').modal('show');
+            $('#mobileModal').modal('hide')
         });
 
         function showModal() {
@@ -1595,17 +1583,3 @@ function hucLinkListener(HUCNumber) {
         //console.log(data);
     });
 }
-
-$(document).ready(function () {
-    //7 lines below are handler for the legend buttons. to be removed if we stick with the in-map legend toggle
-    //$('#legendButtonNavBar, #legendButtonSidebar').on('click', function () {
-    //    $('#legend').toggle();
-    //    //return false;
-    //});
-    //$('#legendClose').on('click', function () {
-    //    $('#legend').hide();
-    //});
-
-});
-
-/*function checkCookie()*/

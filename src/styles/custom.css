@@ -27,6 +27,7 @@
   transition-timing-function: ease-out;
   transition-delay: initial;
 }
+
 @media (max-width: 991px) {
   .arrow-left-one {
     visibility: hidden;
@@ -173,7 +174,7 @@
   }
 }
 
-@media (min-width: 991px) {
+@media (min-width: 768px) {
   #mobileModal {
     display: none !important;
   }
@@ -186,3 +187,9 @@
 /*.modal-backdrop {
   position: relative;
 }*/
+
+.layerHelp{
+  cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

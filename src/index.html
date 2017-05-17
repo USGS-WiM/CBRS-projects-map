@@ -191,13 +191,12 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
-                        <h4 class="modal-title">CBRS Projects Map</h4>
+                        <h3 class="modal-title" ><img src="images/fwsLogo.png"/> CBRS Projects Map</h3>
                     </div>
                     <div id="aboutModalBody" class="modal-body">
                         <ul class="nav nav-tabs" id="aboutModalTabs">
                             <li role="presentation" class="active"><a id="aboutTab" href="#aboutTabPane" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;About the Application</a></li>
-                            <li role="presentation"><a id="disclaimerTab" href="#disclaimerTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Disclaimer</a></li>
-                            <li role="presentation"><a id="dataLimitationsTab" href="#dataLimitationsTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Data Limitations</a></li>
+                            <li role="presentation"><a id="contactTab" href="#contactTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Contact Us</a></li>
                         </ul>
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="aboutTabPane"></br>
@@ -209,8 +208,8 @@
                                 <br>
                                 <p>For general questions about CBRS Projects and the Map Viewer: <a target="_blank" href="mailto:Wetlands_Team@fws.gov">need_email@fws.gov</a></p>
                             </div>
-                            <div role="tabpanel" class="tab-pane" id="disclaimerTabPane"></br>
-                                <h3>Disclaimer</h3>
+                            <div role="tabpanel" class="tab-pane" id="contactTabPane"></br>
+                                <h3>Contact Us</h3>
                                 <p>Jerky porchetta sirloin tenderloin chicken rump boudin pastrami flank landjaeger drumstick corned beef sausage. Boudin kevin strip steak picanha short ribs pastrami. Meatloaf cupim kielbasa tenderloin. Shank meatloaf landjaeger pig venison filet mignon short ribs.</p>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="dataLimitationsTabPane"></br>
@@ -232,7 +231,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
-                <h4 class="modal-title">Frequently Asked Questions</h4>
+                <h3 class="modal-title"><img src="images/fwsLogo.png"/> Frequently Asked Questions</h3>
             </div>
             <div class="faq-modal-body">
                 <h4 style="margin-bottom: 15px; font-weight: 600;">Study scope</h4>
@@ -331,7 +330,8 @@
                         </div>
                         <div id="layersPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="layersPanelHeader">
                             <div id="toggle" style="padding: 2px 2px;"></div>
-                            <div class="layerHelp">Click <a id="showWelcomeModal" style="cursor:pointer;">here</a> for a quick walkthrough.</div>
+                            <!--<div class="layerHelp">Click <a id="showWelcomeModal" style="cursor:pointer;">here</a> for a quick walkthrough.</div>-->
+                            <div><button id="showWelcomeModal" class="btn btn-default btn-xs" style="cursor: pointer; margin-top: 10px; margin-bottom: 10px;">Layer walkthrough</button></div>
                         </div>
                     </div>
                     <!-- # closing div tag for accordion style panels -->
@@ -428,48 +428,49 @@
             </div>
         </div>
 
-        <!-- Mobile Modal -->
-    <div id="mobileModal" aria-hidden="true" class="modal fade overflow-y-hidden">
+        <!-- Welcome Modal -->
+            <div id="welcomeModal" aria-hidden="true" class="modal fade overflow-y-hidden">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header"><h4 style="text-align: center;"> Welcome! Here's a quick walkthrough of the new CBRS Projects Map.</h4>
+                        <div class="modal-header"><h4>Welcome! Want a quick walkthrough of the new CBRS Projects Map?</h4>
                         </div>
                         <div class="modal-body">
-                            <h5 style="padding-bottom: 5px;">There are three map layers in this map. We explain each layer below.</h5>
-                            <h5><strong>Existing Polygons</strong></h5>
-                                <p style="padding-bottom: 5px;">These are the existing polygons.</p>
-                            <h5><strong>Revised Polygons</strong></h5>
-                                <p style="padding-bottom: 5px;">These are the revised polygons.</p>
-                            <h5><strong>Change Polygons</strong></h5>
-                                <p>These are the existing polygons.</p>
+                            <h5 style="text-align: center">Just click the <span type="button" class="btn btn-default btn-xs"> Next </span> button below and we'll walk you through the Map Layers.</h5>
+                            <br>
+                            <h5 style="text-align: center"> Click outside of the popup at anytime to exit the walkthrough.</h5>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" id="hideotherModals">Dismiss</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="hidemobileModal">Dismiss</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="firstStep">Next</button>
                         </div>
                     </div>
                 </div>
             </div>
-        <!-- End Mobile Modal -->
-
-        <!-- Welcome Modal -->
-         <div id="welcomeModal" aria-hidden="true" class="modal fade overflow-y-hidden">
-             <div class="modal-dialog">
-                 <div class="modal-content">
-                     <div class="modal-header"><h4>Welcome! Want a quick walkthrough of the new CBRS Projects Map?</h4>
-                     </div>
-                     <div class="modal-body">
-                         <h5 style="text-align: center">Just click the <span type="button" class="btn btn-default btn-xs"> Next </span> button below and we'll walk you through the Map Layers.</h5>
-                         <br>
-                         <h5 style="text-align: center"> Click outside of the popup at anytime to exit the walkthrough.</h5>
-                     </div>
-                     <div class="modal-footer">
-                         <button type="button" class="btn btn-default" data-dismiss="modal" id="hidemobileModal">Dismiss</button>
-                         <button type="button" class="btn btn-default" data-dismiss="modal" id="firstStep">Next</button>
-                     </div>
-                 </div>
-             </div>
-         </div>
         <!-- End Welcome Modal -->
+
+
+    <!-- Mobile Modal -->
+    <div id="mobileModal" aria-hidden="true" class="modal fade overflow-y-hidden" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header"><h4 style="text-align: center;"> Welcome! Here's a quick walkthrough of the new CBRS Projects Map.</h4>
+                </div>
+                <div class="modal-body">
+                    <h5 style="padding-bottom: 5px;">There are three map layers in this map. We explain each layer below.</h5>
+                    <h5><strong>Existing Polygons</strong></h5>
+                        <p style="padding-bottom: 5px;">These are the existing polygons.</p>
+                    <h5><strong>Revised Polygons</strong></h5>
+                        <p style="padding-bottom: 5px;">These are the revised polygons.</p>
+                    <h5><strong>Change Polygons</strong></h5>
+                        <p>These are the existing polygons.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="hideotherModals">Dismiss</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- End Mobile Modal -->
 
         <!-- First Modal -->
          <div id="firstModal" aria-hidden="true" class="modal fade overflow-y-hidden">
@@ -492,37 +493,36 @@
         <!-- Second Modal -->
         <div id="secondModal" aria-hidden="true" class="modal fade overflow-y-hidden">
             <div class="arrow-left-two"></div>
-                    <div class="modal-dialog" id="seconduserModal">
-                        <div class="modal-content">
-                            <div class="modal-header"><h4>Revised Polygons</h4>
-                            </div>
-                            <div class="modal-body">
-                                <h5 style="text-align: center">These are the Revised polygons...</h5>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" id="thirdStep">Next</button>
-                            </div>
-                        </div>
+            <div class="modal-dialog" id="seconduserModal">
+                <div class="modal-content">
+                    <div class="modal-header"><h4>Revised Polygons</h4></div>
+                    <div class="modal-body">
+                        <h5 style="text-align: center">These are the Revised polygons...</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="thirdStep">Next</button>
                     </div>
                 </div>
+            </div>
+        </div>
         <!-- End Second Modal -->
 
         <!-- Third Modal -->
         <div id="thirdModal" aria-hidden="true" class="modal fade overflow-y-hidden">
             <div class="arrow-left-three"></div>
-                    <div class="modal-dialog" id="thirduserModal">
-                        <div class="modal-content">
-                            <div class="modal-header"><h4>Change Polygons</h4>
-                            </div>
-                            <div class="modal-body">
-                                <h5 style="text-align: center">These are the Change polygons...</h5>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" id="hidemobileModal">Dismiss</button>
-                            </div>
-                        </div>
+            <div class="modal-dialog" id="thirduserModal">
+                <div class="modal-content">
+                    <div class="modal-header"><h4>Change Polygons</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h5 style="text-align: center">These are the Change polygons...</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="hideotherModals">Dismiss</button>
                     </div>
                 </div>
+            </div>
+        </div>
             <!-- End Third Modal -->
         <!-- End User Helping Hands-->
 
@@ -542,9 +542,8 @@
              </div>
          </div>
          <!-- End Outside CBRS modal -->
-        
 
-        
-    
+
+         
     </body>
 </html>
