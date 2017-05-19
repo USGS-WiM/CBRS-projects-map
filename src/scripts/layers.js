@@ -8,24 +8,36 @@ require([
     'esri/InfoTemplate',
     'esri/renderers/UniqueValueRenderer',
     'esri/symbols/PictureMarkerSymbol',
+    'esri/symbols/SimpleFillSymbol',
+    'esri/symbols/SimpleLineSymbol',
+    'esri/Color',
     'dojo/domReady!'
 ], function(
     InfoTemplate,
     UniqueValueRenderer,
-    PictureMarkerSymbol
+    PictureMarkerSymbol,
+    SimpleFillSymbol,
+    SimpleLineSymbol,
+    Color
 ) {
 
-    var defaultSymbol = new PictureMarkerSymbol("./images/grn-pushpin.png", 45, 45);
+var defaultSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
+        new Color([255,0,0]), 2),new Color([255,255,0,0.25]));
 
-    renderer = new UniqueValueRenderer(defaultSymbol);
+        //create renderer
+        var renderer = new UniqueValueRenderer(defaultSymbol, "Change_Type");
 
-    var template = new InfoTemplate("${NAME}",
-        "Type: ${TYPE}<br/>" +
-        "Ramsar: <a id='ramsarLink' target='_blank' href='${HYPERLINK_2}'>click here</a><br/>" +
-        "Location Website: <a target='_blank' href='${HYPERLINK}'>click here</a><br/>" +
-        "Water Summary Report: <a target='_blank' href='${WATER_SUMMARY_REPORT}'>click here</a><br/>" +
-        "Wildlife Action Plan: <a target='_blank' href='${STATE_ACTION_PLAN}'>click here</a><br/>"
-    )
+var addition = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
+        new Color([0,255,0]), 2),new Color([255,255,0,0.25]));
+        
+var removal = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
+        new Color([0,0,255]), 2),new Color([255,255,0,0.25]));
+
+renderer.addValue('Addition', addition);
+renderer.addValue('Removal', removal);
 
     allLayers = [
         {
@@ -83,7 +95,8 @@ require([
                         'exclusiveGroupName':"Layers",
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
-                        'includeLegend' : true
+                        'includeLegend' : true,
+                        'renderer': renderer
                     },
                     'polygons' : {
                     'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/projectMapper/FeatureServer/?token=GWQZpQqimeHi_yFRbXxz-5ca6eNeillh596AOSghDnUyDOCiPGRocNJsBx4DMLGJhhj7XQU2RFH1IiSH-Y6pLV3Idx2miPH9mGT51zCWnPLGLtfY9ugflEFTUM0WStls9tqQQX6Dk3oyb8EhFVpPjmmgUEQXQcWxM8vHVA5_1811Rzy9cy0gaXEJOHUU5awkYS0_Cp9cf4cUmTu1T4AzEQ..',
