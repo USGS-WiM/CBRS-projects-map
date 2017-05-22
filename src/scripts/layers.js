@@ -103,7 +103,7 @@ renderer.addValue('Reclassification to System Unit', reclassSu);*/
             'includeInLayerList': true,
             'layers': {
                 'Existing Polygons' : {
-                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/updated_projects_data/FeatureServer/1?token=22TP-iUfNlwcovRXCEItcUtA_xPAaXHyjKw5AcGI10EvAflVSGY5j1REuzXggCpioVmy9tu21teUttdS8EohEbH6BtvZASplogVGuNpDcwxPQsiyn2aS8YUTgcQJcgDhU5S45WXQVdncnkpMFr5asywlK3rJBQUdnLwLoorplZHpYmDugyZ6xU57ify-mqR0BQVfPnXPk8s8_PvqXX6McA..',
+                    'url': 'https://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/updated_projects_data/FeatureServer/1?token=22TP-iUfNlwcovRXCEItcUtA_xPAaXHyjKw5AcGI10EvAflVSGY5j1REuzXggCpioVmy9tu21teUttdS8EohEbH6BtvZASplogVGuNpDcwxPQsiyn2aS8YUTgcQJcgDhU5S45WXQVdncnkpMFr5asywlK3rJBQUdnLwLoorplZHpYmDugyZ6xU57ify-mqR0BQVfPnXPk8s8_PvqXX6McA..',
                     'visibleLayers': [1],
                     'options': {
                         'id': 'existingPoly',
@@ -121,7 +121,7 @@ renderer.addValue('Reclassification to System Unit', reclassSu);*/
                     }
                 },
                     'Revised Polygons' : {
-                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/updated_projects_data/FeatureServer/2?token=22TP-iUfNlwcovRXCEItcUtA_xPAaXHyjKw5AcGI10EvAflVSGY5j1REuzXggCpioVmy9tu21teUttdS8EohEbH6BtvZASplogVGuNpDcwxPQsiyn2aS8YUTgcQJcgDhU5S45WXQVdncnkpMFr5asywlK3rJBQUdnLwLoorplZHpYmDugyZ6xU57ify-mqR0BQVfPnXPk8s8_PvqXX6McA..',
+                    'url': 'https://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/updated_projects_data/FeatureServer/2?token=22TP-iUfNlwcovRXCEItcUtA_xPAaXHyjKw5AcGI10EvAflVSGY5j1REuzXggCpioVmy9tu21teUttdS8EohEbH6BtvZASplogVGuNpDcwxPQsiyn2aS8YUTgcQJcgDhU5S45WXQVdncnkpMFr5asywlK3rJBQUdnLwLoorplZHpYmDugyZ6xU57ify-mqR0BQVfPnXPk8s8_PvqXX6McA..',
                     'options': {
                         'id': 'revisedPoly',
                         'opacity': 0.75,
@@ -138,7 +138,7 @@ renderer.addValue('Reclassification to System Unit', reclassSu);*/
                     }
                 },
                     'Change Polygons' : {
-                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/updated_projects_data/FeatureServer/0?token=22TP-iUfNlwcovRXCEItcUtA_xPAaXHyjKw5AcGI10EvAflVSGY5j1REuzXggCpioVmy9tu21teUttdS8EohEbH6BtvZASplogVGuNpDcwxPQsiyn2aS8YUTgcQJcgDhU5S45WXQVdncnkpMFr5asywlK3rJBQUdnLwLoorplZHpYmDugyZ6xU57ify-mqR0BQVfPnXPk8s8_PvqXX6McA..',
+                    'url': 'https://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/updated_projects_data/FeatureServer/0?token=22TP-iUfNlwcovRXCEItcUtA_xPAaXHyjKw5AcGI10EvAflVSGY5j1REuzXggCpioVmy9tu21teUttdS8EohEbH6BtvZASplogVGuNpDcwxPQsiyn2aS8YUTgcQJcgDhU5S45WXQVdncnkpMFr5asywlK3rJBQUdnLwLoorplZHpYmDugyZ6xU57ify-mqR0BQVfPnXPk8s8_PvqXX6McA..',
                     'visibleLayers': [0],
                     'options': {
                         'id': 'changePoly',
@@ -156,7 +156,7 @@ renderer.addValue('Reclassification to System Unit', reclassSu);*/
                         'renderer': renderer
                     },
                     'polygons' : {
-                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/projectMapper/FeatureServer/?token=22TP-iUfNlwcovRXCEItcUtA_xPAaXHyjKw5AcGI10EvAflVSGY5j1REuzXggCpioVmy9tu21teUttdS8EohEbH6BtvZASplogVGuNpDcwxPQsiyn2aS8YUTgcQJcgDhU5S45WXQVdncnkpMFr5asywlK3rJBQUdnLwLoorplZHpYmDugyZ6xU57ify-mqR0BQVfPnXPk8s8_PvqXX6McA..',
+                    'url': 'https://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/projectMapper/FeatureServer/?token=22TP-iUfNlwcovRXCEItcUtA_xPAaXHyjKw5AcGI10EvAflVSGY5j1REuzXggCpioVmy9tu21teUttdS8EohEbH6BtvZASplogVGuNpDcwxPQsiyn2aS8YUTgcQJcgDhU5S45WXQVdncnkpMFr5asywlK3rJBQUdnLwLoorplZHpYmDugyZ6xU57ify-mqR0BQVfPnXPk8s8_PvqXX6McA..',
                     'visibleLayers': [0],
                     'options': {
                         'id': 'polygons',
