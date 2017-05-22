@@ -487,18 +487,27 @@ require([
 
                     $("#unitNum").text(feature.attributes["Unit"]);
                     $("#projName").text(feature.attributes["Project_name"]);
+                    $("#unitType").text(feature.attributes["Unit_Type"]);
                     $("#status").text(feature.attributes["Status"]);
                     $("#docketURL").html(feature.attributes["Docket_URL"]);
 
-                    if ((feature.attributes["Change_Type"]) == "Reclassification to System Unit" || "Removal" || "Reclassification to Otherwise Protected Area"){
-                        $("#reclassification").html('You have clicked within an area that is proposed for ' + feature.attributes["unitType"] + 'to be ' + feature.attributes["Change_Type"]);
+                    if ((feature.attributes["Change_Type"]) == "Reclassification to System Unit"){
+                        $("#reclassification").html('You have clicked within an area that is proposed for ' + feature.attributes["Change_Type"] + ' from ' + feature.attributes["Unit_Type"]);
                     }
-                    if ((feature.attributes["Change_Type"]) == "No change"){
-                        $("#reclassification").html('You have clicked within an area that is proposed to remain within the CBRS as ' + feature.attributes["Unit"]);
+
+                    if (feature.attributes["Change_Type"] == "Removal"){
+                        $("#reclassification").html('You have clicked within an area that is proposed for ' + feature.attributes["Change_Type"] + ' from the CBRS.');
+                    }
+
+                    if (feature.attributes["Change_Type"] == "Reclassification to OPA"){
+                         $("#reclassification").html('You have clicked within an area that is proposed ' + feature.attributes["Change_Type"] + ' from ' + feature.attributes["Unit_Type"]);
+                    }
+
+                    if ((feature.attributes["Change_Type"]) == "No Change"){
+                        $("#reclassification").html('You have clicked within an area that is proposed to remain within the CBRS as ' + feature.attributes["Unit_Type"]);
                     };
 
                     $("#unitName").text(feature.attributes["Name"]);
-                    $("#unitType").text(feature.attributes["Unit_Type"]);
                     $("#changeTyp").text(feature.attributes["Change_Type"]);
                     /*$("#summaryUrl").text(feature.attributes["Summary_URL"]);*/
                     $("#siteUnit").text(feature.attributes["Unit"]);

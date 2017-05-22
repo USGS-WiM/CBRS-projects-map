@@ -21,7 +21,6 @@ require([
     Color
 ) {
 
-<<<<<<< HEAD
 /*var defaultSymbol = 
         new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
         new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
@@ -39,7 +38,9 @@ var removal =
 
 var noChange = 
         new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-=======
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+        new Color([0,255,0]), 2),new Color([255,255,0,2]));
+
 var defaultSymbol = 
         new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
         new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
@@ -52,7 +53,6 @@ var addition =
         
 var removal = 
         new SimpleFillSymbol(SimpleFillSymbol.STYLE_BACKWARD_DIAGONAL,
->>>>>>> f6106738260f7b60708e71d103073c929f17b094
         new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
         new Color([225,0,0]), 2),new Color([255,0,0,2]));
 
@@ -89,13 +89,12 @@ var renderer = new UniqueValueRenderer(defaultSymbol, "Change_Type");
 renderer.addValue('Addition', addition);
 renderer.addValue('Removal', removal);
 renderer.addValue('No Change', noChange);
-<<<<<<< HEAD
+
 renderer.addValue('Reclassification to System Unit', reclassSu);
-renderer.addValue('Reclassification to OPA', reclassOpa);*/
-=======
 renderer.addValue('Reclassification to OPA', reclassOpa);
-renderer.addValue('Reclassification to System Unit', reclassSu);
->>>>>>> f6106738260f7b60708e71d103073c929f17b094
+renderer.addValue('Reclassification to OPA', reclassOpa);
+renderer.addValue('Reclassification to System Unit', reclassSu);*/
+
 
     allLayers = [
         {
@@ -109,7 +108,7 @@ renderer.addValue('Reclassification to System Unit', reclassSu);
                     'options': {
                         'id': 'existingPoly',
                         'opacity': 0.75,
-                        'visible': true
+                        'visible': false
                     },
                     'wimOptions': {
                         'type': 'layer',
@@ -144,7 +143,7 @@ renderer.addValue('Reclassification to System Unit', reclassSu);
                     'options': {
                         'id': 'changePoly',
                         'opacity': 0.75,
-                        'visible': false
+                        'visible': true
                     },
                     'wimOptions': {
                         'type': 'layer',
