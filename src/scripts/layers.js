@@ -21,6 +21,7 @@ require([
     Color
 ) {
 
+<<<<<<< HEAD
 /*var defaultSymbol = 
         new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
         new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
@@ -38,8 +39,40 @@ var removal =
 
 var noChange = 
         new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+=======
+var defaultSymbol = 
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+        new Color([0,255,0]), 2),new Color([255,255,0,2]));
+
+var addition = 
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_BACKWARD_DIAGONAL,
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+        new Color([61,196,255]), 2),new Color([61,196,255,2]));
+        
+var removal = 
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_BACKWARD_DIAGONAL,
+>>>>>>> f6106738260f7b60708e71d103073c929f17b094
         new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
-        new Color([0,0,255]), 2),new Color([255,255,0,0.25]));
+        new Color([225,0,0]), 2),new Color([255,0,0,2]));
+
+var noChange = 
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL,
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL,
+        new Color([0,255,0]), 2),new Color([255,255,0,2]));
+
+var reclassOpa = 
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL,
+        new Color([38, 115, 0]), 2),new Color([38, 115, 0, 0.25]));
+
+var reclassSu = 
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL,
+        new Color([255,0,0,0.25])),new Color([255,0,0,0.25]));
+
+//create renderer
+var renderer = new UniqueValueRenderer(defaultSymbol, "Change_Type");
 
 var reclassOpa = 
         new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
@@ -56,8 +89,13 @@ var renderer = new UniqueValueRenderer(defaultSymbol, "Change_Type");
 renderer.addValue('Addition', addition);
 renderer.addValue('Removal', removal);
 renderer.addValue('No Change', noChange);
+<<<<<<< HEAD
 renderer.addValue('Reclassification to System Unit', reclassSu);
 renderer.addValue('Reclassification to OPA', reclassOpa);*/
+=======
+renderer.addValue('Reclassification to OPA', reclassOpa);
+renderer.addValue('Reclassification to System Unit', reclassSu);
+>>>>>>> f6106738260f7b60708e71d103073c929f17b094
 
     allLayers = [
         {
