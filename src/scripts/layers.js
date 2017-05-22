@@ -21,23 +21,43 @@ require([
     Color
 ) {
 
-var defaultSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+/*var defaultSymbol = 
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
         new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
-        new Color([255,0,0]), 2),new Color([255,255,0,0.25]));
+        new Color([255,225,225]), 2),new Color([255,255,0,0.25]));
 
-        //create renderer
-        var renderer = new UniqueValueRenderer(defaultSymbol, "Change_Type");
-
-var addition = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+var addition = 
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
         new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
         new Color([0,255,0]), 2),new Color([255,255,0,0.25]));
         
-var removal = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+var removal = 
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
         new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
         new Color([0,0,255]), 2),new Color([255,255,0,0.25]));
 
+var noChange = 
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
+        new Color([0,0,255]), 2),new Color([255,255,0,0.25]));
+
+var reclassOpa = 
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
+        new Color([0,0,255]), 2),new Color([255,255,0,0.25]));
+
+var reclassSu = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
+        new Color([0,0,255]), 2),new Color([255,255,0,0.25]));
+
+//create renderer
+var renderer = new UniqueValueRenderer(defaultSymbol, "Change_Type");
+
 renderer.addValue('Addition', addition);
 renderer.addValue('Removal', removal);
+renderer.addValue('No Change', noChange);
+renderer.addValue('Reclassification to System Unit', reclassSu);
+renderer.addValue('Reclassification to OPA', reclassOpa);*/
 
     allLayers = [
         {
@@ -46,7 +66,7 @@ renderer.addValue('Removal', removal);
             'includeInLayerList': true,
             'layers': {
                 'Existing Polygons' : {
-                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/updated_projects_data/FeatureServer/1?token=LNV_o8vDaQJtNMZfphMbdYtv66qKDC1pmRkNCOoSlvDkDK0g2oeq-eVy16RU3hy-OuQveAO6yldhMS5r-_9TtVSTe6BtGJkyPPnQgIwd2MsZnkatJ3OR3dKrrNg4L1WqrnwHUDAlP1FjowIkgHNj5_ertyQN7Sh5LiENHB9DUWElT4rd3CY6HjR9YqoUeWipPUYswYvP01xqGUa4JV8YSA..',
+                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/updated_projects_data/FeatureServer/1?token=22TP-iUfNlwcovRXCEItcUtA_xPAaXHyjKw5AcGI10EvAflVSGY5j1REuzXggCpioVmy9tu21teUttdS8EohEbH6BtvZASplogVGuNpDcwxPQsiyn2aS8YUTgcQJcgDhU5S45WXQVdncnkpMFr5asywlK3rJBQUdnLwLoorplZHpYmDugyZ6xU57ify-mqR0BQVfPnXPk8s8_PvqXX6McA..',
                     'visibleLayers': [1],
                     'options': {
                         'id': 'existingPoly',
@@ -64,7 +84,7 @@ renderer.addValue('Removal', removal);
                     }
                 },
                     'Revised Polygons' : {
-                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/updated_projects_data/FeatureServer/2?token=LNV_o8vDaQJtNMZfphMbdYtv66qKDC1pmRkNCOoSlvDkDK0g2oeq-eVy16RU3hy-OuQveAO6yldhMS5r-_9TtVSTe6BtGJkyPPnQgIwd2MsZnkatJ3OR3dKrrNg4L1WqrnwHUDAlP1FjowIkgHNj5_ertyQN7Sh5LiENHB9DUWElT4rd3CY6HjR9YqoUeWipPUYswYvP01xqGUa4JV8YSA..',
+                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/updated_projects_data/FeatureServer/2?token=22TP-iUfNlwcovRXCEItcUtA_xPAaXHyjKw5AcGI10EvAflVSGY5j1REuzXggCpioVmy9tu21teUttdS8EohEbH6BtvZASplogVGuNpDcwxPQsiyn2aS8YUTgcQJcgDhU5S45WXQVdncnkpMFr5asywlK3rJBQUdnLwLoorplZHpYmDugyZ6xU57ify-mqR0BQVfPnXPk8s8_PvqXX6McA..',
                     'options': {
                         'id': 'revisedPoly',
                         'opacity': 0.75,
@@ -81,7 +101,7 @@ renderer.addValue('Removal', removal);
                     }
                 },
                     'Change Polygons' : {
-                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/updated_projects_data/FeatureServer/0?token=LNV_o8vDaQJtNMZfphMbdYtv66qKDC1pmRkNCOoSlvDkDK0g2oeq-eVy16RU3hy-OuQveAO6yldhMS5r-_9TtVSTe6BtGJkyPPnQgIwd2MsZnkatJ3OR3dKrrNg4L1WqrnwHUDAlP1FjowIkgHNj5_ertyQN7Sh5LiENHB9DUWElT4rd3CY6HjR9YqoUeWipPUYswYvP01xqGUa4JV8YSA..',
+                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/updated_projects_data/FeatureServer/0?token=22TP-iUfNlwcovRXCEItcUtA_xPAaXHyjKw5AcGI10EvAflVSGY5j1REuzXggCpioVmy9tu21teUttdS8EohEbH6BtvZASplogVGuNpDcwxPQsiyn2aS8YUTgcQJcgDhU5S45WXQVdncnkpMFr5asywlK3rJBQUdnLwLoorplZHpYmDugyZ6xU57ify-mqR0BQVfPnXPk8s8_PvqXX6McA..',
                     'visibleLayers': [0],
                     'options': {
                         'id': 'changePoly',
@@ -99,7 +119,7 @@ renderer.addValue('Removal', removal);
                         'renderer': renderer
                     },
                     'polygons' : {
-                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/projectMapper/FeatureServer/?token=GWQZpQqimeHi_yFRbXxz-5ca6eNeillh596AOSghDnUyDOCiPGRocNJsBx4DMLGJhhj7XQU2RFH1IiSH-Y6pLV3Idx2miPH9mGT51zCWnPLGLtfY9ugflEFTUM0WStls9tqQQX6Dk3oyb8EhFVpPjmmgUEQXQcWxM8vHVA5_1811Rzy9cy0gaXEJOHUU5awkYS0_Cp9cf4cUmTu1T4AzEQ..',
+                    'url': 'http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/projectMapper/FeatureServer/?token=22TP-iUfNlwcovRXCEItcUtA_xPAaXHyjKw5AcGI10EvAflVSGY5j1REuzXggCpioVmy9tu21teUttdS8EohEbH6BtvZASplogVGuNpDcwxPQsiyn2aS8YUTgcQJcgDhU5S45WXQVdncnkpMFr5asywlK3rJBQUdnLwLoorplZHpYmDugyZ6xU57ify-mqR0BQVfPnXPk8s8_PvqXX6McA..',
                     'visibleLayers': [0],
                     'options': {
                         'id': 'polygons',

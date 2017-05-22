@@ -193,3 +193,10 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+/*@media (min-width: 768px) {
+      .modal-backdrop:last-child{display:none !important;}
+}
+@media (max-width: 768px) {
+      .modal-backdrop:last-child{display:none !important;}
+}*/

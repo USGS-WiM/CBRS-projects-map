@@ -453,7 +453,7 @@ require([
             query.geometry = evt.mapPoint;
             query.outFields = ["Unit","Name","Unit_Type","Change_Type","Summary_URL", "Project_name","Status","Docket_URL"];
             //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
-            queryTask = new QueryTask("http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/updated_projects_data/FeatureServer/0?token=LNV_o8vDaQJtNMZfphMbdYtv66qKDC1pmRkNCOoSlvDkDK0g2oeq-eVy16RU3hy-OuQveAO6yldhMS5r-_9TtVSTe6BtGJkyPPnQgIwd2MsZnkatJ3OR3dKrrNg4L1WqrnwHUDAlP1FjowIkgHNj5_ertyQN7Sh5LiENHB9DUWElT4rd3CY6HjR9YqoUeWipPUYswYvP01xqGUa4JV8YSA..");
+            queryTask = new QueryTask("http://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/updated_projects_data/FeatureServer/0?token=22TP-iUfNlwcovRXCEItcUtA_xPAaXHyjKw5AcGI10EvAflVSGY5j1REuzXggCpioVmy9tu21teUttdS8EohEbH6BtvZASplogVGuNpDcwxPQsiyn2aS8YUTgcQJcgDhU5S45WXQVdncnkpMFr5asywlK3rJBQUdnLwLoorplZHpYmDugyZ6xU57ify-mqR0BQVfPnXPk8s8_PvqXX6McA..");
             queryTask.execute(query);
             setCursorByID("mainDiv");
             /*var deferredResult = queryTask.execute(query);*/
@@ -490,10 +490,10 @@ require([
                     $("#status").text(feature.attributes["Status"]);
                     $("#docketURL").html(feature.attributes["Docket_URL"]);
 
-                    if ((feature.attributes["Change_Typ"]) == "Reclassification to System Unit" || "Removal" || "Reclassification to Otherwise Protected Area" || "High Hazard Area"){
-                        $("#reclassification").html('You have clicked within an area that is proposed for ' + feature.attributes["Change_Typ"]);
+                    if ((feature.attributes["Change_Type"]) == "Reclassification to System Unit" || "Removal" || "Reclassification to Otherwise Protected Area"){
+                        $("#reclassification").html('You have clicked within an area that is proposed for ' + feature.attributes["unitType"] + 'to be ' + feature.attributes["Change_Type"]);
                     }
-                    if ((feature.attributes["Change_Typ"]) == "No change"){
+                    if ((feature.attributes["Change_Type"]) == "No change"){
                         $("#reclassification").html('You have clicked within an area that is proposed to remain within the CBRS as ' + feature.attributes["Unit"]);
                     };
 
@@ -1582,4 +1582,4 @@ function hucLinkListener(HUCNumber) {
     $.get("https://fwsmapper.wim.usgs.gov/downloadLoggingService/downloadLog.asmx/Log?huc=" + HUCNumber + ",NWIV2", function(data) {
         //console.log(data);
     });
-}
+};

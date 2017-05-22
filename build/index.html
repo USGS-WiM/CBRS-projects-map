@@ -79,75 +79,7 @@
         </div>
 
 
-        <div class="modal fade overflow-y-hidden" id="geosearchModal" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                        <h4 class="modal-title">Find Location</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <div id="geosearch" align="center"></div>
-                            <div align="center">
-                                <br>
-                                <p>Search provided by <a href="https://txpub.usgs.gov/dss/search_api/2.0/" target="_blank">USGS Search Javascript API</a></p>
-                            </div>
-                        </div>
-                        <form id="geosearch-form" class="form-inline">
-                            <!--<button id="btnGeosearch" type="button" class="btn btn-success btn-fixed" data-dismiss="modal"> Go </button>-->
-                            <button id="btnDismiss" type="submit" class="btn btn-default btn-fixed" data-dismiss="modal">Dismiss</button>
-                        </form>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div>
-
-        <div class="modal fade overflow-y-hidden" id="printModal" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                        <h4 class="modal-title"><span class="glyphicon glyphicon-print"></span> Print Map</h4>
-                    </div>
-                    <div id="printModalBody" class="modal-body">
-
-                        <form id="print-title-form" class="form-group">
-                            <label for="printTitle">Title </label>
-                            <input class="form-control" id="printTitle" placeholder="Enter a title for your printout">
-                        <!--</form>
-
-                        <form id="print-form" class="form-inline">-->
-                            <button id="printExecuteButton" type="submit" class="btn btn-success btn-fixed" data-loading-text="Printing..." > Print </button>
-                            <button id="printDismissButton" type="button" class="btn btn-default btn-fixed" data-dismiss="modal"> Dismiss</button>
-                        </form>
-
-                        <div id="printJobsDiv" style="margin-top: 5px;"><label>Print Jobs </label><p class="toRemove"> No print jobs yet</p></div>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div>
-
-    <!-- Notifying User of Invalid Search -->
-        <div id="invalidSearchLocationModal" aria-hidden="true" class="modal fade overflow-y-hidden">
-             <div class="modal-dialog">
-                 <div class="modal-content">
-                     <div class="modal-header"><h4 id="test">Sorry, no results. Please try again.</h4>
-                     </div>
-                     <div class="modal-body">
-                         <h5 style="text-align: center">Here's a list of our supported Search Strings:</h5>
-                             <li>Street Address</li>
-                             <li>States</li>
-                             <li>Zip Codes</li>
-                             <li>Area Codes</li>
-                             <li>Lat/Long (i.e. '43.9,-72.1')</li>
-                     </div>
-                     <div class="modal-footer">
-                         <button type="button" class="btn btn-default" data-dismiss="modal">Dismiss</button>
-                     </div>
-                 </div>
-             </div>
-         </div>
+        
         
         <style>
             .close-alert:hover{
@@ -155,98 +87,7 @@
             }
         </style>
 
-        <div id="aboutModal" class="modal fade"  tabindex="-1" role="dialog" >
-            <div class="modal-dialog  modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
-                        <h3 class="modal-title" ><img src="images/fwsLogo.png"/> CBRS Projects Map</h3>
-                    </div>
-                    <div id="aboutModalBody" class="modal-body">
-                        <ul class="nav nav-tabs" id="aboutModalTabs">
-                            <li role="presentation" class="active"><a id="aboutTab" href="#aboutTabPane" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;About the Application</a></li>
-                            <li role="presentation"><a id="contactTab" href="#contactTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Contact Us</a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="aboutTabPane"></br>
-                                <!--<p  style="color:black; font-size: larger">App Info is below. This could be a subtitle space.</p>-->
-                                <p>Bacon ipsum dolor amet turkey burgdoggen corned beef, andouille flank ribeye pancetta hamburger venison filet mignon ham hock pork picanha alcatra chuck.</p>
-                                <p>Venison bacon ground round pancetta bresaola pig, pastrami kielbasa frankfurter beef tail. T-bone prosciutto pork doner shoulder chicken chuck beef ribs corned beef tenderloin alcatra kielbasa.</p>
-                                <p>Salami picanha porchetta biltong. Burgdoggen ham hock rump, kevin tail chicken swine doner.</p>
-                                <p>Chuck doner boudin, tongue jerky cupim frankfurter ground round biltong venison.:</p>
-                                <br>
-                                <p>For general questions about CBRS Projects and the Map Viewer: <a target="_blank" href="mailto:Wetlands_Team@fws.gov">need_email@fws.gov</a></p>
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="contactTabPane"></br>
-                                <h3>Contact Us</h3>
-                                <p>Jerky porchetta sirloin tenderloin chicken rump boudin pastrami flank landjaeger drumstick corned beef sausage. Boudin kevin strip steak picanha short ribs pastrami. Meatloaf cupim kielbasa tenderloin. Shank meatloaf landjaeger pig venison filet mignon short ribs.</p>
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="dataLimitationsTabPane"></br>
-                                <h3>Data Limitations</h3>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button class=" btn btn-default close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;" class="btn btn-default">Close</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div> <!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-
-        <div id="faqModal" class="modal fade"  tabindex="-1" role="dialog" >
-    <div class="modal-dialog  modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
-                <h3 class="modal-title"><img src="images/fwsLogo.png"/> Frequently Asked Questions</h3>
-            </div>
-            <div class="faq-modal-body">
-                <h4 style="margin-bottom: 15px; font-weight: 600;">Study scope</h4>
-                <div class="faq-header" id="faq1header">1. What is the purpose of this study? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq1body">
-                    Bacon ipsum dolor amet beef jerky sirloin strip steak tongue. 
-                </div>
-
-                <div class="faq-header" id="faq2header">2. Where can I get more information on this study? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq2body">
-                    MVenison ribeye strip steak ground round biltong turducken prosciutto. Tongue t-bone flank corned beef drumstick cow, filet mignon bacon salami leberkas pork belly. Brisket hamburger shank, sirloin swine boudin flank. Tri-tip short loin cow, salami brisket boudin kevin flank.
-                </div>
-
-                <div class="faq-header" id="faq3header">3. Why evaluate changes in water quality? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq3body">
-                    Swine pork tail doner chicken, brisket jerky. Swine brisket beef ribs, ground round short loin kevin landjaeger sirloin. Corned beef ground round pancetta filet mignon turducken. 
-                </div>
-
-                <div class="faq-header" id="faq4header">4. Who completed this study? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq4body">
-                    Venison kevin turducken prosciutto tail t-bone shoulder pork loin spare ribs short loin jerky biltong doner landjaeger. Tongue ham hock short loin rump bresaola. Ham short ribs short loin turkey tail spare ribs pastrami prosciutto bresaola porchetta ground round swine. Short loin burgdoggen alcatra salami ham hock. Sirloin ball tip beef ribs ribeye bacon pancetta.
-                </div>
-
-                <div class="faq-header" id="faq5header">5. What data were included in your analyses? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq5body">
-                    Landjaeger flank prosciutto pork loin jowl venison short ribs. Turkey strip steak turducken, ham porchetta boudin jerky swine shankle jowl. Sausage tenderloin drumstick salami chicken shankle landjaeger. Andouille biltong meatloaf picanha doner porchetta, ball tip swine. Corned beef turducken boudin shank beef ribs biltong tri-tip brisket sirloin salami beef bacon spare ribs pork belly pastrami. Shoulder tail beef short loin kevin tongue salami porchetta flank fatback alcatra doner spare ribs rump frankfurter.
-                </div>
-
-                <div class="faq-header" id="faq6header">6. What constituents were included in your analyses? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq6body">
-                    Boudin shank frankfurter ham doner. T-bone pork loin chuck shoulder porchetta. Sausage sirloin corned beef swine, turducken beef pig shank meatloaf short ribs. Chicken sirloin short loin jowl kielbasa, swine kevin.
-                </div>
-
-                <div class="faq-header" id="faq7header">7. What time periods did you assess in your trend analyses? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq7body">
-                    Chuck venison pig, turkey salami shankle doner pastrami t-bone meatball pork loin shoulder cow chicken. Spare ribs sirloin pig cupim, hamburger picanha boudin tenderloin pancetta chuck short loin.
-                </div>
-
-                <div class="faq-header" id="faq8header">8. Why do your trends only extend through 2012? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq8body">
-                     Sausage tenderloin drumstick salami chicken shankle landjaeger. Andouille biltong meatloaf picanha doner porchetta, ball tip swine. Corned beef turducken boudin shank beef ribs biltong tri-tip brisket sirloin salami beef bacon spare ribs pork belly pastrami.
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div> <!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        
 
         <!-- Begin page content -->
         <div class="container-fluid keepit100">
@@ -401,12 +242,10 @@
             <div id="welcomeModal" aria-hidden="true" class="modal fade overflow-y-hidden">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header"><h4>Welcome! Want a quick walkthrough of the new CBRS Projects Map?</h4>
+                        <div class="modal-header"><h4>Welcome! Want a quick walkthrough of the CBRS Projects Map?</h4>
                         </div>
                         <div class="modal-body">
                             <h5 style="text-align: center">Just click the <span type="button" class="btn btn-default btn-xs"> Next </span> button below and we'll walk you through the Map Layers.</h5>
-                            <br>
-                            <h5 style="text-align: center"> Click outside of the popup at anytime to exit the walkthrough.</h5>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal" id="hidemobileModal">Dismiss</button>
@@ -512,7 +351,202 @@
          </div>
          <!-- End Outside CBRS modal -->
 
+<div class="modal fade overflow-y-hidden" id="geosearchModal" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                        <h4 class="modal-title">Find Location</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div id="geosearch" align="center"></div>
+                            <div align="center">
+                                <br>
+                                <p>Search provided by <a href="https://txpub.usgs.gov/dss/search_api/2.0/" target="_blank">USGS Search Javascript API</a></p>
+                            </div>
+                        </div>
+                        <form id="geosearch-form" class="form-inline">
+                            <!--<button id="btnGeosearch" type="button" class="btn btn-success btn-fixed" data-dismiss="modal"> Go </button>-->
+                            <button id="btnDismiss" type="submit" class="btn btn-default btn-fixed" data-dismiss="modal">Dismiss</button>
+                        </form>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
 
+        <div class="modal fade overflow-y-hidden" id="printModal" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-print"></span> Print Map</h4>
+                    </div>
+                    <div id="printModalBody" class="modal-body">
+
+                        <form id="print-title-form" class="form-group">
+                            <label for="printTitle">Title </label>
+                            <input class="form-control" id="printTitle" placeholder="Enter a title for your printout">
+                        <!--</form>
+
+                        <form id="print-form" class="form-inline">-->
+                            <button id="printExecuteButton" type="submit" class="btn btn-success btn-fixed" data-loading-text="Printing..." > Print </button>
+                            <button id="printDismissButton" type="button" class="btn btn-default btn-fixed" data-dismiss="modal"> Dismiss</button>
+                        </form>
+
+                        <div id="printJobsDiv" style="margin-top: 5px;"><label>Print Jobs </label><p class="toRemove"> No print jobs yet</p></div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+
+    <!-- Notifying User of Invalid Search -->
+        <div id="invalidSearchLocationModal" aria-hidden="true" class="modal fade overflow-y-hidden">
+             <div class="modal-dialog">
+                 <div class="modal-content">
+                     <div class="modal-header"><h4 id="test">Sorry, no results. Please try again.</h4>
+                     </div>
+                     <div class="modal-body">
+                         <h5 style="text-align: center">Here's a list of our supported Search Strings:</h5>
+                             <li>Street Address</li>
+                             <li>States</li>
+                             <li>Zip Codes</li>
+                             <li>Area Codes</li>
+                             <li>Lat/Long (i.e. '43.9,-72.1')</li>
+                     </div>
+                     <div class="modal-footer">
+                         <button type="button" class="btn btn-default" data-dismiss="modal">Dismiss</button>
+                     </div>
+                 </div>
+             </div>
+         </div>
+
+         <div id="aboutModal" class="modal fade"  tabindex="-1" role="dialog" >
+            <div class="modal-dialog  modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
+                        <h3 class="modal-title" ><img src="images/fwsLogo.png"/> CBRS Projects Map</h3>
+                    </div>
+                    <div id="aboutModalBody" class="modal-body">
+                        <ul class="nav nav-tabs" id="aboutModalTabs">
+                            <li role="presentation" class="active"><a id="aboutTab" href="#aboutTabPane" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;About the Application</a></li>
+                            <li role="presentation"><a id="contactTab" href="#contactTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Contact Us</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="aboutTabPane"></br>
+                                 <p>The Coastal Barrier Resources System (CBRS) contains two types of mapped units, System units and Otherwise Protected Areas (OPAs). OPAs are denoted with a "P" at the end of the unit designation (e.g., FL-64P, P10P).
+
+                                 <p>System Units are generally comprised of private lands that were relatively undeveloped at the time of their designation within the CBRS. The boundaries of these units are generally intended to follow geomorphic, development, or cultural features. Most new Federal expenditures and financial assistance, including Federal flood insurance, are prohibited within System units.</p>
+
+                                 <p>OPAs are generally comprised of lands held by a qualified organization primarily for wildlife refuge, sanctuary, recreational, or natural resource conservation purposes. The boundaries of these units are generally intended to coincide with the boundaries of conservation or recreation areas such as state parks and national wildlife refuges. The only Federal spending prohibition within OPAs is the prohibition on Federal flood insurance.</p>
+
+                                 <p>For more information visit the CBRS <a href="https://www.fws.gov/ecological-services/habitat-conservation/cbra/Act/index.html" target="_blank"> webpage</a> and the CBRS Unit <a href="https://www.fws.gov/ecological-services/habitat-conservation/cbra/Maps/Metadata.html" target="_blank"> metadata</a></p>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="contactTabPane"></br>
+                                <h3>Contact Us</h3>
+                                <p>Jerky porchetta sirloin tenderloin chicken rump boudin pastrami flank landjaeger drumstick corned beef sausage. Boudin kevin strip steak picanha short ribs pastrami. Meatloaf cupim kielbasa tenderloin. Shank meatloaf landjaeger pig venison filet mignon short ribs.</p>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="dataLimitationsTabPane"></br>
+                                <h3>Data Limitations</h3>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class=" btn btn-default close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;" class="btn btn-default">Close</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div> <!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+<div id="faqModal" class="modal fade"  tabindex="-1" role="dialog" >
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
+                <h3 class="modal-title"><img src="images/fwsLogo.png"/> Frequently Asked Questions</h3>
+            </div>
+            <div class="faq-modal-body">
+                <h4 style="margin-bottom: 15px; font-weight: 600;">Study scope</h4>
+                <div class="faq-header" id="faq1header">1. What is the purpose of this study? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq1body">
+                    Bacon ipsum dolor amet beef jerky sirloin strip steak tongue. 
+                </div>
+
+                <div class="faq-header" id="faq2header">2. Where can I get more information on this study? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq2body">
+                    MVenison ribeye strip steak ground round biltong turducken prosciutto. Tongue t-bone flank corned beef drumstick cow, filet mignon bacon salami leberkas pork belly. Brisket hamburger shank, sirloin swine boudin flank. Tri-tip short loin cow, salami brisket boudin kevin flank.
+                </div>
+
+                <div class="faq-header" id="faq3header">3. Why evaluate changes in water quality? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq3body">
+                    Swine pork tail doner chicken, brisket jerky. Swine brisket beef ribs, ground round short loin kevin landjaeger sirloin. Corned beef ground round pancetta filet mignon turducken. 
+                </div>
+
+                <div class="faq-header" id="faq4header">4. Who completed this study? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq4body">
+                    Venison kevin turducken prosciutto tail t-bone shoulder pork loin spare ribs short loin jerky biltong doner landjaeger. Tongue ham hock short loin rump bresaola. Ham short ribs short loin turkey tail spare ribs pastrami prosciutto bresaola porchetta ground round swine. Short loin burgdoggen alcatra salami ham hock. Sirloin ball tip beef ribs ribeye bacon pancetta.
+                </div>
+
+                <div class="faq-header" id="faq5header">5. What data were included in your analyses? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq5body">
+                    Landjaeger flank prosciutto pork loin jowl venison short ribs. Turkey strip steak turducken, ham porchetta boudin jerky swine shankle jowl. Sausage tenderloin drumstick salami chicken shankle landjaeger. Andouille biltong meatloaf picanha doner porchetta, ball tip swine. Corned beef turducken boudin shank beef ribs biltong tri-tip brisket sirloin salami beef bacon spare ribs pork belly pastrami. Shoulder tail beef short loin kevin tongue salami porchetta flank fatback alcatra doner spare ribs rump frankfurter.
+                </div>
+
+                <div class="faq-header" id="faq6header">6. What constituents were included in your analyses? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq6body">
+                    Boudin shank frankfurter ham doner. T-bone pork loin chuck shoulder porchetta. Sausage sirloin corned beef swine, turducken beef pig shank meatloaf short ribs. Chicken sirloin short loin jowl kielbasa, swine kevin.
+                </div>
+
+                <div class="faq-header" id="faq7header">7. What time periods did you assess in your trend analyses? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq7body">
+                    Chuck venison pig, turkey salami shankle doner pastrami t-bone meatball pork loin shoulder cow chicken. Spare ribs sirloin pig cupim, hamburger picanha boudin tenderloin pancetta chuck short loin.
+                </div>
+
+                <div class="faq-header" id="faq8header">8. Why do your trends only extend through 2012? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq8body">
+                     Sausage tenderloin drumstick salami chicken shankle landjaeger. Andouille biltong meatloaf picanha doner porchetta, ball tip swine. Corned beef turducken boudin shank beef ribs biltong tri-tip brisket sirloin salami beef bacon spare ribs pork belly pastrami.
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div> <!-- /.modal-dialog -->
+</div><!-- /.modal -->
          
     </body>
+
+    <script>
+        $( document ).ready(function() {
+            setTimeout(function(){
+                var modalBackdrops = 0;
+                console.log("checking for backdrops")
+                $('.modal-backdrop').each(function(){
+                    modalBackdrops++;
+                    if(modalBackdrops == 1){
+                        $(this).addClass("mobile-modal-backdrop");
+                        console.log("Found mobile backdrop")
+                    }
+                    if(modalBackdrops == 2){
+                        $(this).addClass("desktop-modal-backdrop");
+                        console.log("Found desktop backdrop")
+                    }
+                    });
+                    $("<style>")
+                    .prop("type", "text/css")
+                    .html("\
+                        @media(max-width:768px){\
+                            .desktop-modal-backdrop {\
+                                display: none !important\
+                            }\
+                        }\
+                        @media(min-width:768px){\
+                            .mobile-modal-backdrop {\
+                                display: none !important\
+                            }\
+                        }")
+                    .appendTo("head");
+            }, 500);
+            });
+    </script>
 </html>
