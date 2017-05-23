@@ -409,6 +409,11 @@ require([
             $('#mobileModal').modal('hide')
         });
 
+        $('#showLayerWalk').click(function(){
+             $('#welcomeModal').modal('show');
+             $('#mobileModal').modal('show');
+         });
+
         function showModal() {
              $('#secondModal').modal('show');
          }
@@ -491,6 +496,10 @@ require([
                     $("#status").text(feature.attributes["Status"]);
                     $("#docketURL").html(feature.attributes["Docket_URL"]);
 
+                    if ((feature.attributes["Change_Type"]) == "No Change"){
+                        $("#reclassification").html('You have clicked within an area that is proposed to remain within the CBRS as ' + feature.attributes["Unit_Type"]);
+                    }
+
                     if ((feature.attributes["Change_Type"]) == "Reclassification to System Unit"){
                         $("#reclassification").html('You have clicked within an area that is proposed for ' + feature.attributes["Change_Type"] + ' from ' + feature.attributes["Unit_Type"]);
                     }
@@ -499,13 +508,13 @@ require([
                         $("#reclassification").html('You have clicked within an area that is proposed for ' + feature.attributes["Change_Type"] + ' from the CBRS.');
                     }
 
+                    if (feature.attributes["Change_Type"] == "Addition"){
+                        $("#reclassification").html('You have clicked within an area that is proposed for ' + feature.attributes["Change_Type"] + ' from the CBRS.');
+                    }
+
                     if (feature.attributes["Change_Type"] == "Reclassification to OPA"){
                          $("#reclassification").html('You have clicked within an area that is proposed ' + feature.attributes["Change_Type"] + ' from ' + feature.attributes["Unit_Type"]);
                     }
-
-                    if ((feature.attributes["Change_Type"]) == "No Change"){
-                        $("#reclassification").html('You have clicked within an area that is proposed to remain within the CBRS as ' + feature.attributes["Unit_Type"]);
-                    };
 
                     $("#unitName").text(feature.attributes["Name"]);
                     $("#changeTyp").text(feature.attributes["Change_Type"]);
