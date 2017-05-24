@@ -200,3 +200,7 @@
 @media (max-width: 768px) {
       .modal-backdrop:last-child{display:none !important;}
 }*/
+
+.esriLegendOther {
+  display: none;
+}

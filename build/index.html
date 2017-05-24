@@ -191,7 +191,7 @@
 
                         <div id="legendElement" class="panel panel-default legendClass">
                             <div id="legendHeading" class=" legendHeading" role="tab">
-                                <h4 class="panel-title">
+                                <h4 class="panel-title" id="work">
                                     <a data-toggle="collapse" style="text-decoration: none"  href="#legendCollapse" aria-expanded="true" aria-controls="collapseOne">
                                         <span class="glyphicon glyphicon-list"></span>
                                         Legend
@@ -578,7 +578,34 @@
                             }\
                         }")
                     .appendTo("head");
-            }, 500);
-            });
+            }, 100);
+        });
+        
+        $("#legendElement").click(function() {
+            setTimeout(function(){
+                var esriClass = 0;
+                console.log("checking for esri table class")
+                $('table.esriLegendLayer').each(function(){
+                    esriClass++;
+                    if(esriClass == 1){
+                        console.log("found esri labels")
+                    }
+                    if(esriClass == 2){
+                        $(this).addClass("esriLegendOther");
+                        console.log("Found the Other class");
+                    }
+                    });
+                    $("<style>")
+                    .prop("type", "text/css")
+                    .html("\
+                            {\
+                            .esriLegendOther {\
+                                display: none !important\
+                            }\
+                        }\
+                        ")
+                    .appendTo("head");
+            }, 380);
+        });
     </script>
 </html>

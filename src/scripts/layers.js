@@ -21,30 +21,11 @@ require([
     Color
 ) {
 
-/*var defaultSymbol = 
-        new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-        new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
-        new Color([255,225,225]), 2),new Color([255,255,0,0.25]));
-
-var addition = 
-        new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-        new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
-        new Color([0,255,0]), 2),new Color([255,255,0,0.25]));
-        
-var removal = 
-        new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-        new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
-        new Color([0,0,255]), 2),new Color([255,255,0,0.25]));
-
-var noChange = 
-        new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-        new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-        new Color([0,255,0]), 2),new Color([255,255,0,2]));
 
 var defaultSymbol = 
-        new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-        new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-        new Color([0,255,0]), 2),new Color([255,255,0,2]));
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL,
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL,
+        new Color([85,255,0,1])),new Color([85,255,0,0.54]));
 
 var addition = 
         new SimpleFillSymbol(SimpleFillSymbol.STYLE_BACKWARD_DIAGONAL,
@@ -57,9 +38,9 @@ var removal =
         new Color([225,0,0]), 2),new Color([255,0,0,2]));
 
 var noChange = 
-        new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL,
-        new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL,
-        new Color([0,255,0]), 2),new Color([255,255,0,2]));
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+        new Color([255,255,190,0])),new Color([255,255,190,0.54]));
 
 var reclassOpa = 
         new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
@@ -74,26 +55,11 @@ var reclassSu =
 //create renderer
 var renderer = new UniqueValueRenderer(defaultSymbol, "Change_Type");
 
-var reclassOpa = 
-        new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-        new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
-        new Color([0,0,255]), 2),new Color([255,255,0,0.25]));
-
-var reclassSu = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-        new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
-        new Color([0,0,255]), 2),new Color([255,255,0,0.25]));
-
-//create renderer
-var renderer = new UniqueValueRenderer(defaultSymbol, "Change_Type");
-
 renderer.addValue('Addition', addition);
 renderer.addValue('Removal', removal);
 renderer.addValue('No Change', noChange);
-
 renderer.addValue('Reclassification to System Unit', reclassSu);
 renderer.addValue('Reclassification to OPA', reclassOpa);
-renderer.addValue('Reclassification to OPA', reclassOpa);
-renderer.addValue('Reclassification to System Unit', reclassSu);*/
 
 
     allLayers = [

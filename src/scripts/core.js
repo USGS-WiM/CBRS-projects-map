@@ -449,9 +449,9 @@ require([
         map.graphics.clear();
 
         
-        if (evt.graphic != undefined && (evt.graphic._graphicsLayer.layerId == 1 || evt.graphic._graphicsLayer.layerId == 2)) {
+        if (evt.graphic != undefined && (evt.graphic._graphicsLayer.layerId == 1)) {
             console.log("other layers");
-        } else if (evt.graphic != undefined && evt.graphic._graphicsLayer.layerId == 0) {
+        } else if (evt.graphic != undefined && (evt.graphic._graphicsLayer.layerId == 0) || evt.graphic != undefined && (evt.graphic._graphicsLayer.layerId == 2)) {
             
             query = new Query();
             query.returnGeometry = true;
@@ -462,8 +462,6 @@ require([
             queryTask.execute(query);
             setCursorByID("mainDiv");
             /*var deferredResult = queryTask.execute(query);*/
-            
-            infoTemplate = new esri.InfoTemplate("Site Selection", "Unit: ${Unit}<br />Unit Type: ${Unit_Type}");
 
             var latitude = evt.mapPoint.getLatitude();
             var longitude = evt.mapPoint.getLongitude();
@@ -1186,6 +1184,7 @@ require([
                                     var tempLayer = map.getLayer(currentLayer[2].id);
                                     tempLayer.setVisibility(false);
                                 }
+                                
                             }
 
                         });
@@ -1236,8 +1235,15 @@ require([
                                     }
                                     //$('#' + camelize(this[1])).toggle();
                                 }
+                                
                             }
                         });
+                        /*if (layerName == 'Revised Polygons') {
+                            console.log("hi");
+
+                            var changeLayer = ()                            
+                            map.addLayer();
+                        }*/
                     }
                 });
             }
@@ -1583,3 +1589,32 @@ require([
 $(".close-alert").click(function(){
     $(this).parent().slideUp(250);
 });
+
+
+// Hiding "Other" esriLegendLabel which belongs to the "Default Symbol"
+$("#legendElement").click(function() {
+            setTimeout(function(){
+                var esriClass = 0;
+                console.log("checking for esri table class")
+                $('table.esriLegendLayer').each(function(){
+                    esriClass++;
+                    if(esriClass == 1){
+                        console.log("found esri labels")
+                    }
+                    if(esriClass == 2){
+                        $(this).addClass("esriLegendOther");
+                        console.log("Found the Other class");
+                    }
+                    });
+                    $("<style>")
+                    .prop("type", "text/css")
+                    .html("\
+                            {\
+                            .esriLegendOther {\
+                                display: none !important\
+                            }\
+                        }\
+                        ")
+                    .appendTo("head");
+            }, 500);
+        });
