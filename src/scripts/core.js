@@ -375,8 +375,6 @@ require([
     });
     //End LobiPanel
 
-
-
     $(document).ready(function(){
         function showModal() {
             $('#mobileModal').modal({backdrop: 'static'});
@@ -427,7 +425,73 @@ require([
          $('#thirdStep').click(function(){
             $('#thirdModal').modal('show');
         });
-    });    
+    });
+
+    //getting rid of the extra modal for the layer walkthrough modal backdrop
+    $("#showLayerWalk").click(function(){
+            setTimeout(function(){
+                var modalBackdrops = 0;
+                console.log("checking for backdrops")
+                $('.modal-backdrop').each(function(){
+                    modalBackdrops++;
+                    if(modalBackdrops == 2){
+                        $(this).addClass("mobile-modal-backdrop");
+                        console.log("Found mobile backdrop")
+                    }
+                    if(modalBackdrops == 1){
+                        $(this).addClass("desktop-modal-backdrop");
+                        console.log("Found desktop backdrop")
+                    }
+                    });
+                    $("<style>")
+                    .prop("type", "text/css")
+                    .html("\
+                        @media(max-width:768px){\
+                            .desktop-modal-backdrop {\
+                                display: none !important\
+                            }\
+                        }\
+                        @media(min-width:768px){\
+                            .mobile-modal-backdrop {\
+                                display: none !important\
+                            }\
+                        }")
+                    .appendTo("head");
+            }, 100);
+        });
+
+        //getting rid of the extra modal backdrop
+        $( document ).ready(function() {
+            setTimeout(function(){
+                var modalBackdrops = 0;
+                console.log("checking for backdrops")
+                $('.modal-backdrop').each(function(){
+                    modalBackdrops++;
+                    if(modalBackdrops == 1){
+                        $(this).addClass("mobile-modal-backdrop");
+                        console.log("Found mobile backdrop")
+                    }
+                    if(modalBackdrops == 2){
+                        $(this).addClass("desktop-modal-backdrop");
+                        console.log("Found desktop backdrop")
+                    }
+                    });
+                    $("<style>")
+                    .prop("type", "text/css")
+                    .html("\
+                        @media(max-width:768px){\
+                            .desktop-modal-backdrop {\
+                                display: none !important\
+                            }\
+                        }\
+                        @media(min-width:768px){\
+                            .mobile-modal-backdrop {\
+                                display: none !important\
+                            }\
+                        }")
+                    .appendTo("head");
+            }, 200);
+        });
     
    /* map.on("Click", clickHandler);
             function clickHandler(event) {
@@ -942,6 +1006,62 @@ require([
         $("#sidebar").scroll(function () {
             $("#sidebar").getNiceScroll().resize();
         });
+
+        // gets rid of the "Other" label representing the defaultSymbol in the UniqueValueRenderer
+        $("#legendElement").click(function() {
+            setTimeout(function(){
+                var esriClass = 0;
+                console.log("checking for esri table class")
+                $('table.esriLegendLayer').each(function(){
+                    esriClass++;
+                    if(esriClass == 1){
+                        console.log("found esri labels")
+                    }
+                    if(esriClass == 2){
+                        $(this).addClass("esriLegendOther");
+                        console.log("Found the Other class");
+                    }
+                    });
+                    $("<style>")
+                    .prop("type", "text/css")
+                    .html("\
+                            {\
+                            .esriLegendOther {\
+                                display: none !important\
+                            }\
+                        }\
+                        ")
+                    .appendTo("head");
+            }, 370);
+        });
+
+        
+        $("#layersPanel").click(function() {
+            setTimeout(function(){
+                var esriClass = 0;
+                console.log("checking for esri table class")
+                $('table.esriLegendLayer').each(function(){
+                    esriClass++;
+                    if(esriClass == 1){
+                        console.log("found esri labels")
+                    }
+                    if(esriClass == 2){
+                        $(this).addClass("esriLegendOther");
+                        console.log("Found the Other class");
+                    }
+                    });
+                    $("<style>")
+                    .prop("type", "text/css")
+                    .html("\
+                            {\
+                            .esriLegendOther {\
+                                display: none !important\
+                            }\
+                        }\
+                        ")
+                    .appendTo("head");
+                });
+            });
 
         maxLegendHeight =  ($('#mapDiv').height()) * 0.90;
         $('#legendElement').css('max-height', maxLegendHeight);
