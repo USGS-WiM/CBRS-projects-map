@@ -509,7 +509,7 @@ require([
         if (measurement.activeTool != null) {
             return;//
         }
-
+ 
         map.graphics.clear();
 
         
@@ -522,7 +522,7 @@ require([
             query.geometry = evt.mapPoint;
             query.outFields = ["Unit","Name","Unit_Type","Change_Type","Summary_URL", "Project_name","Status","Docket_URL"];
             //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
-            queryTask = new QueryTask("https://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/updated_projects_data/FeatureServer/0?token=22TP-iUfNlwcovRXCEItcUtA_xPAaXHyjKw5AcGI10EvAflVSGY5j1REuzXggCpioVmy9tu21teUttdS8EohEbH6BtvZASplogVGuNpDcwxPQsiyn2aS8YUTgcQJcgDhU5S45WXQVdncnkpMFr5asywlK3rJBQUdnLwLoorplZHpYmDugyZ6xU57ify-mqR0BQVfPnXPk8s8_PvqXX6McA..");
+            queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/2?token=ZV7De1_cJp2l04OTOiQSSg4l3isB4h0QvROkZlw1L8OS-8MOpX6jREyHo6ZII8mjzFfZi9Nu-7mV3tdxRRNV9G0wVi9jXrH5Vtqp3SjPTjz5YymCG-lmENwM10PIZtwUck0x5uqvDfwzyExqn7jcbFeNitIEqrB9JriPUjuiZaBQVVVF6TImBZaAe7tR8r7emDsqFlZvj1MIXgJ-SKiutbivEHLAZGTjY98suNUx-s4.");
             queryTask.execute(query);
             setCursorByID("mainDiv");
             /*var deferredResult = queryTask.execute(query);*/
@@ -586,7 +586,6 @@ require([
                     /*var url = $("#summaryUrl").text(feature.attributes["Summary_URL"]);
                     $("#summaryUrl").html($("#summaryUrl").attr("href",url));*/
                     $("#summaryUrl").html('<a href="' + feature.attributes["Summary_URL"]) + $("#summaryUrl").text(feature.attributes["Summary_URL"]);
-                    
 
                     /*feature.setInfoTemplate(infoTemplate);
                     map.infoWindow.setFeatures([feature]);
@@ -605,10 +604,20 @@ require([
                     instance.setPosition(instanceX, instanceY);
                     if (instance.isPinned() == true) {
                         instance.unpin();
+                    }
+
+                if  (evt.graphic._graphicsLayer.layerId == 0 && (featureSet.features.length > 0)) {
+                    $( "#changePolygons" ).on( "click", function() {
+                        console.log("got it");
+                    });
+
+                    $("#changePolygons").trigger("click");
                 }
                     
             }
-        }  else {
+            
+        }  
+         else {
             $('#outsideCBRS').modal('show');
         }
 
