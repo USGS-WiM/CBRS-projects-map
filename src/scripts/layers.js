@@ -91,7 +91,7 @@ rendererExisting.addValue('Otherwise Protected Area', otherwiseProtected);
             'includeInLayerList': true,
             'layers': {
                 'Existing Polygons' : {
-                    'url': 'https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/1?token=ZV7De1_cJp2l04OTOiQSSg4l3isB4h0QvROkZlw1L8OS-8MOpX6jREyHo6ZII8mjzFfZi9Nu-7mV3tdxRRNV9G0wVi9jXrH5Vtqp3SjPTjz5YymCG-lmENwM10PIZtwUck0x5uqvDfwzyExqn7jcbFeNitIEqrB9JriPUjuiZaBQVVVF6TImBZaAe7tR8r7emDsqFlZvj1MIXgJ-SKiutbivEHLAZGTjY98suNUx-s4.',
+                    'url': 'https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/1?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.',
                     'visibleLayers': [1],
                     'options': {
                         'id': 'existingPoly',
@@ -109,7 +109,7 @@ rendererExisting.addValue('Otherwise Protected Area', otherwiseProtected);
                     }
                 },
                     'Revised Polygons' : {
-                    'url': 'https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=ZV7De1_cJp2l04OTOiQSSg4l3isB4h0QvROkZlw1L8OS-8MOpX6jREyHo6ZII8mjzFfZi9Nu-7mV3tdxRRNV9G0wVi9jXrH5Vtqp3SjPTjz5YymCG-lmENwM10PIZtwUck0x5uqvDfwzyExqn7jcbFeNitIEqrB9JriPUjuiZaBQVVVF6TImBZaAe7tR8r7emDsqFlZvj1MIXgJ-SKiutbivEHLAZGTjY98suNUx-s4.',
+                    'url': 'https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.',
                     'options': {
                         'id': 'revisedPoly',
                         'opacity': 0.75,
@@ -126,7 +126,7 @@ rendererExisting.addValue('Otherwise Protected Area', otherwiseProtected);
                     }
                 },
                     'Change Polygons' : {
-                    'url': 'https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/2?token=ZV7De1_cJp2l04OTOiQSSg4l3isB4h0QvROkZlw1L8OS-8MOpX6jREyHo6ZII8mjzFfZi9Nu-7mV3tdxRRNV9G0wVi9jXrH5Vtqp3SjPTjz5YymCG-lmENwM10PIZtwUck0x5uqvDfwzyExqn7jcbFeNitIEqrB9JriPUjuiZaBQVVVF6TImBZaAe7tR8r7emDsqFlZvj1MIXgJ-SKiutbivEHLAZGTjY98suNUx-s4.',
+                    'url': 'https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/2?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.',
                     'visibleLayers': [2],
                     'options': {
                         'id': 'changePoly',
@@ -144,7 +144,7 @@ rendererExisting.addValue('Otherwise Protected Area', otherwiseProtected);
                         'renderer': renderer
                     },
                     'polygons' : {
-                    'url': 'https://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/projectMapper/FeatureServer/?token=22TP-iUfNlwcovRXCEItcUtA_xPAaXHyjKw5AcGI10EvAflVSGY5j1REuzXggCpioVmy9tu21teUttdS8EohEbH6BtvZASplogVGuNpDcwxPQsiyn2aS8YUTgcQJcgDhU5S45WXQVdncnkpMFr5asywlK3rJBQUdnLwLoorplZHpYmDugyZ6xU57ify-mqR0BQVfPnXPk8s8_PvqXX6McA..',
+                    'url': 'https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.',
                     'visibleLayers': [0],
                     'options': {
                         'id': 'polygons',

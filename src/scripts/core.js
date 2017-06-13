@@ -522,7 +522,7 @@ require([
             query.geometry = evt.mapPoint;
             query.outFields = ["Unit","Name","Unit_Type","Change_Type","Summary_URL", "Project_name","Status","Docket_URL"];
             //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
-            queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/2?token=ZV7De1_cJp2l04OTOiQSSg4l3isB4h0QvROkZlw1L8OS-8MOpX6jREyHo6ZII8mjzFfZi9Nu-7mV3tdxRRNV9G0wVi9jXrH5Vtqp3SjPTjz5YymCG-lmENwM10PIZtwUck0x5uqvDfwzyExqn7jcbFeNitIEqrB9JriPUjuiZaBQVVVF6TImBZaAe7tR8r7emDsqFlZvj1MIXgJ-SKiutbivEHLAZGTjY98suNUx-s4.");
+            queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/2?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
             queryTask.execute(query);
             setCursorByID("mainDiv");
             /*var deferredResult = queryTask.execute(query);*/
