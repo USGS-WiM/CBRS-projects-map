@@ -156,6 +156,7 @@
                     <!--</div>-->
 
                     <div id="mapDiv">
+                        <div id="swipeDiv" title="Drag to see underlying layer" class="layerSwipe"></div>
 
                          <!-- Unit Selection Pop Up -->
                     <div>
@@ -171,7 +172,7 @@
                                             <ul id="popupList">
                                                 <p><label id="reclassification"></label></p>
                                                 <li id="attrList">Project Name: <label id="projName"></label></li>
-                                                <li id="attrList">Project Status: <label id="status"></label> - Public review open from April 1, 2016--June 30, 20126- see docket on <label id="docketURL"></label> to make comments during the comment period and/or view submitted comments.</li>
+                                                <li id="attrList">Project Status: <label id="status"></label> - Public review open from <label id="prStart"></label>--<label id="prEnd"></label>- see docket on <label id="docketURL"></label> to make comments during the comment period and/or view submitted comments.</li>
                                                 <li id="attrList">Unit Number: <label id="unitNum"></label></li>
                                                 <li id="attrList">Unit Name: <label id="unitName"></label></li>
                                                 <li id="attrList">Unit Type: <label id="unitType"></label></li>
@@ -460,6 +461,7 @@
                 </div><!-- /.modal-content -->
             </div> <!-- /.modal-dialog -->
         </div><!-- /.modal -->
+
 
 <div id="faqModal" class="modal fade"  tabindex="-1" role="dialog" >
     <div class="modal-dialog  modal-lg">

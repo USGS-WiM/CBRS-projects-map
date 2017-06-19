@@ -131,16 +131,16 @@ rendererExisting.addValue('Otherwise Protected Area', otherwiseProtected);
                     'options': {
                         'id': 'changePoly',
                         'opacity': 0.75,
-                        'visible': true
+                        'visible': false
                     },
                     'wimOptions': {
                         'type': 'layer',
                         'layerType': 'agisFeature',
-                        'includeInLayerList': true,
+                        'includeInLayerList': false,
                         'exclusiveGroupName':"Layers",
                         'zoomScale': 144448,
-                        'hasOpacitySlider': true,
-                        'includeLegend' : true,
+                        'hasOpacitySlider': false,
+                        'includeLegend' : false,
                         'renderer': renderer
                     },
                     'polygons' : {
@@ -154,7 +154,7 @@ rendererExisting.addValue('Otherwise Protected Area', otherwiseProtected);
                     'wimOptions': {
                         'type': 'layer',
                         'layerType': 'agisFeature',
-                        'includeInLayerList': true,
+                        'includeInLayerList': false,
                         'exclusiveGroupName':"Layers",
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,

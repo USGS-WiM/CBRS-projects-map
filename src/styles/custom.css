@@ -204,3 +204,39 @@
 .esriLegendOther {
   display: none;
 }
+
+/* Styling the Swiper */
+
+.LayerSwipe .vertical {
+  position: absolute;
+  opacity: 0.80;
+  border-left: 1px solid #848484;
+  border-right: 1px solid #848484;
+  background-color: #4c4c4c;
+  width: 11px;
+  height: 100%;
+  padding: 0!important;
+  margin: 0;
+  z-index: 30;
+  cursor: col-resize;
+  }
+
+.LayerSwipe .vertical .handle {
+  width: 51px;
+  height: 24px;
+  margin-top: -12px;
+  margin-left: -20px;
+  top: 50%;
+  left: 0;
+  position: absolute;
+  z-index: 30;
+  background-color: #4c4c4c;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  font-size: 12px;
+  text-indent: 0;
+  border-radius: 0;
+}

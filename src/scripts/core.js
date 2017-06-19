@@ -34,6 +34,8 @@ require([
     'esri/geometry/Point',
     'esri/geometry/Polygon',
     'esri/layers/ArcGISTiledMapServiceLayer',
+    'esri/layers/FeatureLayer',
+    'esri/dijit/LayerSwipe',
     'esri/renderers/UniqueValueRenderer',
     'esri/SpatialReference',
     'esri/symbols/PictureMarkerSymbol',
@@ -49,6 +51,7 @@ require([
     'esri/tasks/PrintTemplate',
     'esri/geometry/webMercatorUtils',
     'esri/urlUtils',
+    'dojo/_base/array',
     'dojo/dom',
     'dojo/dom-class',
     'dojo/dnd/Moveable',
@@ -71,6 +74,8 @@ require([
     Point,
     Polygon,
     ArcGISTiledMapServiceLayer,
+    FeatureLayer,
+    LayerSwipe,
     UniqueValueRenderer,
     SpatialReference,
     PictureMarkerSymbol,
@@ -86,6 +91,7 @@ require([
     PrintTemplate,
     webMercatorUtils,
     urlUtils,
+    array,
     dom,
     domClass,
     Moveable,
@@ -223,9 +229,43 @@ require([
             $('#welcomeModal').modal('show');
             checkCookie();
         }
-        //map.setBasemap("topo");
-        //map.setBasemap("laurenhybrid");
     });
+
+    on(map, "load", function(){
+            
+            var underLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/1?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
+            var swipeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
+            
+            map.addLayer(underLayer);
+            map.addLayer(swipeLayer);
+          
+            //Layer swipe widget
+            var swipeWidget = new LayerSwipe({
+                type: "vertical",
+                left: 900,
+                map: map,
+                layers: [swipeLayer]
+            },"swipeDiv");
+          
+            swipeWidget.startup();
+
+            swipeWidget.on("swipe",function(){ 
+            console.log(document.getElementsByClassName("vertical")[0].style["top"]); 
+            document.getElementsByClassName("vertical")[0].style["top"] = "0"; 
+            });  
+        });
+
+    /*var featureLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/1?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
+    var featureLayerRevise = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
+    var layer = featureLayerExist;*/
+
+    /*var layerSwipe = new LayerSwipe({
+    type: "horizontal",
+    top: 250,
+    map: map,
+    layers: [ layer ]
+  }, "widget");
+  layerSwipe.startup();*/
 
     function setCookie(cname, cvalue, exdays) {
         var d = new Date();
@@ -252,7 +292,7 @@ require([
     function checkCookie() {
         var user = "You have returned!";
         setCookie("CBRScookie", user, 365);
-}
+    }
 
     
     //displays map scale on scale change (i.e. zoom level)
@@ -520,7 +560,7 @@ require([
             query = new Query();
             query.returnGeometry = true;
             query.geometry = evt.mapPoint;
-            query.outFields = ["Unit","Name","Unit_Type","Change_Type","Summary_URL", "Project_name","Status","Docket_URL"];
+            query.outFields = ["Unit","Name","Unit_Type","Change_Type","Summary_URL", "Project_name","Status","Docket_URL","Unit_1","Unit_Type_1","PR_start_date", "PR_end_date"];
             //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
             queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/2?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
             queryTask.execute(query);
@@ -553,16 +593,23 @@ require([
                         map.graphics.add(graphic);
 
                     $("#unitNum").text(feature.attributes["Unit"]);
+                    $("#unitNumOne").text(feature.attributes["Unit_1"]);
                     $("#projName").text(feature.attributes["Project_name"]);
                     $("#unitType").text(feature.attributes["Unit_Type"]);
+                    $("#unitTypeOne").text(feature.attributes["Unit_Type_1"]);
                     $("#status").text(feature.attributes["Status"]);
                     $("#docketURL").html(feature.attributes["Docket_URL"]);
 
-                    if ((feature.attributes["Change_Type"]) == "No Change"){
-                        $("#reclassification").html('You have clicked within an area that is proposed to remain within the CBRS as ' + feature.attributes["Unit_Type"]);
+                    
+                    $("#prStart").val(feature.attributes["PR_start_date"]);
+                    $("#prEnd").html(feature.attributes["PR_end_date"]);
+                    
+                    // NO CHANGE PROPOSED
+                    if ((feature.attributes["Unit"]) == feature.attributes["Unit_1"]){
+                        $("#reclassification").html('You have clicked within an area that is proposed to remain within the CBRS as ' + feature.attributes["Unit_Type"] + ', ' + feature.attributes["Unit"]);
                     }
 
-                    if ((feature.attributes["Change_Type"]) == "Reclassification to System Unit"){
+                    /*if ((feature.attributes["Change_Type"]) == "Reclassification to System Unit"){
                         $("#reclassification").html('You have clicked within an area that is proposed for ' + feature.attributes["Change_Type"] + ' from ' + feature.attributes["Unit_Type"]);
                     }
 
@@ -576,7 +623,7 @@ require([
 
                     if (feature.attributes["Change_Type"] == "Reclassification to OPA"){
                          $("#reclassification").html('You have clicked within an area that is proposed ' + feature.attributes["Change_Type"] + ' from ' + feature.attributes["Unit_Type"]);
-                    }
+                    }*/
 
                     $("#unitName").text(feature.attributes["Name"]);
                     $("#changeTyp").text(feature.attributes["Change_Type"]);
@@ -1127,6 +1174,7 @@ require([
         'esri/layers/WMSLayer',
         'esri/layers/WMSLayerInfo',
         'esri/tasks/GeometryService',
+        'esri/dijit/LayerSwipe',
         'dijit/form/CheckBox',
         'dijit/form/RadioButton',
         'dojo/query',
@@ -1149,6 +1197,7 @@ require([
         WMSLayer,
         WMSLayerInfo,
         GeometryService,
+        LayerSwipe,
         CheckBox,
         RadioButton,
         query,
@@ -1246,6 +1295,11 @@ require([
                 }
             });
         });
+
+    
+    
+
+        
 
         function addLayer(groupHeading, showGroupHeading, layer, layerName, exclusiveGroupName, options, wimOptions) {
 
