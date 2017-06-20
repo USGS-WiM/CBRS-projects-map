@@ -90,13 +90,13 @@ rendererExisting.addValue('Otherwise Protected Area', otherwiseProtected);
             'showGroupHeading': false,
             'includeInLayerList': true,
             'layers': {
-                'Existing Polygons' : {
+                'Existing CBRS Polygons' : {
                     'url': 'https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/1?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.',
                     'visibleLayers': [1],
                     'options': {
                         'id': 'existingPoly',
                         'opacity': 0.75,
-                        'visible': false
+                        'visible': true
                     },
                     'wimOptions': {
                         'type': 'layer',
@@ -108,7 +108,7 @@ rendererExisting.addValue('Otherwise Protected Area', otherwiseProtected);
                         'includeLegend' : true
                     }
                 },
-                    'Revised Polygons' : {
+                    'Revised CBRS Polygons' : {
                     'url': 'https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.',
                     'options': {
                         'id': 'revisedPoly',
@@ -136,7 +136,7 @@ rendererExisting.addValue('Otherwise Protected Area', otherwiseProtected);
                     'wimOptions': {
                         'type': 'layer',
                         'layerType': 'agisFeature',
-                        'includeInLayerList': false,
+                        'includeInLayerList': true,
                         'exclusiveGroupName':"Layers",
                         'zoomScale': 144448,
                         'hasOpacitySlider': false,

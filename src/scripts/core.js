@@ -236,8 +236,9 @@ require([
             var underLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/1?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
             var swipeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
             
-            map.addLayer(underLayer);
+            /*map.addLayer(underLayer);*/
             map.addLayer(swipeLayer);
+            map.reorderLayer(swipeLayer,1);
           
             //Layer swipe widget
             var swipeWidget = new LayerSwipe({
@@ -560,7 +561,7 @@ require([
             query = new Query();
             query.returnGeometry = true;
             query.geometry = evt.mapPoint;
-            query.outFields = ["Unit","Name","Unit_Type","Change_Type","Summary_URL", "Project_name","Status","Docket_URL","Unit_1","Unit_Type_1","PR_start_date", "PR_end_date"];
+            query.outFields = ["Unit","Name","Unit_Type","Change_Type","Summary_URL", "Project_name","Status","Docket_URL","Unit_1","Unit_Type_1","PR_start_date", "PR_end_date","Transmittal_Date"];
             //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
             queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/2?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
             queryTask.execute(query);
@@ -599,15 +600,48 @@ require([
                     $("#unitTypeOne").text(feature.attributes["Unit_Type_1"]);
                     $("#status").text(feature.attributes["Status"]);
                     $("#docketURL").html(feature.attributes["Docket_URL"]);
+                    $("#prStart").html(feature.attributes["PR_start_date"]);
+                    $("#prEnd").html(feature.attributes["PR_end_date"]);
+
+                    // checking to see if Transmittal_Date has a value and displaying text is so
+                    if (feature.attributes["Transmittal_Date"] != null) {
+                        $("#transmittalURL").html('Final Recommended—The final recommended boundaries for this project were transmitted to Congress on ' + feature.attributes["Transmittal_Date"] + '.  These boundaries will become effective only if adopted by Congress through legislation.')
+                    }
 
                     
-                    $("#prStart").val(feature.attributes["PR_start_date"]);
-                    $("#prEnd").html(feature.attributes["PR_end_date"]);
                     
-                    // NO CHANGE PROPOSED
+                    
+                    // NO CHANGE PROPOSED --  [Unit] and [Unit_1] in “Change_Polygons” are equal
+
                     if ((feature.attributes["Unit"]) == feature.attributes["Unit_1"]){
-                        $("#reclassification").html('You have clicked within an area that is proposed to remain within the CBRS as ' + feature.attributes["Unit_Type"] + ', ' + feature.attributes["Unit"]);
+                        $("#reclassification").html('You have clicked within an area that is proposed to remain within the CBRS as ' + feature.attributes["Unit_Type"] + ', ' + feature.attributes["Unit"] + '.');
                     }
+
+                    // ADDTIONS -- [Unit] is null and [Unit_1] is not null in the “Change_Polygons”
+                    if (((feature.attributes["Unit"]) == "") && (feature.attributes["Unit_1"] != "")){
+                        $("#reclassification").html('You have clicked within an area that is ' + feature.attributes["Status"] + ' for addition to ' + feature.attributes["Unit_Type"] + ', ' + feature.attributes["Unit"] + '.');
+                    }
+
+                    // REMOVALS -- This modal format appears when [Unit] is not null and [Unit_1] is null in the “Change_Polygons”
+                    if (((feature.attributes["Unit"]) != "") && (feature.attributes["Unit_1"] == "")) {
+                        $("#reclassification").html('You have clicked within an area that is ' + feature.attributes["Status"] + ' for removal from ' + feature.attributes["Unit_Type"] + ', ' + feature.attributes["Unit"] + '.');
+                    }
+
+                    // RECLASSIFICATIONS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] does not equal [Unit_Type_1] in the “Change_Polygons”
+                    if (((feature.attributes["Unit"]) != feature.attributes["Unit_1"]) && (feature.attributes["Unit"] != "") && (feature.attributes["Unit_1"] != "") && ((feature.attributes["Unit_Type"] != feature.attributes["Unit_Type_1"]))) {
+                        $("#reclassification").html('You have clicked within an area that is ' + feature.attributes["Status"] + ' for reclassification from ' + feature.attributes["Unit_Type"] + ', ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ', ' + feature.attributes["Unit_1"] + '.');
+                    }
+
+                    // TRANSFERS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] equals [Unit_Type_1] in the “Change_Polygons”
+                    if (((feature.attributes["Unit"]) != feature.attributes["Unit_1"]) && (feature.attributes["Unit"] != "") && (feature.attributes["Unit_1"] != "") && ((feature.attributes["Unit_Type"] == feature.attributes["Unit_Type_1"]))) {
+                        $("#reclassification").html('You have clicked within an area that is ' + feature.attributes["Status"] + ' for reclassification from ' + feature.attributes["Unit_Type"] + ', ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ', ' + feature.attributes["Unit_1"] + '.');
+                    }
+
+
+
+
+
+
 
                     /*if ((feature.attributes["Change_Type"]) == "Reclassification to System Unit"){
                         $("#reclassification").html('You have clicked within an area that is proposed for ' + feature.attributes["Change_Type"] + ' from ' + feature.attributes["Unit_Type"]);
