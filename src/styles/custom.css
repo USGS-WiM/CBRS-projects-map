@@ -16,11 +16,11 @@
   height: 0; 
   border-top: 15px solid transparent;
   border-bottom: 15px solid transparent; 
-  border-right: 40px solid #fff; 
+  border-left: 40px solid #fff; 
   position: fixed;
-  padding-left: 200px;
-  margin-top: 142px;
-  padding-left: 230px;
+  margin-top: 450px;
+  margin-right: 670px;
+  right: inherit;
   outline-color: black;
   transition-property: transform;
   transition-duration: 0.3s;
@@ -104,8 +104,8 @@
   width: 600px;
   margin: 10px;
   position: relative;
-  margin-left: 270px;
-  padding-top: 60px;
+  margin-left: 155px;
+  padding-top: 345px;
 }
 @media (max-width: 991px) {
   #firstuserModal {

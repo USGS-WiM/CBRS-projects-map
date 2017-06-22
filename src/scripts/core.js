@@ -231,31 +231,6 @@ require([
         }
     });
 
-    on(map, "load", function(){
-            
-            var underLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/1?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
-            var swipeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
-            
-            /*map.addLayer(underLayer);*/
-            map.addLayer(swipeLayer);
-            map.reorderLayer(swipeLayer,1);
-          
-            //Layer swipe widget
-            var swipeWidget = new LayerSwipe({
-                type: "vertical",
-                left: 900,
-                map: map,
-                layers: [swipeLayer]
-            },"swipeDiv");
-          
-            swipeWidget.startup();
-
-            swipeWidget.on("swipe",function(){ 
-            console.log(document.getElementsByClassName("vertical")[0].style["top"]); 
-            document.getElementsByClassName("vertical")[0].style["top"] = "0"; 
-            });  
-        });
-
     /*var featureLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/1?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
     var featureLayerRevise = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
     var layer = featureLayerExist;*/
@@ -451,6 +426,7 @@ require([
         $('#showLayerWalk').click(function(){
              $('#welcomeModal').modal('show');
              $('#mobileModal').modal('show');
+             $("#swipeDiv").offset({ top: 0, left: 0 });
          });
 
         function showModal() {
@@ -604,7 +580,7 @@ require([
                     $("#prEnd").html(feature.attributes["PR_end_date"]);
 
                     // checking to see if Transmittal_Date has a value and displaying text is so
-                    if (feature.attributes["Transmittal_Date"] != null) {
+                    if (feature.attributes["Transmittal_Date"] != "") {
                         $("#transmittalURL").html('Final Recommended—The final recommended boundaries for this project were transmitted to Congress on ' + feature.attributes["Transmittal_Date"] + '.  These boundaries will become effective only if adopted by Congress through legislation.')
                     }
 
@@ -614,12 +590,12 @@ require([
                     // NO CHANGE PROPOSED --  [Unit] and [Unit_1] in “Change_Polygons” are equal
 
                     if ((feature.attributes["Unit"]) == feature.attributes["Unit_1"]){
-                        $("#reclassification").html('You have clicked within an area that is proposed to remain within the CBRS as ' + feature.attributes["Unit_Type"] + ', ' + feature.attributes["Unit"] + '.');
+                        $("#reclassification").html('You have clicked within an area that is proposed to remain within the CBRS as ' + feature.attributes["Unit_Type_1"] + ', ' + feature.attributes["Unit_1"] + '.');
                     }
 
                     // ADDTIONS -- [Unit] is null and [Unit_1] is not null in the “Change_Polygons”
                     if (((feature.attributes["Unit"]) == "") && (feature.attributes["Unit_1"] != "")){
-                        $("#reclassification").html('You have clicked within an area that is ' + feature.attributes["Status"] + ' for addition to ' + feature.attributes["Unit_Type"] + ', ' + feature.attributes["Unit"] + '.');
+                        $("#reclassification").html('You have clicked within an area that is ' + feature.attributes["Status"] + ' for addition to ' + feature.attributes["Unit_Type_1"] + ', ' + feature.attributes["Unit_1"] + '.');
                     }
 
                     // REMOVALS -- This modal format appears when [Unit] is not null and [Unit_1] is null in the “Change_Polygons”
@@ -634,7 +610,7 @@ require([
 
                     // TRANSFERS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] equals [Unit_Type_1] in the “Change_Polygons”
                     if (((feature.attributes["Unit"]) != feature.attributes["Unit_1"]) && (feature.attributes["Unit"] != "") && (feature.attributes["Unit_1"] != "") && ((feature.attributes["Unit_Type"] == feature.attributes["Unit_Type_1"]))) {
-                        $("#reclassification").html('You have clicked within an area that is ' + feature.attributes["Status"] + ' for reclassification from ' + feature.attributes["Unit_Type"] + ', ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ', ' + feature.attributes["Unit_1"] + '.');
+                        $("#reclassification").html('You have clicked within an area that is ' + feature.attributes["Status"] + ' for reclassification from ff' + feature.attributes["Unit_Type"] + ', ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ', ' + feature.attributes["Unit_1"] + '.');
                     }
 
 
@@ -687,13 +663,13 @@ require([
                         instance.unpin();
                     }
 
-                if  (evt.graphic._graphicsLayer.layerId == 0 && (featureSet.features.length > 0)) {
+                /*if  (((evt.graphic._graphicsLayer.layerId == 0) && (featureSet.features.length > 0)) || ((evt.graphic._graphicsLayer.layerId == 1) && (featureSet.features.length > 0))) {
                     $( "#changePolygons" ).on( "click", function() {
                         console.log("got it");
                     });
 
                     $("#changePolygons").trigger("click");
-                }
+                }*/
                     
             }
             
@@ -744,18 +720,45 @@ require([
         });*/
     });
 
-    
-   
+    on(map, "load", function(){
+            
+            var underLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/1?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
+            var swipeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
+            var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/2?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
 
-    $(document).on("click", "#showHUCs", function() {
-        event.preventDefault();
-        $("#getDataModal").modal("hide");
-        $("#huc-download-alert").slideDown(250);
-        map.getLayer("huc8").setVisibility(true);
-        dojo.byId('innerAlert').innerHTML = "<h4><b>Download Data</b></h4>" +
-        "<p>Please review the Data Download (<a target='_blank' href='https://www.fws.gov/wetlands/Data/Data-Download.html'>www.fws.gov/wetlands/Data/Data-Download.html</a>) page for information on how to download data, what is included in the download and data use limitations and disclaimer.</p>" +
-        "<br/><p><b>Click the map to select a watershed from which to extract wetland data.</b></p>";
-    });
+            map.addLayer(swipeLayer);
+            map.addLayer(underLayer);
+            map.addLayer(changeLayer);
+            /*map.reorderLayer(swipeLayer,1);*/
+          
+            //Layer swipe widget
+            var swipeWidget = new LayerSwipe({
+                type: "vertical",
+                left: 600,
+                map: map,
+                layers: [underLayer]
+            },"swipeDiv");
+          
+            swipeWidget.startup();
+
+            swipeWidget.on("swipe",function(){ 
+            console.log(document.getElementsByClassName("vertical")[0].style["top"]); 
+            document.getElementsByClassName("vertical")[0].style["top"] = "0"; 
+            });  
+        });
+
+        /*map.on("layers-add-result", function (evt) {
+        var layerInfo = arrayUtils.map(evt.layers, function (layer, index) {
+          return {layer:layer.layer, title:layer.layer.name};
+        });
+        if (layerInfo.length > 0) {
+          var legendDijit = new Legend({
+            map: map,
+            layerInfos: layerInfo
+          }, "legendDiv");
+          legendDijit.startup();
+        }
+      });*/
 
     /*var geocoder = new Geocoder({
         value: '',

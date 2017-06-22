@@ -5,6 +5,7 @@ var allLayers;
 var renderer;
 
 require([
+    'esri/map',
     'esri/InfoTemplate',
     'esri/renderers/UniqueValueRenderer',
     'esri/symbols/PictureMarkerSymbol',
@@ -13,6 +14,7 @@ require([
     'esri/Color',
     'dojo/domReady!'
 ], function(
+    Map,
     InfoTemplate,
     UniqueValueRenderer,
     PictureMarkerSymbol,
@@ -28,27 +30,27 @@ var defaultSymbol =
         new Color([85,255,0,1])),new Color([85,255,0,0.54]));
 
 var addition = 
-        new SimpleFillSymbol(SimpleFillSymbol.STYLE_BACKWARD_DIAGONAL,
-        new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL,
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL,
         new Color([61,196,255]), 2),new Color([61,196,255,2]));
         
 var removal = 
-        new SimpleFillSymbol(SimpleFillSymbol.STYLE_BACKWARD_DIAGONAL,
-        new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL,
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL,
         new Color([225,0,0]), 2),new Color([255,0,0,2]));
 
 var noChange = 
-        new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-        new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL,
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL,
         new Color([255,255,190,0])),new Color([255,255,190,0.54]));
 
 var reclassOpa = 
-        new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL,
         new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL,
         new Color([38, 115, 0]), 2),new Color([38, 115, 0, 0.25]));
 
 var reclassSu = 
-        new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL,
         new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL,
         new Color([255,0,0,0.25])),new Color([255,0,0,0.25]));
 
@@ -90,18 +92,36 @@ rendererExisting.addValue('Otherwise Protected Area', otherwiseProtected);
             'showGroupHeading': false,
             'includeInLayerList': true,
             'layers': {
-                'Existing CBRS Polygons' : {
+                'Change Polygons' : {
+                    'url': 'https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/2?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.',
+                    'visibleLayers': [2],
+                    'options': {
+                        'id': 'changePoly',
+                        'opacity': 0.75,
+                        'visible': false
+                    },
+                    'wimOptions': {
+                        'type': 'layer',
+                        'layerType': 'agisFeature',
+                        'includeInLayerList': false,
+                        'exclusiveGroupName':"Layers",
+                        'zoomScale': 144448,
+                        'hasOpacitySlider': false,
+                        'includeLegend' : false,
+                        'renderer': renderer
+                },
+                    'Existing CBRS Polygons' : {
                     'url': 'https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/1?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.',
                     'visibleLayers': [1],
                     'options': {
                         'id': 'existingPoly',
                         'opacity': 0.75,
-                        'visible': true
+                        'visible': false
                     },
                     'wimOptions': {
                         'type': 'layer',
                         'layerType': 'agisFeature',
-                        'includeInLayerList': true,
+                        'includeInLayerList': false,
                         'exclusiveGroupName':"Layers",
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
@@ -118,32 +138,14 @@ rendererExisting.addValue('Otherwise Protected Area', otherwiseProtected);
                     'wimOptions': {
                         'type': 'layer',
                         'layerType': 'agisFeature',
-                        'includeInLayerList': true,
+                        'includeInLayerList': false,
                         'exclusiveGroupName':"Layers",
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
                         'includeLegend' : true,
                     }
-                },
-                    'Change Polygons' : {
-                    'url': 'https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/2?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.',
-                    'visibleLayers': [2],
-                    'options': {
-                        'id': 'changePoly',
-                        'opacity': 0.75,
-                        'visible': false
-                    },
-                    'wimOptions': {
-                        'type': 'layer',
-                        'layerType': 'agisFeature',
-                        'includeInLayerList': true,
-                        'exclusiveGroupName':"Layers",
-                        'zoomScale': 144448,
-                        'hasOpacitySlider': false,
-                        'includeLegend' : false,
-                        'renderer': renderer
-                    },
-                    'polygons' : {
+                }
+                    /*'polygons' : {
                     'url': 'https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.',
                     'visibleLayers': [0],
                     'options': {
@@ -160,10 +162,11 @@ rendererExisting.addValue('Otherwise Protected Area', otherwiseProtected);
                         'hasOpacitySlider': true,
                         'includeLegend' : false
                     },
-                    }
+                    }*/
                 }
             }   
         }
     ];
  
 });
+

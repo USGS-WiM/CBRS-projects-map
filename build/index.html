@@ -174,11 +174,11 @@
                                                 <li id="attrList">Project Name: <label id="projName"></label></li>
                                                 <li id="attrList">Project Status: <label id="status"></label> - Public review open from <label id="prStart"></label> &#8211; <label id="prEnd"></label> - see docket on <label id="docketURL"></label> to make comments during the comment period and/or view submitted comments.</li>
                                                 <li id="attrList"><label id="transmittalURL"></label></li>
-                                                <li id="attrList">Unit Number: <label id="unitNum"></label></li>
-                                                <li id="attrList">Unit Number: <label id="unitNumOne"></label></li>
-                                                <!--<li id="attrList">Unit Name: <label id="unitName"></label></li>
-                                                <li id="attrList">Unit Type: <label id="unitType"></label></li>-->
-                                                <li id="attrList">Change Type: <label id="changeTyp"></label></li>
+                                                <!--<li id="attrList">Unit Number: <label id="unitNum"></label></li>-->
+                                                <!--<li id="attrList">Unit Number 1: <label id="unitNumOne"></label></li>-->
+                                                <!--<li id="attrList">Unit Name: <label id="unitName"></label></li>-->
+                                                <!--<li id="attrList">Unit Type: <label id="unitType"></label></li>-->
+                                                <!--<li id="attrList">Change Type: <label id="changeTyp"></label></li>-->
                                                 <p>Please see our <a href="" target="_blank">website</a> for additional information about the various change types.</p>
                                                 <p>To view the Service&#146s Summary of Proposed Changes for this unit: <a href="" id="summaryUrl" target="_blank"></a></p>
                                                 <p>To view the existing CBRS units in this area please click the <strong>Existing CBRS Polygons</strong> layer in the Map Layers panel.</p>
@@ -269,11 +269,11 @@
                 <div class="modal-body">
                     <h5 style="padding-bottom: 5px;">There are three map layers in this map. We explain each layer below.</h5>
                     <h5><strong>Existing Polygons</strong></h5>
-                        <p style="padding-bottom: 5px;">This layer shows the existing CBRS locations.</p>
+                        <p style="padding-bottom: 5px;">Click and dragging the swipe tool to left will reveal the Revised CBRS Units. </p>
                     <h5><strong>Revised Polygons</strong></h5>
-                        <p style="padding-bottom: 5px;">This layer shows the CBRS locations that have been revised.</p>
+                        <p style="padding-bottom: 5px;">Click and dragging the swipe tool to right will reveal the Existing CBRS Units.</p>
                     <h5><strong>Change Polygons</strong></h5>
-                        <p>This layer shows what changes were made to a location such as reclassification or removal.</p>
+                        <p>Click a polygon at anytime to see what changes are happing to that CBRS Unit.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" id="hideotherModals">Dismiss</button>
@@ -288,10 +288,10 @@
              <div class="arrow-left-one"></div>
              <div class="modal-dialog" id="firstuserModal">
                  <div class="modal-content">
-                     <div class="modal-header"><h4>Existing Polygons</h4>
+                     <div class="modal-header"><h4>The Swiping Tool</h4>
                      </div>
                      <div class="modal-body">
-                         <h5 style="text-align: center">This layer shows the existing CBRS locations.</h5>
+                         <h5 style="text-align: center">Drag the Swipe Tool left and right to compare the two layers.</h5>
                      </div>
                      <div class="modal-footer">
                          <button type="button" class="btn btn-default" data-dismiss="modal" id="secondStep">Next</button>
@@ -308,7 +308,7 @@
                 <div class="modal-content">
                     <div class="modal-header"><h4>Revised Polygons</h4></div>
                     <div class="modal-body">
-                        <h5 style="text-align: center">This layer shows the CBRS locations that have been revised.</h5>
+                        <h5 style="text-align: center">Clicking and dragging the swipe tool to right will reveal the Existing CBRS Units. They are symbolized as the grey polygons</h5>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" id="thirdStep">Next</button>
@@ -326,7 +326,7 @@
                     <div class="modal-header"><h4>Change Polygons</h4>
                     </div>
                     <div class="modal-body">
-                        <h5 style="text-align: center">This layer shows what changes were made to a location such as reclassification, addition, or removal.</h5>
+                        <h5 style="text-align: center"><p>Click a polygon at anytime to see what changes are happing to that CBRS Unit.</p></h5>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" id="hideotherModals">Dismiss</button>
