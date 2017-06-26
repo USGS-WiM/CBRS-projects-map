@@ -86,7 +86,7 @@ rendererExisting.addValue('Otherwise Protected Area', otherwiseProtected);
 
 
 
-    allLayers = [
+    /*allLayers = [
         {
             'groupHeading': 'ESRI dynamic map services',
             'showGroupHeading': false,
@@ -162,11 +162,11 @@ rendererExisting.addValue('Otherwise Protected Area', otherwiseProtected);
                         'hasOpacitySlider': true,
                         'includeLegend' : false
                     },
-                    }*/
+                    }
                 }
             }   
         }
-    ];
+    ];*/
  
 });
 

@@ -423,10 +423,10 @@ require([
             $('#mobileModal').modal('hide')
         });
 
-        $('#showLayerWalk').click(function(){
+        $('#showHelp').click(function(){
              $('#welcomeModal').modal('show');
              $('#mobileModal').modal('show');
-             $("#swipeDiv").offset({ top: 0, left: 0 });
+             /*$("#swipeDiv").offset({ top: 0, left: 0 });*/
          });
 
         function showModal() {
@@ -580,12 +580,9 @@ require([
                     $("#prEnd").html(feature.attributes["PR_end_date"]);
 
                     // checking to see if Transmittal_Date has a value and displaying text is so
-                    if (feature.attributes["Transmittal_Date"] != "") {
+                    if (feature.attributes["Transmittal_Date"] != null) {
                         $("#transmittalURL").html('Final Recommended—The final recommended boundaries for this project were transmitted to Congress on ' + feature.attributes["Transmittal_Date"] + '.  These boundaries will become effective only if adopted by Congress through legislation.')
-                    }
-
-                    
-                    
+                    }                   
                     
                     // NO CHANGE PROPOSED --  [Unit] and [Unit_1] in “Change_Polygons” are equal
 
@@ -613,28 +610,6 @@ require([
                         $("#reclassification").html('You have clicked within an area that is ' + feature.attributes["Status"] + ' for reclassification from ff' + feature.attributes["Unit_Type"] + ', ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ', ' + feature.attributes["Unit_1"] + '.');
                     }
 
-
-
-
-
-
-
-                    /*if ((feature.attributes["Change_Type"]) == "Reclassification to System Unit"){
-                        $("#reclassification").html('You have clicked within an area that is proposed for ' + feature.attributes["Change_Type"] + ' from ' + feature.attributes["Unit_Type"]);
-                    }
-
-                    if (feature.attributes["Change_Type"] == "Removal"){
-                        $("#reclassification").html('You have clicked within an area that is proposed for ' + feature.attributes["Change_Type"] + ' from the CBRS.');
-                    }
-
-                    if (feature.attributes["Change_Type"] == "Addition"){
-                        $("#reclassification").html('You have clicked within an area that is proposed for ' + feature.attributes["Change_Type"] + ' from the CBRS.');
-                    }
-
-                    if (feature.attributes["Change_Type"] == "Reclassification to OPA"){
-                         $("#reclassification").html('You have clicked within an area that is proposed ' + feature.attributes["Change_Type"] + ' from ' + feature.attributes["Unit_Type"]);
-                    }*/
-
                     $("#unitName").text(feature.attributes["Name"]);
                     $("#changeTyp").text(feature.attributes["Change_Type"]);
                     /*$("#summaryUrl").text(feature.attributes["Summary_URL"]);*/
@@ -648,6 +623,7 @@ require([
                     map.infoWindow.setFeatures([feature]);
                     map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));     */           
                 }
+
                 $("#selectionDiv").css("visibility", "visible");
                     var instance = $('#selectionDiv').data('lobiPanel');
                     var docHeight = $(document).height();
@@ -734,7 +710,7 @@ require([
             //Layer swipe widget
             var swipeWidget = new LayerSwipe({
                 type: "vertical",
-                left: 600,
+                left: 700,
                 map: map,
                 layers: [underLayer]
             },"swipeDiv");
