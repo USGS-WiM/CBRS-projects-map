@@ -141,7 +141,7 @@
                         <div id="layersPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="layersPanelHeader">
                             <div id="toggle" style="padding: 2px 2px;"></div>
                             <!--<div class="layerHelp">Click <a id="showWelcomeModal" style="cursor:pointer;">here</a> for a quick walkthrough.</div>-->
-                            <div><button id="showLayerWalk" class="btn btn-default btn-xs" style="cursor: pointer; margin-top: 10px; margin-bottom: 10px;">Layer walkthrough</button></div>
+                            <div><button id="showHelp" class="btn btn-default btn-xs" style="cursor: pointer; margin-top: 10px; margin-bottom: 10px;">help</button></div>
                         </div>
                     </div>
                     <!-- # closing div tag for accordion style panels -->
@@ -193,16 +193,20 @@
                     <!-- End PopUp -->
 
                         <div id="legendElement" class="panel panel-default legendClass">
-                            <div id="legendHeading" class=" legendHeading" role="tab">
+                            <div id="legendHeading" class=" legendHeading">
                                 <h4 class="panel-title" id="work">
-                                    <a data-toggle="collapse" style="text-decoration: none"  href="#legendCollapse" aria-expanded="true" aria-controls="collapseOne">
+                                    <a style="text-decoration: none" aria-expanded="true" aria-controls="collapseOne">
                                         <span class="glyphicon glyphicon-list"></span>
                                         Legend
                                     </a>
                                 </h4>
                             </div>
-                            <div id="legendCollapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                                <div id="legendDiv" class="panel-body"></div>
+                            <div id="legendCollapse" role="tabpanel" aria-labelledby="headingOne">
+                                <div id="legendDiv" class="panel-body">
+                                    <p><div class="squareDiv sysUnit"></div> System Unit</p>
+                                    <p><div class="squareDiv opa"></div> Otherwise Protected Area</p>
+                                    <p><div class="squareDiv existing"></div> Existing CBRS Units</p>
+                                </div>
                             </div>
                         </div>
 
@@ -245,14 +249,20 @@
             <div id="welcomeModal" aria-hidden="true" class="modal fade overflow-y-hidden">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header"><h4>Welcome! Want a quick walkthrough of the CBRS Projects Map?</h4>
+                        <div class="modal-header">
+                            <h4>Welcome! Here's a quick explanation of the CBRS Projects Map.</h4>
                         </div>
                         <div class="modal-body">
-                            <h5 style="text-align: center">Just click the <span type="button" class="btn btn-default btn-xs"> Next </span> button below and we'll walk you through the Map Layers.</h5>
-                        </div>
+                            <div class="modal-header">
+                                <p>Use the Swipe tool to compare the Existing CBRS Units to the Revised CBRS Units.</p>
+                                <br>
+                                <p>Click any of the polygons to learn about what's changed.</p>
+                                <!--<h5><strong> Swiping Tool: </strong></h5>
+                                <p style="text-align: center">Drag the Swipe Tool left and right to compare the two layers.</p>-->
+                            </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal" id="hidemobileModal">Dismiss</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal" id="firstStep">Next</button>
+                            <!--<button type="button" class="btn btn-default" data-dismiss="modal" id="firstStep">Next</button>-->
                         </div>
                     </div>
                 </div>
