@@ -539,7 +539,7 @@ require([
             query.geometry = evt.mapPoint;
             query.outFields = ["Unit","Name","Unit_Type","Change_Type","Summary_URL", "Project_name","Status","Docket_URL","Unit_1","Unit_Type_1","PR_start_date", "PR_end_date","Transmittal_Date"];
             //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
-            queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/2?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
+            queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/2?token=5B-fVtP-7-ceqlKVVNuG7Hdu6TOljZo5gn2hUR7wvPKKt-fKZ8pY-haPAnnYhCaWb0h4sRDl5Bih4DfIHXon3bfLCIkV5k9leVCThLiQBsmHTwCITJ8bQcM3mnl_b1UJzVm2nMebeUj4gtmVuKtjzQg5ngHZ1fteUqMrabr_ip5RWyE55RiVs7ovqq-Eh9F-yRVsOE8OwvCVfiuSWvcO9SpsbhEARo3GyCAE_kxuWDvAFqlUddh2_Dyb0ELIiyyleOG7vYkgcWabQYup68GNkQ..");
             queryTask.execute(query);
             setCursorByID("mainDiv");
             /*var deferredResult = queryTask.execute(query);*/
@@ -698,12 +698,12 @@ require([
 
     on(map, "load", function(){
             
-            var underLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/1?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
-            var swipeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
-            var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/2?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
-
-            map.addLayer(swipeLayer);
-            map.addLayer(underLayer);
+            var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/1?token=5B-fVtP-7-ceqlKVVNuG7Hdu6TOljZo5gn2hUR7wvPKKt-fKZ8pY-haPAnnYhCaWb0h4sRDl5Bih4DfIHXon3bfLCIkV5k9leVCThLiQBsmHTwCITJ8bQcM3mnl_b1UJzVm2nMebeUj4gtmVuKtjzQg5ngHZ1fteUqMrabr_ip5RWyE55RiVs7ovqq-Eh9F-yRVsOE8OwvCVfiuSWvcO9SpsbhEARo3GyCAE_kxuWDvAFqlUddh2_Dyb0ELIiyyleOG7vYkgcWabQYup68GNkQ..");
+            var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/0?token=5B-fVtP-7-ceqlKVVNuG7Hdu6TOljZo5gn2hUR7wvPKKt-fKZ8pY-haPAnnYhCaWb0h4sRDl5Bih4DfIHXon3bfLCIkV5k9leVCThLiQBsmHTwCITJ8bQcM3mnl_b1UJzVm2nMebeUj4gtmVuKtjzQg5ngHZ1fteUqMrabr_ip5RWyE55RiVs7ovqq-Eh9F-yRVsOE8OwvCVfiuSWvcO9SpsbhEARo3GyCAE_kxuWDvAFqlUddh2_Dyb0ELIiyyleOG7vYkgcWabQYup68GNkQ..");
+            var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/2?token=5B-fVtP-7-ceqlKVVNuG7Hdu6TOljZo5gn2hUR7wvPKKt-fKZ8pY-haPAnnYhCaWb0h4sRDl5Bih4DfIHXon3bfLCIkV5k9leVCThLiQBsmHTwCITJ8bQcM3mnl_b1UJzVm2nMebeUj4gtmVuKtjzQg5ngHZ1fteUqMrabr_ip5RWyE55RiVs7ovqq-Eh9F-yRVsOE8OwvCVfiuSWvcO9SpsbhEARo3GyCAE_kxuWDvAFqlUddh2_Dyb0ELIiyyleOG7vYkgcWabQYup68GNkQ..");
+            
+            map.addLayer(underLayerExist);
+            map.addLayer(swipeLayerRevised);
             map.addLayer(changeLayer);
             /*map.reorderLayer(swipeLayer,1);*/
           
@@ -712,7 +712,7 @@ require([
                 type: "vertical",
                 left: 700,
                 map: map,
-                layers: [underLayer]
+                layers: [swipeLayerRevised]
             },"swipeDiv");
           
             swipeWidget.startup();
