@@ -253,12 +253,53 @@
 
 .sysUnit {
   background: #FF7F7F;
+  border-color: #474747;
+  border-width: 1.5px;
 }
 
 .opa {
   background: #A3FF73;
+  border-color: #474747;
+  border-width: 1.5px;
 }
 
-.existing {
-  background: #AAAAAA;
+.sysUnitRevised {
+  background: #FF7F7F;
+  border-color: #474747;
+  border-width: 2px;
+  border-style: dotted;
+  opacity: 0.8;
+}
+
+.opaRevised {
+  background: #A3FF73;
+  border-color: #474747;
+  border-width: 2px;
+  border-style: dotted;
+  opacity: 0.8;
+}
+
+#showHelp {
+  background-color: rgb(69, 116, 204);
+  border-color: rgb(69, 116, 204);
+  border-radius: 0;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300px;
+  font-size: 9pt;
+}
+
+.panel-heading .accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    color: grey;         /* adjust as needed */
+    padding-left:8px;
+}
+.panel-heading .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+    padding-left:8px;
 }
