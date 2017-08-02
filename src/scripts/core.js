@@ -571,7 +571,7 @@ require([
             query.geometry = evt.mapPoint;
             query.outFields = ["Unit","Name","Unit_Type","Change_Type","Summary_URL", "Project_name","Status","Docket_URL","Unit_1","Unit_Type_1","PR_start_date", "PR_end_date","Transmittal_Date"];
             //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
-            queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/2");
+            queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/2");
             queryTask.execute(query);
             setCursorByID("mainDiv");
             /*var deferredResult = queryTask.execute(query);*/
@@ -610,6 +610,11 @@ require([
                     $("#docketURL").html(feature.attributes["Docket_URL"]);
                     $("#prStart").html(feature.attributes["PR_start_date"]);
                     $("#prEnd").html(feature.attributes["PR_end_date"]);
+
+                    /*var m = feature.attributes.PR_end_date.match(/(\d\d)(\d\d)(\d\d\d\d)/);*/
+                    /*var d = new Date(feature.attributes.PR_end_date[3], feature.attributes.PR_end_date[1] - 1, feature.attributes.PR_end_date[2]);*/
+                    
+                    /*var d = new date(feature.attributes.PR_end_date.replace(/(\d\d)(\d\d)(\d\d\d\d)/, '$3-$1-$2'));*/
 
                     // checking to see if Transmittal_Date has a value and displaying text is so
                     if (feature.attributes["Transmittal_Date"] != null) {
@@ -730,15 +735,23 @@ require([
 
     on(map, "load", function(){
             
-            var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/1");
-            var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/0");
+            var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/MyMapService/FeatureServer/3");
+            var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/0");
+            var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/1");
             var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/2");
             
             map.addLayer(underLayerExist);
             map.addLayer(swipeLayerRevised);
             
             map.addLayer(changeLayer);
+            map.addLayer(otherProjectsLayer);
             /*map.reorderLayer(swipeLayer,1);*/
+
+            $("#swipeDiv").on(function() {
+                if (map.graphicsLayerIds == 0) {
+                        map.removeLayer(swipeLayerRevised);
+                    }
+                });
           
             //Layer swipe widget
             var swipeWidget = new LayerSwipe({
@@ -753,7 +766,9 @@ require([
             swipeWidget.on("swipe",function(){ 
             console.log(document.getElementsByClassName("vertical")[0].style["top"]); 
             document.getElementsByClassName("vertical")[0].style["top"] = "0"; 
-            });  
+        }); 
+        
+        
         });
 
         /*map.on("layers-add-result", function (evt) {

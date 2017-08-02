@@ -279,6 +279,14 @@
   opacity: 0.8;
 }
 
+.otherExistingProjects {
+  background: #828282;
+  border-color: #828282;
+  border-width: 2px;
+  border-style: dotted;
+  opacity: 0.8;
+}
+
 #showHelp {
   background-color: rgb(69, 116, 204);
   border-color: rgb(69, 116, 204);
