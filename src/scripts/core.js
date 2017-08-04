@@ -686,10 +686,51 @@ require([
                     
             }
             
-        }  
-         else {
+        }  else if (evt.graphic === undefined) {                
             $('#outsideCBRS').modal('show');
+        } else if (evt.graphic._graphicsLayer.layerId == 3) {
+            
+            queryTwo = new Query();
+            queryTwo.returnGeometry = true;
+            queryTwo.geometry = evt.mapPoint;
+            queryTwo.outFields = ["Unit",];
+            //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
+            queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/3");
+            queryTask.execute(queryTwo);
+            setCursorByID("mainDiv");
+            /*var deferredResult = queryTask.execute(query);*/
+
+            var latitude = evt.mapPoint.getLatitude();
+            var longitude = evt.mapPoint.getLongitude();
+
+            queryTask.execute(queryTwo, showResults);
+            
+            function showResults(featureSet) {
+                
+                map.graphics.clear();
+
+                if (featureSet.features.length > 0) {
+                
+                    var feature = featureSet.features[0];
+                    
+                    var symbol;
+                    symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID,
+                                new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
+                                new dojo.Color([255,0,225]), 2), new dojo.Color([98,194,204,0])
+                            );
+                    
+                    feature.geometry.spatialReference = map.spatialReference;
+                        var graphic = feature;
+                        graphic.setSymbol(symbol);
+
+                        map.graphics.add(graphic);
+
+                    $("#unitOther").text(feature.attributes["Unit"]);
+                }
+             $('#existingCBRS').modal('show');       
         }
+        }
+    
 
             
             /*deferredResult.addCallback(function(response) {
@@ -1116,6 +1157,10 @@ require([
 
         function showCBRSModal () {
             $('#outsideCBRS').modal('show');
+        }
+
+        function showExisitngCBRSModal () {
+            $('#existingCBRS').modal('show');
         }
 
         $("#html").niceScroll();
