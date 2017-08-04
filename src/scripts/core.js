@@ -624,12 +624,13 @@ require([
                     // NO CHANGE PROPOSED --  [Unit] and [Unit_1] in “Change_Polygons” are equal
 
                     if ((feature.attributes["Unit"]) == feature.attributes["Unit_1"]){
-                        $("#reclassification").html('You have clicked within an area that is proposed to remain within the CBRS as ' + feature.attributes["Unit_Type_1"] + ', ' + feature.attributes["Unit_1"] + '.');
+                        $("#reclassification").html('You have clicked within an area that is proposed to remain within the CBRS as ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
                     }
 
                     // ADDTIONS -- [Unit] is null and [Unit_1] is not null in the “Change_Polygons”
                     if (((feature.attributes["Unit"]) == "") && (feature.attributes["Unit_1"] != "")){
-                        $("#reclassification").html('You have clicked within an area that is ' + feature.attributes["Status"] + ' for addition to ' + feature.attributes["Unit_Type_1"] + ', ' + feature.attributes["Unit_1"] + '.');
+                        $("#reclassification").html('You have clicked within an area that is proposed for addition to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                        // Where 'proposed' is in the previous statement I removed ' + feature.attributes["Status"] + ' because the P was capitalized in the data and that was not desired on the modal. I don't think the status changes at all for Addition but I'm leaving this here just incase.
                     }
 
                     // REMOVALS -- This modal format appears when [Unit] is not null and [Unit_1] is null in the “Change_Polygons”
@@ -639,12 +640,12 @@ require([
 
                     // RECLASSIFICATIONS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] does not equal [Unit_Type_1] in the “Change_Polygons”
                     if (((feature.attributes["Unit"]) != feature.attributes["Unit_1"]) && (feature.attributes["Unit"] != "") && (feature.attributes["Unit_1"] != "") && ((feature.attributes["Unit_Type"] != feature.attributes["Unit_Type_1"]))) {
-                        $("#reclassification").html('You have clicked within an area that is ' + feature.attributes["Status"] + ' for reclassification from ' + feature.attributes["Unit_Type"] + ', ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ', ' + feature.attributes["Unit_1"] + '.');
+                        $("#reclassification").html('You have clicked within an area that is ' + feature.attributes["Status"] + ' for reclassification from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
                     }
 
                     // TRANSFERS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] equals [Unit_Type_1] in the “Change_Polygons”
                     if (((feature.attributes["Unit"]) != feature.attributes["Unit_1"]) && (feature.attributes["Unit"] != "") && (feature.attributes["Unit_1"] != "") && ((feature.attributes["Unit_Type"] == feature.attributes["Unit_Type_1"]))) {
-                        $("#reclassification").html('You have clicked within an area that is ' + feature.attributes["Status"] + ' for reclassification from ff' + feature.attributes["Unit_Type"] + ', ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ', ' + feature.attributes["Unit_1"] + '.');
+                        $("#reclassification").html('You have clicked within an area that is ' + feature.attributes["Status"] + ' for reclassification from' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
                     }
 
                     $("#unitName").text(feature.attributes["Name"]);
