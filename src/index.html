@@ -280,7 +280,27 @@
             </div>
         </div>
 
-        <!-- Welcome Modal -->
+    <!-- Disclaimer -->
+        <div id="disclaimerModal" aria-hidden="true" class="modal fade overflow-y-hidden">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header"><h3 style="text-align: center">Disclaimer</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>The U.S. Fish and Wildlife Service (Service) is not responsible for any misuse or misinterpretation of this digital data set, including use of these boundaries (which are approximate digital representations of the boundaries shown on the official maps) to determine eligibility for Federal expenditures and financial assistance including Federal flood insurance. The official Coastal Barrier Resources System (CBRS) maps (not these digital data) are the controlling documents of the CBRS boundaries and are maintained by the Service.</p>
+                        <p>Copies of the official CBRS maps are available for viewing at the Service Headquarters office and are also available for download on the CBRS Mapper and at the <a href="https://www.fws.gov/cbra/maps/index.html" target="_blank">Maps</a> web page. For information on obtaining an official determination of whether or not an area or specific property is located within the CBRS, please visit the <a href="https://www.fws.gov/cbra/Determinations.html" target="_blank">Determinations</a> web page. For information on project consultations, please visit the <a href="https://www.fws.gov/ecological-services/habitat-conservation/cbra/ConsultationS.html" target="_blank">Consultations</a> web page. For general questions regarding the CBRS, you may contact <a href="mailto:CBRA@fws.gov" target="_blank">cbra@fws.gov</a>. For information on the horizontal accuracy of this digital data set, please read the <a href="https://www.fws.gov/cbra/Metadata.html" target="_blank">metadata</a>.</p>
+                        <p>Base cartographic information used as part of this CBRS Mapper has been provided through third party products. The FWS does not maintain, and is not responsible for the accuracy or completeness of the base cartographic information.</p>
+                        <p>This application may not be fully accessible to people with disabilities. If you need assistance accessing this mapper or CBRS data email us at: <a href="mailto:CBRA@fws.gov" target="_blank">cbra@fws.gov</a>.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <div style="text-align: center"><button type="button" class="btn btn-default" data-dismiss="modal" style="background-color: #ffd1d1" onclick="ga('send','event','Disclaimer Modal','click','Disclaimer Accepted');">I accept the terms and conditions</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!--End diclaimer modal -->
+
+    <!-- Welcome Modal -->
     <div id="welcomeModal" aria-hidden="true" class="modal fade overflow-y-hidden">
         <div class="modal-dialog">
             <div class="modal-content">

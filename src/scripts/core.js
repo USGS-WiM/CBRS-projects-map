@@ -728,7 +728,7 @@ require([
                     $("#unitOther").text(feature.attributes["Unit"]);
                 }
              $('#existingCBRS').modal('show');       
-        }
+            }
         }
     
 
@@ -776,6 +776,8 @@ require([
 
     on(map, "load", function(){
             
+            $('#disclaimerModal').modal('show');
+
             var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/MyMapService/FeatureServer/3");
             var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/0");
             var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/1");
@@ -1154,6 +1156,10 @@ require([
         $('#aboutNav').click(function(){
             showAboutModal();
         });
+
+        function showDisclaimerModal() {
+            $('#disclaimerModal').modal('show');
+        }
 
         function showCBRSModal () {
             $('#outsideCBRS').modal('show');
