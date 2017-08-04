@@ -388,6 +388,7 @@ require([
 
     $("#selectionClose").click(function(){
         $("#selectionDiv").css("visibility", "hidden");
+        map.graphics.clear();
     });
     //End LobiPanel
 
@@ -708,8 +709,6 @@ require([
             
             function showResults(featureSet) {
                 
-                map.graphics.clear();
-
                 if (featureSet.features.length > 0) {
                 
                     var feature = featureSet.features[0];
@@ -773,6 +772,10 @@ require([
 
                 } 
         });*/
+    });
+
+    $("#clearSelection").click(function(){
+        map.graphics.clear();
     });
 
     on(map, "load", function(){
