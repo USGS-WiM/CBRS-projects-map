@@ -235,6 +235,7 @@
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
+  background-image: url("../images/arrows.png");
   line-height: 1;
   font-size: 12px;
   text-indent: 0;
@@ -311,3 +312,6 @@
     content: "\e080";    /* adjust as needed, taken from bootstrap.css */
     padding-left:8px;
 }
+
+/* Custom style for swipe div */
+
