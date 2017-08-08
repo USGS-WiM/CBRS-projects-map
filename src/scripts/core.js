@@ -221,14 +221,15 @@ require([
         $('#longitude').html(initMapCenter.x.toFixed(3));
 
 
-        if (document.cookie.includes("CBRScookie")){
+        /* if (document.cookie.includes("CBRScookie")){
             $('#mobileModal').modal('hide');
             $('#welcomeModal').modal('hide');
         } else {
+            $('#disclaimerModal').modal('show');
             $('#mobileModal').modal('show');
             $('#welcomeModal').modal('show');
             checkCookie();
-        }
+        } */
     });
 
     /*var featureLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/1?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
@@ -243,7 +244,7 @@ require([
   }, "widget");
   layerSwipe.startup();*/
 
-    function setCookie(cname, cvalue, exdays) {
+/*     function setCookie(cname, cvalue, exdays) {
         var d = new Date();
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
         var expires = "expires="+d.toUTCString();
@@ -268,7 +269,7 @@ require([
     function checkCookie() {
         var user = "You have returned!";
         setCookie("CBRScookie", user, 365);
-    }
+    } */
 
     
     //displays map scale on scale change (i.e. zoom level)
@@ -618,35 +619,36 @@ require([
                     /*var d = new date(feature.attributes.PR_end_date.replace(/(\d\d)(\d\d)(\d\d\d\d)/, '$3-$1-$2'));*/
 
                     // checking to see if Transmittal_Date has a value and displaying text is so
-                    if (feature.attributes["Transmittal_Date"] != null) {
+                    if (feature.attributes["Transmittal_Date"] !== null) {
                         $("#transmittalURL").html('Final Recommended—The final recommended boundaries for this project were transmitted to Congress on ' + feature.attributes["Transmittal_Date"] + '.  These boundaries will become effective only if adopted by Congress through legislation.')
                     }                   
                     
                     // NO CHANGE PROPOSED --  [Unit] and [Unit_1] in “Change_Polygons” are equal
 
-                    if ((feature.attributes["Unit"]) == feature.attributes["Unit_1"]){
+                    if ((feature.attributes["Unit"]) === feature.attributes["Unit_1"]){
                         $("#reclassification").html('You have clicked within an area that is proposed to remain within the CBRS as ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
                     }
 
                     // ADDTIONS -- [Unit] is null and [Unit_1] is not null in the “Change_Polygons”
-                    if (((feature.attributes["Unit"]) == "") && (feature.attributes["Unit_1"] != "")){
+                    if (((feature.attributes["Unit"]) === "") && (feature.attributes["Unit_1"] !== "")){
                         $("#reclassification").html('You have clicked within an area that is proposed for addition to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
                         // Where 'proposed' is in the previous statement I removed ' + feature.attributes["Status"] + ' because the P was capitalized in the data and that was not desired on the modal. I don't think the status changes at all for Addition but I'm leaving this here just incase.
                     }
 
                     // REMOVALS -- This modal format appears when [Unit] is not null and [Unit_1] is null in the “Change_Polygons”
-                    if (((feature.attributes["Unit"]) != "") && (feature.attributes["Unit_1"] == "")) {
+                    if (((feature.attributes["Unit"]) !== "") && (feature.attributes["Unit_1"] === "")) {
                         $("#reclassification").html('You have clicked within an area that is ' + feature.attributes["Status"] + ' for removal from ' + feature.attributes["Unit_Type"] + ', ' + feature.attributes["Unit"] + '.');
                     }
 
                     // RECLASSIFICATIONS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] does not equal [Unit_Type_1] in the “Change_Polygons”
-                    if (((feature.attributes["Unit"]) != feature.attributes["Unit_1"]) && (feature.attributes["Unit"] != "") && (feature.attributes["Unit_1"] != "") && ((feature.attributes["Unit_Type"] != feature.attributes["Unit_Type_1"]))) {
+                    if (((feature.attributes["Unit"]) !== feature.attributes["Unit_1"]) && (feature.attributes["Unit"] !== "") && (feature.attributes["Unit_1"] !== "") && ((feature.attributes["Unit_Type"] !== feature.attributes["Unit_Type_1"]))) {
                         $("#reclassification").html('You have clicked within an area that is ' + feature.attributes["Status"] + ' for reclassification from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
                     }
 
                     // TRANSFERS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] equals [Unit_Type_1] in the “Change_Polygons”
-                    if (((feature.attributes["Unit"]) != feature.attributes["Unit_1"]) && (feature.attributes["Unit"] != "") && (feature.attributes["Unit_1"] != "") && ((feature.attributes["Unit_Type"] == feature.attributes["Unit_Type_1"]))) {
-                        $("#reclassification").html('You have clicked within an area that is ' + feature.attributes["Status"] + ' for reclassification from' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                    if (((feature.attributes["Unit"]) !== feature.attributes["Unit_1"]) && (feature.attributes["Unit"] !== "") && (feature.attributes["Unit_1"] !== "") && ((feature.attributes["Unit_Type"] === feature.attributes["Unit_Type_1"]))) {
+                        $("#reclassification").html('You have clicked within an area that is proposed for reclassification from' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                        // took out ' + feature.attributes["Status"] + ' because the Status for these 
                     }
 
                     $("#unitName").text(feature.attributes["Name"]);
