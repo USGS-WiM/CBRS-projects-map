@@ -29,6 +29,7 @@ require([
     'esri/dijit/Measurement',
     'esri/dijit/PopupTemplate',
     'esri/graphic',
+    'esri/graphicsUtils',
     'esri/geometry/Extent',
     'esri/geometry/Multipoint',
     'esri/geometry/Point',
@@ -40,6 +41,9 @@ require([
     'esri/SpatialReference',
     'esri/symbols/PictureMarkerSymbol',
     'esri/tasks/GeometryService',
+    'esri/tasks/FindTask',
+    'esri/tasks/FindParameters',
+    'esri/tasks/FindResult',
     'esri/tasks/IdentifyParameters',
     'esri/tasks/IdentifyTask',
     'esri/InfoTemplate',
@@ -69,6 +73,7 @@ require([
     Measurement,
     PopupTemplate,
     Graphic,
+    graphicsUtils,
     Extent,
     Multipoint,
     Point,
@@ -80,6 +85,9 @@ require([
     SpatialReference,
     PictureMarkerSymbol,
     GeometryService,
+    FindTask,
+    FindParameters,
+    FindResult,
     IdentifyParameters,
     IdentifyTask,
     InfoTemplate,
@@ -732,9 +740,10 @@ require([
              $('#existingCBRS').modal('show');       
             }
         }
-    
 
-            
+       
+
+        
             /*deferredResult.addCallback(function(response) {
 
                 if (response.length > 1) {
@@ -774,6 +783,52 @@ require([
 
                 } 
         });*/
+    });
+
+     // Find CBRS Unit Search
+
+        var findCBRS = new FindTask('https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer');
+    
+        var params = new FindParameters();
+            
+        params.layerIds = [2];
+        params.searchFields = ["Unit"];
+        params.outSpatialReference = map.spatialReference;
+        params.returnGeometry = true;
+        console.log("find unit:", params.outSpatialReference);
+        
+        function doFind() {
+            params.searchText = dom.byId("searchText").value;
+            findCBRS.execute(params, showResults);
+        }
+
+        $(document).ready(function(){
+                $("#btnUnitSearch").click(function(){
+                doFind();
+                });
+            });
+
+        function showResults(results){
+            if (results.length > 0){
+                var graphics = [];
+                var graphic = results[0].feature;
+                graphics.push(graphic);
+                var graphicsExtent = graphicsUtils.graphicsExtent(graphics);                  
+                map.setExtent(graphicsExtent);
+            } else {
+                    alert("No Results. Please Try again");
+            }
+            
+        }
+
+    $(document).ready(function(){
+        function showModal() {
+            $('#cbrsModal').modal('show');
+        }
+
+        $('#cbrsNav').click(function(){
+            showModal();
+        });
     });
 
     $("#clearSelection").click(function(){
