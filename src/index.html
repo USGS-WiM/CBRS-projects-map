@@ -197,8 +197,9 @@
                     <!--<h4><b>Explanation</b></h4>-->
                     <!--<div id="legendDiv"></div>-->
                     <!--</div>-->
-
+                    
                     <div id="mapDiv">
+                        <!-- <div id="search"></div> -->
                         <div id="swipeDiv" title="Drag to see underlying layer" class="layerSwipe"></div>
                         
                          <!-- Unit Selection Pop Up -->
@@ -321,18 +322,14 @@
                         <h4 class="modal-title">Find CBRS Unit</h4>
                     </div>
                     <div class="modal-body">
-                            <div class="form-group" style="outline:none;">
+                            <div class="form-group">
                                 <div align="center">
-                                    <div class="cbrsSearch" id="cbrsContainer">
-                                        <span class="searchBtn">
-                                        <span><i class="fa fa-search fa-lg"></i></span>
-                                        </span>
-                                        <input type="text" id="searchText" placeholder="Enter CBRS unit number (e.g Q01P)" style="border:0px solid;padding-top:8px;">
+                                    <div id="searchContainer">
+                                        <div id="search"></div>
                                     </div>
                                 </div>
                             </div>
-                                <form id="cbrs-form" class="form-inline">
-                                    <button id="btnUnitSearch" type="button" class="btn btn-success btn-fixed" data-dismiss="modal" on> Go </button>
+                                <form id="geosearch-form" class="form-inline">
                                     <button id="btnunitDismiss" type="submit" class="btn btn-default btn-fixed" data-dismiss="modal">Dismiss</button>
                                 </form>
                     </div>

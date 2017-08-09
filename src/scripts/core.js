@@ -28,6 +28,7 @@ require([
     'esri/dijit/LocateButton',
     'esri/dijit/Measurement',
     'esri/dijit/PopupTemplate',
+    'esri/dijit/Search',
     'esri/graphic',
     'esri/graphicsUtils',
     'esri/geometry/Extent',
@@ -72,6 +73,7 @@ require([
     LocateButton,
     Measurement,
     PopupTemplate,
+    Search,
     Graphic,
     graphicsUtils,
     Extent,
@@ -172,6 +174,59 @@ require([
         advancedLocationUnits: true
     }, dom.byId("measurementDiv"));
     measurement.startup();
+
+    var search = new Search({
+            enableButtonMode: false, //this enables the search widget to display as a single button
+            enableLabel: false,
+            enableInfoWindow: false,
+            showInfoWindowOnSelect: false,
+            map: map,
+            sources: []
+         }, "search");
+
+    var sources = search.get("sources");
+
+    sources.push({
+        featureLayer: new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/2"),
+        searchFields: ["Unit"],
+        displayField: "Unit",
+        exactMatch: false,
+        outFields: ["Unit"],
+        name: "Units",
+        placeholder: "e.g NJ-07",
+        highlightSymbol: new PictureMarkerSymbol("https://js.arcgis.com/3.21/esri/dijit/Search/images/search-pointer.png", 40, 40).setOffset(9, 18),
+        maxResults: 6,
+        maxSuggestions: 6,
+    });
+
+        search.set("sources", sources);
+
+        $('#cbrsNav').click(function(){
+        search.startup();
+    });
+        
+    $(document).ready(function(){
+
+        /* $('#search').keypress(function(){
+            if ( event.which == 13 ) {
+                $("#btnunitDismiss").trigger("click");
+            }
+        }); */
+
+        on(search, 'select-result', function(e){
+            $("#btnunitDismiss").trigger("click");
+        })
+
+        /* $('#').click(function(){
+            $("#btnunitDismiss").trigger("click");
+        }); */
+        
+    });
+
+        
+         
+
+
 
     //var utmCoords = $('<tr class="esriMeasurementTableRow" id="utmCoords"><td><span>UTM17</span></td><td class="esriMeasurementTableCell"> <span id="utmX" dir="ltr">UTM X</span></td> <td class="esriMeasurementTableCell"> <span id="utmY" dir="ltr">UTM Y</span></td></tr>');
     //$('.esriMeasurementResultTable').append(utmCoords);
@@ -705,7 +760,7 @@ require([
             queryTwo = new Query();
             queryTwo.returnGeometry = true;
             queryTwo.geometry = evt.mapPoint;
-            queryTwo.outFields = ["Unit",];
+            queryTwo.outFields = ["Unit"];
             //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
             queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/3");
             queryTask.execute(queryTwo);
@@ -787,7 +842,17 @@ require([
 
      // Find CBRS Unit Search
 
-        var findCBRS = new FindTask('https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer');
+    /* query = new Query();
+    query.returnGeometry = true;
+    query.geometry = evt.mapPoint;
+    query.outFields = ["Unit"];
+    query.outSpatialReference = true;
+    //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
+    queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/2");
+    queryTask.execute(query);
+    console.log("find unit:", query.outSpatialReference); */
+
+        /* var findCBRS = new FindTask('https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer');
     
         var params = new FindParameters();
             
@@ -819,7 +884,7 @@ require([
                     alert("No Results. Please Try again");
             }
             
-        }
+        } */
 
     $(document).ready(function(){
         function showModal() {
