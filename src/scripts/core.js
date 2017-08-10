@@ -368,48 +368,48 @@ require([
         map.removeLayer(usgsTopo);
         map.removeLayer(usgsImageryTopo);
     });
-    on(dom.byId('btnSatellite'), 'click', function () {
+/*     on(dom.byId('btnSatellite'), 'click', function () {
         map.setBasemap('satellite');
         map.removeLayer(nationalMapBasemap);
         map.removeLayer(usgsTopo);
         map.removeLayer(usgsImageryTopo);
-    });
+    }); */
     on(dom.byId('btnHybrid'), 'click', function () {
         map.setBasemap('hybrid');
         map.removeLayer(nationalMapBasemap);
         map.removeLayer(usgsTopo);
         map.removeLayer(usgsImageryTopo);
     });
-    on(dom.byId('btnTerrain'), 'click', function () {
+/*     on(dom.byId('btnTerrain'), 'click', function () {
         map.setBasemap('terrain');
         map.removeLayer(nationalMapBasemap);
         map.removeLayer(usgsTopo);
         map.removeLayer(usgsImageryTopo);
-    });
+    }); */
     on(dom.byId('btnGray'), 'click', function () {
         map.setBasemap('gray');
         map.removeLayer(nationalMapBasemap);
         map.removeLayer(usgsTopo);
         map.removeLayer(usgsImageryTopo);
     });
-    on(dom.byId('btnNatGeo'), 'click', function () {
+/*     on(dom.byId('btnNatGeo'), 'click', function () {
         map.setBasemap('national-geographic');
         map.removeLayer(nationalMapBasemap);
         map.removeLayer(usgsTopo);
         map.removeLayer(usgsImageryTopo);
-    });
-    on(dom.byId('btnOSM'), 'click', function () {
+    }); */
+/*     on(dom.byId('btnOSM'), 'click', function () {
         map.setBasemap('osm');
         map.removeLayer(nationalMapBasemap);
         map.removeLayer(usgsTopo);
         map.removeLayer(usgsImageryTopo);
-    });
-    on(dom.byId('btnTopo'), 'click', function () {
+    }); */
+/*     on(dom.byId('btnTopo'), 'click', function () {
         map.setBasemap('topo');
         map.removeLayer(nationalMapBasemap);
         map.removeLayer(usgsTopo);
         map.removeLayer(usgsImageryTopo);
-    });
+    }); */
 
     on(dom.byId('btnNatlMap'), 'click', function () {
         map.addLayer(nationalMapBasemap, 1);
@@ -424,11 +424,11 @@ require([
         map.removeLayer(usgsTopo);
     });
 
-    on(dom.byId('btnUsgsTopo'), 'click', function () {
+    /* on(dom.byId('btnUsgsTopo'), 'click', function () {
         map.addLayer(usgsTopo, 1);
         map.removeLayer(nationalMapBasemap);
         map.removeLayer(usgsImageryTopo);
-    })
+    }) */
 
     //start LobiPanel
     $("#selectionDiv").lobiPanel({
@@ -719,7 +719,9 @@ require([
 
                     /*var url = $("#summaryUrl").text(feature.attributes["Summary_URL"]);
                     $("#summaryUrl").html($("#summaryUrl").attr("href",url));*/
-                    $("#summaryUrl").html('<a href="' + feature.attributes["Summary_URL"]) + $("#summaryUrl").text(feature.attributes["Summary_URL"]);
+                    $("#summaryUrl").html('<a href="' + feature.attributes["Summary_URL"] + '" target="_blank">Click here for the official Unit Summary PDF</a>');
+                    
+                    /* ('<a href="' + feature.attributes["Summary_URL"]) + $("#summaryUrl").text(feature.attributes["Summary_URL"]); */
 
                     /*feature.setInfoTemplate(infoTemplate);
                     map.infoWindow.setFeatures([feature]);
