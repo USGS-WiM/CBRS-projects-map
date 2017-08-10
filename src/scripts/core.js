@@ -627,9 +627,7 @@ require([
         map.graphics.clear();
 
         
-        if (evt.graphic != undefined && (evt.graphic._graphicsLayer.layerId == 1)) {
-            console.log("other layers");
-        } else if (evt.graphic != undefined && (evt.graphic._graphicsLayer.layerId == 0) || evt.graphic != undefined && (evt.graphic._graphicsLayer.layerId == 2)) {
+      if (evt.graphic != undefined && (evt.graphic._graphicsLayer.layerId == 0) || evt.graphic != undefined && (evt.graphic._graphicsLayer.layerId == 1) ||evt.graphic != undefined && (evt.graphic._graphicsLayer.layerId == 2)) {
             
             query = new Query();
             query.returnGeometry = true;
@@ -905,14 +903,15 @@ require([
             $('#disclaimerModal').modal('show');
 
             var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/MyMapService/FeatureServer/3");
-            var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/0");
-            var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/1");
+            var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/1");
+            var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/0");
             var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/2");
-            
-            map.addLayer(underLayerExist);
-            map.addLayer(swipeLayerRevised);
-            
             map.addLayer(changeLayer);
+            map.addLayer(swipeLayerRevised);
+            map.addLayer(underLayerExist);
+            
+            
+            
             map.addLayer(otherProjectsLayer);
             /*map.reorderLayer(swipeLayer,1);*/
 
@@ -927,7 +926,7 @@ require([
                 type: "vertical",
                 left: 700,
                 map: map,
-                layers: [swipeLayerRevised]
+                layers: [underLayerExist]
             },"swipeDiv");
           
             swipeWidget.startup();
