@@ -445,6 +445,12 @@ require([
     $("#selectionDiv .dropdown").prepend("<div id='selectionClose' tite='close'><b>X</b></div>");
     //$("#selectionDiv .dropdown").prepend("<div id='selectionMin' title='collapse'><b>_</b></div>");
 
+    $(document).ready(function(){
+        $("#selectionDiv").load(function(){
+            $("#selectionDiv").css("top","61%");
+        });
+    });
+
     $("#selectionMin").click(function(){
         $("#selectionDiv").css("visibility", "hidden");
         /*$("#selection-tools-alert").slideDown(250);*/
