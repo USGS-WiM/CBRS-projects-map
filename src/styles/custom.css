@@ -85,7 +85,7 @@
 }
 
 #reclassification{
-  font-size: 1.2em;
+  font-size: 11pxem;
   text-align: center;
   background-color: #e0ebff;
   padding: 10px;
@@ -253,38 +253,36 @@
 }
 
 .sysUnit {
-  background: #FF7F7F;
-  border-color: #474747;
+  background: #bee8ff;
+  border-color: #000000;
   border-width: 1.5px;
 }
 
 .opa {
-  background: #A3FF73;
-  border-color: #474747;
+  background: #ffebaf;
+  border-color: #000000;
   border-width: 1.5px;
 }
 
 .sysUnitRevised {
-  background: #FF7F7F;
-  border-color: #474747;
+  background: #8400a8;
+  border-color: #000000;
   border-width: 2px;
-  border-style: dotted;
-  opacity: 0.8;
+  border-style: dashed;
+  opacity: 0.5;
 }
 
 .opaRevised {
-  background: #A3FF73;
-  border-color: #474747;
+  background: #e64c00;
+  border-color: #000000;
   border-width: 2px;
-  border-style: dotted;
-  opacity: 0.8;
+  border-style: dashed;
+  opacity: 0.5;
 }
 
 .otherExistingProjects {
-  background: #828282;
-  border-color: #828282;
-  border-width: 2px;
-  border-style: dotted;
+  background: #999999;
+  border-color: #999999;
   opacity: 0.8;
 }
 
@@ -351,3 +349,11 @@
          top: 20px;
       }
 
+.panel-group{
+  margin-top: -25px;
+}
+
+#popupList{
+  margin-right: 10px;
+  margin-left: -30px;
+}

@@ -215,7 +215,7 @@ require([
 
         on(search, 'select-result', function(e){
             $("#btnunitDismiss").trigger("click");
-        })
+        });
 
         /* $('#').click(function(){
             $("#btnunitDismiss").trigger("click");
@@ -263,9 +263,9 @@ require([
         showGetDataModal();
     });
 
-    function showGetDataModal() {
+    /* function showGetDataModal() {
         $('#getDataModal').modal('show');
-    }
+    } */
 
     /*aoiSymbol = new PictureMarkerSymbol("../images/grn-pushpin.png", 45, 45);
 
@@ -411,12 +411,12 @@ require([
         map.removeLayer(usgsImageryTopo);
     }); */
 
-    on(dom.byId('btnNatlMap'), 'click', function () {
+    /* on(dom.byId('btnNatlMap'), 'click', function () {
         map.addLayer(nationalMapBasemap, 1);
         map.removeLayer(usgsTopo);
         map.removeLayer(usgsImageryTopo);
         map.removeLayer(usgsImageryTopo);
-    });
+    }); */
 
     on(dom.byId('btnUsgsImgTopo'), 'click', function () {
         map.addLayer(usgsImageryTopo, 1);
@@ -431,33 +431,36 @@ require([
     }) */
 
     //start LobiPanel
-    $("#selectionDiv").lobiPanel({
+    $("#siteInfoDiv").lobiPanel({
         unpin: false,
         reload: false,
         minimize: false,
         close: false,
         expand: false,
         editTitle: false,
-        maxWidth: 800,
-        maxHeight: 550,
+        Width: 500,
+        maxWidth: 520,
+        maxHeight: 420,
+        minWidth: 500,
+        minHeight: 370,
     });
 
-    $("#selectionDiv .dropdown").prepend("<div id='selectionClose' tite='close'><b>X</b></div>");
-    //$("#selectionDiv .dropdown").prepend("<div id='selectionMin' title='collapse'><b>_</b></div>");
+    $("#siteInfoDiv .dropdown").prepend("<div id='selectionClose' tite='close'><b>X</b></div>");
+    //$("#siteInfoDiv .dropdown").prepend("<div id='selectionMin' title='collapse'><b>_</b></div>");
 
-    $(document).ready(function(){
-        $("#selectionDiv").load(function(){
-            $("#selectionDiv").css("top","61%");
+    /* $(document).ready(function(){
+        $("#siteInfoDiv").load(function(){
+            $("#siteInfoDiv").css("top","61%");
         });
-    });
+    }); */
 
     $("#selectionMin").click(function(){
-        $("#selectionDiv").css("visibility", "hidden");
+        $("#siteInfoDiv").css("visibility", "hidden");
         /*$("#selection-tools-alert").slideDown(250);*/
     });
 
     $("#selectionClose").click(function(){
-        $("#selectionDiv").css("visibility", "hidden");
+        $("#siteInfoDiv").css("visibility", "hidden");
         map.graphics.clear();
     });
     //End LobiPanel
@@ -491,7 +494,7 @@ require([
          }
          $('#firstStep').click(function(){
             $('#firstModal').modal('show');
-            $('#mobileModal').modal('hide')
+            $('#mobileModal').modal('hide');
         });
 
         $('#showHelp').click(function(){
@@ -617,6 +620,54 @@ require([
             function clickHandler(event) {
                 $('#outsideCBRS').modal('show');
         }*/
+    on(map, "click", function(evt) {
+        if (evt.graphic === undefined) {                
+            $('#outsideCBRS').modal('show');
+        }
+    });
+
+    on(map, "click", function(evt) {
+        if (evt.graphic._graphicsLayer.layerId == 3) {
+            
+            queryTwo = new Query();
+            queryTwo.returnGeometry = true;
+            queryTwo.geometry = evt.mapPoint;
+            queryTwo.outFields = ["Unit"];
+            //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
+            queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/3");
+            queryTask.execute(queryTwo);
+            setCursorByID("mainDiv");
+            /*var deferredResult = queryTask.execute(query);*/
+
+            var latitude = evt.mapPoint.getLatitude();
+            var longitude = evt.mapPoint.getLongitude();
+
+            queryTask.execute(queryTwo, showResults);
+            
+            function showResults(featureSet) {
+                
+                if (featureSet.features.length > 0) {
+                
+                    var feature = featureSet.features[0];
+                    
+                    var symbol;
+                    symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID,
+                                new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
+                                new dojo.Color([255,0,225]), 2), new dojo.Color([98,194,204,0])
+                            );
+                    
+                    feature.geometry.spatialReference = map.spatialReference;
+                        var graphic = feature;
+                        graphic.setSymbol(symbol);
+
+                        map.graphics.add(graphic);
+
+                    $("#unitOther").text(feature.attributes["Unit"]);
+                }
+             $('#existingCBRS').modal('show');       
+            }
+        }
+    });
 
     //map click handler
     on(map, "click", function(evt) {
@@ -631,9 +682,8 @@ require([
         }
  
         map.graphics.clear();
-
         
-      if (evt.graphic != undefined && (evt.graphic._graphicsLayer.layerId == 0) || evt.graphic != undefined && (evt.graphic._graphicsLayer.layerId == 1) ||evt.graphic != undefined && (evt.graphic._graphicsLayer.layerId == 2)) {
+        if (evt.graphic != undefined && (evt.graphic._graphicsLayer.layerId == 0) || evt.graphic != undefined && (evt.graphic._graphicsLayer.layerId == 1) ||evt.graphic != undefined && (evt.graphic._graphicsLayer.layerId == 2)) {
             
             query = new Query();
             query.returnGeometry = true;
@@ -731,23 +781,34 @@ require([
 
                     /*feature.setInfoTemplate(infoTemplate);
                     map.infoWindow.setFeatures([feature]);
-                    map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));     */           
-                }
-
-                $("#selectionDiv").css("visibility", "visible");
-                    var instance = $('#selectionDiv').data('lobiPanel');
+                    map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));     */  
+                    
+                    $("#siteInfoDiv").css("visibility", "visible");
+                    var instance = $('#siteInfoDiv').data('lobiPanel');
                     var docHeight = $(document).height();
                     var docWidth = $(document).width();
                     var percentageOfScreen = 0.9;
+                    var siteInfoHeight = docHeight*percentageOfScreen
+                    var siteInfoWidth = docWidth*percentageOfScreen;
 
-                    var instanceX = docWidth*0.5-$("#selectionDiv").width()*0.5;
-                    var instanceY = docHeight*0.8-$("#selectionDiv").height()*1.0;
+                    if (docHeight < 500) {
+                        $("#siteInfoDiv").height(siteInfoHeight);
+                    }
+                    if (docWidth < 500) {
+                        $("#siteInfoDiv").width(siteInfoWidth);
+                    }
+
+                    var instanceX = evt.x;
+                    var instanceY = evt.y;
 
 
                     instance.setPosition(instanceX, instanceY);
                     if (instance.isPinned() == true) {
                         instance.unpin();
                     }
+                }
+                
+                
 
                 /*if  (((evt.graphic._graphicsLayer.layerId == 0) && (featureSet.features.length > 0)) || ((evt.graphic._graphicsLayer.layerId == 1) && (featureSet.features.length > 0))) {
                     $( "#changePolygons" ).on( "click", function() {
@@ -759,49 +820,7 @@ require([
                     
             }
             
-        }  else if (evt.graphic === undefined) {                
-            $('#outsideCBRS').modal('show');
-        } else if (evt.graphic._graphicsLayer.layerId == 3) {
-            
-            queryTwo = new Query();
-            queryTwo.returnGeometry = true;
-            queryTwo.geometry = evt.mapPoint;
-            queryTwo.outFields = ["Unit"];
-            //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
-            queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/3");
-            queryTask.execute(queryTwo);
-            setCursorByID("mainDiv");
-            /*var deferredResult = queryTask.execute(query);*/
-
-            var latitude = evt.mapPoint.getLatitude();
-            var longitude = evt.mapPoint.getLongitude();
-
-            queryTask.execute(queryTwo, showResults);
-            
-            function showResults(featureSet) {
-                
-                if (featureSet.features.length > 0) {
-                
-                    var feature = featureSet.features[0];
-                    
-                    var symbol;
-                    symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID,
-                                new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
-                                new dojo.Color([255,0,225]), 2), new dojo.Color([98,194,204,0])
-                            );
-                    
-                    feature.geometry.spatialReference = map.spatialReference;
-                        var graphic = feature;
-                        graphic.setSymbol(symbol);
-
-                        map.graphics.add(graphic);
-
-                    $("#unitOther").text(feature.attributes["Unit"]);
-                }
-             $('#existingCBRS').modal('show');       
-            }
         }
-
        
 
         
@@ -1258,7 +1277,7 @@ require([
     $(document).ready(function(){
 
         function showSiteModal(){
-            $('#selectionDiv').modal('hide');
+            $('#siteInfoDiv').modal('hide');
             $('#outsideCBRS').modal('hide');
         }
 

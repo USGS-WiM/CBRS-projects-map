@@ -137,7 +137,7 @@
                                 <!-- <button id="btnNatGeo" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/natgeo.jpg"><br class="basemapThumb">NatGeo</button> -->
                                 <!-- <button id="btnUsgsTopo" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/usgs_topo.jpg"><br class="basemapThumb">USGS Topo</button> -->
                                 <button id="btnUsgsImgTopo" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/usgs_imagerytopo.jpg"><br class="basemapThumb">USGS Imagery Topo</button>
-                                <button id="btnNatlMap" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/national_map.jpg"><br class="basemapThumb">Nat'l Map</button>
+                                <!-- <button id="btnNatlMap" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/national_map.jpg"><br class="basemapThumb">Nat'l Map</button> -->
                             </div>
 
                         </div>
@@ -173,16 +173,16 @@
                         
                          <!-- Unit Selection Pop Up -->
                     <div>
-                        <div id="selectionDiv" class="panel panel-defaults siteInfoClass">
+                        <div id="siteInfoDiv" class="panel panel-defaults siteInfoClass">
                             <div class="panel-heading">
                                 <div class="panel-title">
-                                    <div><h4 id="siteInfoPanelHeader">John H. Chafee Coastal Barrier Resources System</h4></div>
+                                    <div><h5 id="siteInfoPanelHeader">John H. Chafee Coastal Barrier Resources System</h5></div>
                                 </div>
                             </div>
                                 <div class="panel-group">
                                     <br>
-                                        <div>
-                                            <ul id="popupList">
+                                        <div style="margin-bottom: -25px !important;">
+                                            <ul id="popupList" style="font-size:11px;">
                                                 <p><label id="reclassification"></label></p>
                                                 <li id="attrList">Project Name: <label id="projName"></label></li>
                                                 <li id="attrList">Project Status: <label id="status"></label> - Public review open from <label id="prStart"></label> &#8211; <label id="prEnd"></label> - see docket on <label id="docketURL"></label> to make comments during the comment period and/or view submitted comments.</li>
@@ -275,7 +275,7 @@
                         <p>This application may not be fully accessible to people with disabilities. If you need assistance accessing this mapper or CBRS data email us at: <a href="mailto:CBRA@fws.gov" target="_blank">cbra@fws.gov</a>.</p>
                     </div>
                     <div class="modal-footer">
-                        <div style="text-align: center"><button type="button" class="btn btn-default" data-dismiss="modal" style="background-color: #ffd1d1" onclick="ga('send','event','Disclaimer Modal','click','Disclaimer Accepted');">I accept the terms and conditions</button></div>
+                        <div style="text-align: center"><button type="button" class="btn btn-default" data-dismiss="modal" style="background-color: #ffd1d1">I accept the terms and conditions</button></div>
                     </div>
                 </div>
             </div>
