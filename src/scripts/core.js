@@ -627,7 +627,7 @@ require([
     });
 
     on(map, "click", function(evt) {
-        if (evt.graphic._graphicsLayer.layerId == 3) {
+        if (evt.graphic != undefined && evt.graphic._graphicsLayer.layerId == 3) {
             
             queryTwo = new Query();
             queryTwo.returnGeometry = true;
@@ -727,17 +727,38 @@ require([
                     $("#unitTypeOne").text(feature.attributes["Unit_Type_1"]);
                     $("#status").text(feature.attributes["Status"]);
                     $("#docketURL").html(feature.attributes["Docket_URL"]);
-                    $("#prStart").html(feature.attributes["PR_start_date"]);
-                    $("#prEnd").html(feature.attributes["PR_end_date"]);
-
-                    /*var m = feature.attributes.PR_end_date.match(/(\d\d)(\d\d)(\d\d\d\d)/);*/
-                    /*var d = new Date(feature.attributes.PR_end_date[3], feature.attributes.PR_end_date[1] - 1, feature.attributes.PR_end_date[2]);*/
                     
-                    /*var d = new date(feature.attributes.PR_end_date.replace(/(\d\d)(\d\d)(\d\d\d\d)/, '$3-$1-$2'));*/
+                    function formatDate(date) {
+                
+                        var dStartDay = new Date(feature.attributes["PR_start_date"]).getDate();
+                        var dStartMonth = new Date(feature.attributes["PR_start_date"]).getMonth();
+                        var dStartYear = new Date(feature.attributes["PR_start_date"]).getFullYear();
+
+                        var dEndDay = new Date(feature.attributes["PR_end_date"]).getDate();
+                        var dEndMonth = new Date(feature.attributes["PR_end_date"]).getMonth();
+                        var dEndYear = new Date(feature.attributes["PR_end_date"]).getFullYear();
+
+                        return dStartMonth + '/' + dStartDay + '/' + dStartYear + ' &#8211; ' + dEndMonth + '/' + dEndDay + '/' + dEndYear;
+                    }
+
+                    document.getElementById("prStart").innerHTML = formatDate();
 
                     // checking to see if Transmittal_Date has a value and displaying text is so
                     if (feature.attributes["Transmittal_Date"] !== null) {
-                        $("#transmittalURL").html('Final Recommended—The final recommended boundaries for this project were transmitted to Congress on ' + feature.attributes["Transmittal_Date"] + '.  These boundaries will become effective only if adopted by Congress through legislation.')
+
+                        function formatDateTransmittal(date) {
+
+                            var day = new Date(feature.attributes["PR_end_date"]).getDate();
+                            var month = new Date(feature.attributes["PR_end_date"]).getMonth();
+                            var year = new Date(feature.attributes["PR_end_date"]).getFullYear();
+
+                            return 'Final Recommended &#8211; The final recommended boundaries for this project were transmitted to Congress on ' + month + '/' + day + '/' + year + '. These boundaries will become effective only if adopted by Congress through legislation.';
+
+                            
+                        }
+                        document.getElementById("transmittalURL").innerHTML = formatDateTransmittal();
+
+                        /* $("#transmittalURL").html('Final Recommended &#8211; The final recommended boundaries for this project were transmitted to Congress on ' + feature.attributes["Transmittal_Date"] + '.  These boundaries will become effective only if adopted by Congress through legislation.') */
                     }                   
                     
                     // NO CHANGE PROPOSED --  [Unit] and [Unit_1] in “Change_Polygons” are equal
@@ -764,7 +785,7 @@ require([
 
                     // TRANSFERS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] equals [Unit_Type_1] in the “Change_Polygons”
                     if (((feature.attributes["Unit"]) !== feature.attributes["Unit_1"]) && (feature.attributes["Unit"] !== "") && (feature.attributes["Unit_1"] !== "") && ((feature.attributes["Unit_Type"] === feature.attributes["Unit_Type_1"]))) {
-                        $("#reclassification").html('You have clicked within an area that is proposed for reclassification from' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                        $("#reclassification").html('You have clicked within an area that is proposed for reclassification from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
                         // took out ' + feature.attributes["Status"] + ' because the Status for these 
                     }
 
