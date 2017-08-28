@@ -192,13 +192,26 @@ require([
         displayField: "Unit",
         exactMatch: false,
         outFields: ["Unit"],
-        name: "Units",
+        name: "Revised Units",
         placeholder: "e.g NJ-07",
         highlightSymbol: new PictureMarkerSymbol("https://js.arcgis.com/3.21/esri/dijit/Search/images/search-pointer.png", 40, 40).setOffset(9, 18),
         maxResults: 6,
         maxSuggestions: 6,
     });
 
+    sources.push({
+        featureLayer: new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/0"),
+        searchFields: ["Unit"],
+        displayField: "Unit",
+        exactMatch: false,
+        outFields: ["Unit"],
+        name: "Existing Units",
+        placeholder: "e.g NJ-07",
+        highlightSymbol: new PictureMarkerSymbol("https://js.arcgis.com/3.21/esri/dijit/Search/images/search-pointer.png", 40, 40).setOffset(9, 18),
+        maxResults: 6,
+        maxSuggestions: 6,
+    });
+    
         search.set("sources", sources);
 
         $('#cbrsNav').click(function(){
@@ -424,12 +437,12 @@ require([
         map.removeLayer(usgsTopo);
     });
 
-    /* on(dom.byId('btnUsgsTopo'), 'click', function () {
+    on(dom.byId('btnUsgsTopo'), 'click', function () {
         map.addLayer(usgsTopo, 1);
         map.removeLayer(nationalMapBasemap);
         map.removeLayer(usgsImageryTopo);
-    }) */
-
+    })
+    
     //start LobiPanel
     $("#siteInfoDiv").lobiPanel({
         unpin: false,
@@ -744,7 +757,7 @@ require([
                     document.getElementById("prStart").innerHTML = formatDate();
 
                     // checking to see if Transmittal_Date has a value and displaying text is so
-                    if (feature.attributes["Transmittal_Date"] !== null) {
+                    /* if (feature.attributes["Transmittal_Date"] !== null) {
 
                         function formatDateTransmittal(date) {
 
@@ -757,9 +770,7 @@ require([
                             
                         }
                         document.getElementById("transmittalURL").innerHTML = formatDateTransmittal();
-
-                        /* $("#transmittalURL").html('Final Recommended &#8211; The final recommended boundaries for this project were transmitted to Congress on ' + feature.attributes["Transmittal_Date"] + '.  These boundaries will become effective only if adopted by Congress through legislation.') */
-                    }                   
+                    } */                   
                     
                     // NO CHANGE PROPOSED --  [Unit] and [Unit_1] in “Change_Polygons” are equal
 
@@ -779,13 +790,13 @@ require([
                     }
 
                     // RECLASSIFICATIONS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] does not equal [Unit_Type_1] in the “Change_Polygons”
-                    if (((feature.attributes["Unit"]) !== feature.attributes["Unit_1"]) && (feature.attributes["Unit"] !== "") && (feature.attributes["Unit_1"] !== "") && ((feature.attributes["Unit_Type"] !== feature.attributes["Unit_Type_1"]))) {
+                    if (((feature.attributes["Unit"]) !== feature.attributes["Unit_1"]) && ((feature.attributes["Unit"] !== "") && (feature.attributes["Unit_1"]) !== "") && ((feature.attributes["Unit_Type"] !== feature.attributes["Unit_Type_1"]))) {
                         $("#reclassification").html('You have clicked within an area that is ' + feature.attributes["Status"] + ' for reclassification from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
                     }
 
                     // TRANSFERS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] equals [Unit_Type_1] in the “Change_Polygons”
                     if (((feature.attributes["Unit"]) !== feature.attributes["Unit_1"]) && (feature.attributes["Unit"] !== "") && (feature.attributes["Unit_1"] !== "") && ((feature.attributes["Unit_Type"] === feature.attributes["Unit_Type_1"]))) {
-                        $("#reclassification").html('You have clicked within an area that is proposed for reclassification from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                        $("#reclassification").html('You have clicked within an area that is proposed for transfer from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
                         // took out ' + feature.attributes["Status"] + ' because the Status for these 
                     }
 
