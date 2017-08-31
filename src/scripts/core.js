@@ -790,7 +790,7 @@ require([
                     }
 
                     // RECLASSIFICATIONS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] does not equal [Unit_Type_1] in the “Change_Polygons”
-                    if (((feature.attributes["Unit"]) !== feature.attributes["Unit_1"]) && ((feature.attributes["Unit"] !== "") && (feature.attributes["Unit_1"]) !== "") && ((feature.attributes["Unit_Type"] !== feature.attributes["Unit_Type_1"]))) {
+                    if (((feature.attributes["Unit"]) !== feature.attributes["Unit_1"]) && (feature.attributes["Unit"] !== "") && (feature.attributes["Unit_1"]) !== "" && ((feature.attributes["Unit_Type"] !== feature.attributes["Unit_Type_1"]))) {
                         $("#reclassification").html('You have clicked within an area that is ' + feature.attributes["Status"] + ' for reclassification from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
                     }
 
