@@ -154,12 +154,12 @@ require([
 
         map = new Map('mapDiv', {
             basemap: 'gray',
-            extent: new Extent(-8514000, 4741000, -8045000, 4912000, new SpatialReference({ wkid: 3857 }))
+            extent: new Extent(-12567000, 2726000, -5053000, 5529000, new SpatialReference({ wkid: 3857 }))
         });
 
         var home = new HomeButton({
             map: map,
-            extent: new Extent(-8514000, 4741000, -8045000, 4912000, new SpatialReference({ wkid: 3857 }))
+            extent: new Extent(-12567000, 2726000, -5053000, 5529000, new SpatialReference({ wkid: 3857 }))
         }, "homeButton");
         home.startup();
 
@@ -701,7 +701,7 @@ require([
                 query = new Query();
                 query.returnGeometry = true;
                 query.geometry = evt.mapPoint;
-                query.outFields = ["Unit", "Name", "Unit_Type", "Change_Type", "Summary_URL", "Project_name", "Status", "Docket_URL", "Unit_1", "Unit_Type_1", "PR_start_date", "PR_end_date", "Transmittal_Date"];
+                query.outFields = ["Unit", "Name", "Unit_Type", "Change_Type", "Summary_URL", "Project_name", "Project_URL", "Status", "Docket_URL", "Unit_1", "Unit_Type_1", "PR_start_date", "PR_end_date", "Transmittal_Date"];
                 //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
                 queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/2");
                 queryTask.execute(query);
@@ -735,10 +735,22 @@ require([
 
                         $("#unitNum").text(feature.attributes["Unit"]);
                         $("#unitNumOne").text(feature.attributes["Unit_1"]);
-                        $("#projName").text(feature.attributes["Project_name"]);
+                        
                         $("#unitType").text(feature.attributes["Unit_Type"]);
                         $("#unitTypeOne").text(feature.attributes["Unit_Type_1"]);
                         $("#docketURL").html(feature.attributes["Docket_URL"]);
+
+                        var status = feature.attributes["Status"].toLowerCase();
+                        var projURL = feature.attributes["Project_URL"];
+                        var projectName = feature.attributes["Project_name"];
+
+                        $("#projName").html('<a href="' + projURL + '" target="_blank">' + projectName + '</a>');
+
+
+
+
+
+
 
                         // checking to see if Transmittal_Date has a value and displaying text is so
                         /* if (feature.attributes["Transmittal_Date"] !== null) {
@@ -764,23 +776,23 @@ require([
 
                         // ADDTIONS -- [Unit] is null and [Unit_1] is not null in the “Change_Polygons”
                         if (((feature.attributes["Unit"]) === "") && (feature.attributes["Unit_1"] !== "")) {
-                            $("#reclassification").html('You have clicked within an area that is proposed for addition to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                            $("#reclassification").html('You have clicked within an area that is ' + status + ' for addition to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
                             // Where 'proposed' is in the previous statement I removed ' + feature.attributes["Status"] + ' because the P was capitalized in the data and that was not desired on the modal. I don't think the status changes at all for Addition but I'm leaving this here just incase.
                         }
 
                         // REMOVALS -- This modal format appears when [Unit] is not null and [Unit_1] is null in the “Change_Polygons”
                         if (((feature.attributes["Unit"]) !== "") && (feature.attributes["Unit_1"] === "")) {
-                            $("#reclassification").html('You have clicked within an area that is ' + feature.attributes["Status"] + ' for removal from ' + feature.attributes["Unit_Type"] + ', ' + feature.attributes["Unit"] + '.');
+                            $("#reclassification").html('You have clicked within an area that is ' + status + ' for removal from ' + feature.attributes["Unit_Type"] + ', ' + feature.attributes["Unit"] + '.');
                         }
 
                         // RECLASSIFICATIONS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] does not equal [Unit_Type_1] in the “Change_Polygons”
                         if (((feature.attributes["Unit"]) !== feature.attributes["Unit_1"]) && (feature.attributes["Unit"] !== "") && (feature.attributes["Unit_1"]) !== "" && ((feature.attributes["Unit_Type"] !== feature.attributes["Unit_Type_1"]))) {
-                            $("#reclassification").html('You have clicked within an area that is ' + feature.attributes["Status"] + ' for reclassification from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                            $("#reclassification").html('You have clicked within an area that is ' + status + ' for reclassification from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
                         }
 
                         // TRANSFERS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] equals [Unit_Type_1] in the “Change_Polygons”
                         if (((feature.attributes["Unit"]) !== feature.attributes["Unit_1"]) && (feature.attributes["Unit"] !== "") && (feature.attributes["Unit_1"] !== "") && ((feature.attributes["Unit_Type"] === feature.attributes["Unit_Type_1"]))) {
-                            $("#reclassification").html('You have clicked within an area that is proposed for transfer from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                            $("#reclassification").html('You have clicked within an area that is ' + status + ' for transfer from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
                             // took out ' + feature.attributes["Status"] + ' because the Status for these 
                         }
 
@@ -803,7 +815,7 @@ require([
 
                             $("#status").html(feature.attributes["Status"] + "&#8211; Public review open from " + prDate + ". see docket on " + feature.attributes["Docket_URL"] + " to make comments during the comment period and/or view submitted comments.");
 
-                        
+
                         } if (feature.attributes["Status"].includes("F")) { // Final recommended status
 
                             var day = new Date(feature.attributes["PR_end_date"]).getDate();
