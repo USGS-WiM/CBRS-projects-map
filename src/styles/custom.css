@@ -288,6 +288,10 @@
   opacity: 0.8;
 }
 
+.legendSpacing {
+  margin-bottom: 15px;
+}
+
 #showHelp {
   background-color: rgb(69, 116, 204);
   border-color: rgb(69, 116, 204);
