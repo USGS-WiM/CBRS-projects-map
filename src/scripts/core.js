@@ -735,12 +735,16 @@ require([
 
                         $("#unitNum").text(feature.attributes["Unit"]);
                         $("#unitNumOne").text(feature.attributes["Unit_1"]);
-                        
+
                         $("#unitType").text(feature.attributes["Unit_Type"]);
                         $("#unitTypeOne").text(feature.attributes["Unit_Type_1"]);
                         $("#docketURL").html(feature.attributes["Docket_URL"]);
+                        //$("#statusTwo").text(feature.attributes["Status"]);
 
                         var status = feature.attributes["Status"].toLowerCase();
+                        $("#statusTwo").text(status);
+                        $("#statusTwo").css("font-weight", "normal");
+
                         var projURL = feature.attributes["Project_URL"];
                         var projectName = feature.attributes["Project_name"];
 
@@ -814,7 +818,10 @@ require([
                             prDate = fulldate;
 
                             $("#status").html(feature.attributes["Status"] + "&#8211; Public review open from " + prDate + ". see docket on " + feature.attributes["Docket_URL"] + " to make comments during the comment period and/or view submitted comments.");
+                            
+                            $("#status").css("font-weight", "normal");
 
+                            $( "#finalRecText" ).hide();
 
                         } if (feature.attributes["Status"].includes("F")) { // Final recommended status
 
@@ -826,12 +833,26 @@ require([
                             transmittalDate = formattedDate;
 
                             $("#status").html(feature.attributes["Status"] + "&#8211; The final recommended boundaries for this project were transmitted to Congress on " + transmittalDate + ". These boundaries will become effective only if adopted by Congress through legislation.");
+
+                            $("#status").css("font-weight", "normal");
+                            
+                            $("#finalRecText").html("View other information related to this project, including final recommended maps and responses to public comments: " + '<a href="' + projURL + '" target="_blank">' + projURL + '</a>')
+
+                            $("#finalRecText").css("font-weight", "normal");
+                            $( "#finalRecText" ).show();
+
                         }
 
                         $("#unitName").text(feature.attributes["Name"]);
                         $("#changeTyp").text(feature.attributes["Change_Type"]);
                         $("#siteUnit").text(feature.attributes["Unit"]);
-                        $("#summaryUrl").html('<a href="' + feature.attributes["Summary_URL"] + '" target="_blank">Click here for the official Unit Summary PDF</a>');
+
+                        var sumURL = feature.attributes["Summary_URL"];
+                        $("#summaryUrl").html("View the Service&#146s Summary of " + status + "changes for this unit: " + '<a href="' + sumURL + '" target="_blank">' + sumURL + '</a>');
+
+                        $("#summaryUrl").css("font-weight", "normal");
+
+
 
                         $("#siteInfoDiv").css("visibility", "visible");
                         var instance = $('#siteInfoDiv').data('lobiPanel');
@@ -1009,7 +1030,7 @@ require([
             swipeWidget.startup();
 
             swipeWidget.on("swipe", function () {
-                console.log(document.getElementsByClassName("vertical")[0].style["top"]);
+                // console.log(document.getElementsByClassName("vertical")[0].style["top"]);
                 document.getElementsByClassName("vertical")[0].style["top"] = "0";
             });
 

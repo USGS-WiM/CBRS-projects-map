@@ -189,7 +189,7 @@
                                     <ul id="popupList" style="font-size:11px;">
                                         <p><label id="reclassification"></label></p>
                                         <li id="attrList">Project Name: <label id="projName"></label></li>
-                                        <li id="attrList">Project Status: <label id="status" style="text-transform: lowercase;"></label></li>
+                                        <li id="attrList">Project Status: <label id="status"></label></li>
                                         <!-- <li id="attrList"><label id="transmittalURL"></label></li> -->
                                         <!--<li id="attrList">Unit Number: <label id="unitNum"></label></li>-->
                                         <!--<li id="attrList">Unit Number 1: <label id="unitNumOne"></label></li>-->
@@ -199,9 +199,8 @@
                                         <p>Please see our <a href="https://www.fws.gov/cbra/" target="_blank">website</a> for
                                             a description of the types of changes that the Service may propose to the CBRS
                                             (e.g., additions, removals, reclassifications).</p>
-                                        <p>To view the Service&#146s Summary of Proposed Changes for this unit: <a href="" id="summaryUrl"
-                                                target="_blank"></a></p>
-                                        <p>To view the existing CBRS units in this area please click the <strong>Existing CBRS Polygons</strong>                                            layer in the Map Layers panel.</p>
+                                        <p><label id="summaryUrl"></label><label id="finalRecText"></label></p>
+                                        <p>To view the existing CBRS units in this area please click the <strong>Existing CBRS Polygons</strong> layer in the Map Layers panel.</p>
                                         <p>CBRS units extend seaward out to either the 20 or 30 foot bathymetric contour (depending
                                             on the location of the unit). The true seaward extent of the units is not shown
                                             in this mapper. For additional information, please contact <a href="mailto:CBRA@fws.gov"
@@ -215,7 +214,7 @@
                     </div>
                     <!-- End PopUp -->
 
-                    <div id="legendElement" class="panel panel-default legendClass">
+                    <div id="legendElement" class="panel panel-default legendClass" style="height: 350px;max-height: 350px;">
                         <div id="legendHeading" class="legendHeading" role="tab">
                             <h4 class="panel-title" id="work">
                                 <a data-toggle="collapse" style="text-decoration: none" href="#legendCollapse" aria-expanded="true" aria-controls="collapseOne">
@@ -224,7 +223,7 @@
                                     </a>
                             </h4>
                         </div>
-                        <div id="legendCollapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div id="legendCollapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" style="height: 350px;max-height: 350px;">
                             <div id="legendDiv" class="panel-body">
                                 <h5 style="padding-top: 10px;font-weight:bold;">Existing Units</h5>
                                 <p class="legendSpacing">
@@ -592,7 +591,8 @@
                                     the time of their designation within the CBRS. The boundaries of these units are generally
                                     intended to follow geomorphic, development, or cultural features. Most new Federal expenditures
                                     and financial assistance, including Federal flood insurance, are prohibited within System
-                                    units.</p>
+                                    units.
+                                </p>
 
                                 <p>OPAs are generally comprised of lands held by a qualified organization primarily for wildlife
                                     refuge, sanctuary, recreational, or natural resource conservation purposes. The boundaries
