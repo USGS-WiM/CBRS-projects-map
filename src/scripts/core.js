@@ -629,6 +629,48 @@ require([
             }, 200);
         });
 
+        on(map, "load", function () {
+        
+        });
+
+        on(map, "load", function () {
+            
+                        $('#disclaimerModal').modal('show');
+            
+                        var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/MyMapService/FeatureServer/3");
+                        var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/1");
+                        var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/0");
+                        var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/2");
+                        
+                        
+                        map.addLayer(swipeLayerRevised);
+                        map.addLayer(underLayerExist);
+                        map.addLayer(changeLayer);map.addLayer(changeLayer);
+                        map.addLayer(otherProjectsLayer);
+                        /*map.reorderLayer(swipeLayer,1);*/
+            
+                        $("#swipeDiv").on(function () {
+                            if (map.graphicsLayerIds == 0) {
+                                map.removeLayer(swipeLayerRevised);
+                            }
+                        });
+            
+                        //Layer swipe widget
+                        var swipeWidget = new LayerSwipe({
+                            type: "vertical",
+                            left: 700,
+                            map: map,
+                            layers: [underLayerExist]
+                        }, "swipeDiv");
+            
+                        swipeWidget.startup();
+            
+                        swipeWidget.on("swipe", function () {
+                            // console.log(document.getElementsByClassName("vertical")[0].style["top"]);
+                            document.getElementsByClassName("vertical")[0].style["top"] = "0";
+                        });
+                    });
+
         /* map.on("Click", clickHandler);
                  function clickHandler(event) {
                      $('#outsideCBRS').modal('show');
@@ -682,6 +724,8 @@ require([
             }
         });
 
+        
+
         //map click handler
         on(map, "click", function (evt) {
 
@@ -696,7 +740,7 @@ require([
 
             map.graphics.clear();
 
-            if (evt.graphic != undefined && (evt.graphic._graphicsLayer.layerId == 0) || evt.graphic != undefined && (evt.graphic._graphicsLayer.layerId == 1) || evt.graphic != undefined && (evt.graphic._graphicsLayer.layerId == 2)) {
+            if (evt.graphic != undefined) {
 
                 query = new Query();
                 query.returnGeometry = true;
@@ -780,23 +824,23 @@ require([
 
                         // ADDTIONS -- [Unit] is null and [Unit_1] is not null in the “Change_Polygons”
                         if (((feature.attributes["Unit"]) === "") && (feature.attributes["Unit_1"] !== "")) {
-                            $("#reclassification").html('You have clicked within an area that is ' + status + ' for addition to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                            $("#reclassification").html('You have clicked within an area that is recommended for addition to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
                             // Where 'proposed' is in the previous statement I removed ' + feature.attributes["Status"] + ' because the P was capitalized in the data and that was not desired on the modal. I don't think the status changes at all for Addition but I'm leaving this here just incase.
                         }
 
                         // REMOVALS -- This modal format appears when [Unit] is not null and [Unit_1] is null in the “Change_Polygons”
                         if (((feature.attributes["Unit"]) !== "") && (feature.attributes["Unit_1"] === "")) {
-                            $("#reclassification").html('You have clicked within an area that is ' + status + ' for removal from ' + feature.attributes["Unit_Type"] + ', ' + feature.attributes["Unit"] + '.');
+                            $("#reclassification").html('You have clicked within an area that is recommended for removal from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + '.');
                         }
 
                         // RECLASSIFICATIONS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] does not equal [Unit_Type_1] in the “Change_Polygons”
                         if (((feature.attributes["Unit"]) !== feature.attributes["Unit_1"]) && (feature.attributes["Unit"] !== "") && (feature.attributes["Unit_1"]) !== "" && ((feature.attributes["Unit_Type"] !== feature.attributes["Unit_Type_1"]))) {
-                            $("#reclassification").html('You have clicked within an area that is ' + status + ' for reclassification from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                            $("#reclassification").html('You have clicked within an area that is recommended for reclassification from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
                         }
 
                         // TRANSFERS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] equals [Unit_Type_1] in the “Change_Polygons”
                         if (((feature.attributes["Unit"]) !== feature.attributes["Unit_1"]) && (feature.attributes["Unit"] !== "") && (feature.attributes["Unit_1"] !== "") && ((feature.attributes["Unit_Type"] === feature.attributes["Unit_Type_1"]))) {
-                            $("#reclassification").html('You have clicked within an area that is ' + status + ' for transfer from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                            $("#reclassification").html('You have clicked within an area that is recommended for transfer from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
                             // took out ' + feature.attributes["Status"] + ' because the Status for these 
                         }
 
@@ -817,7 +861,7 @@ require([
 
                             prDate = fulldate;
 
-                            $("#status").html(feature.attributes["Status"] + "&#8211; Public review open from " + prDate + ". see docket on " + feature.attributes["Docket_URL"] + " to make comments during the comment period and/or view submitted comments.");
+                            $("#status").html('<strong>' + feature.attributes["Status"] + '</strong>' + "&#8211; Public review open from " + prDate + ". see docket on " + feature.attributes["Docket_URL"] + " to make comments during the comment period and/or view submitted comments.");
                             
                             $("#status").css("font-weight", "normal");
 
@@ -832,7 +876,7 @@ require([
 
                             transmittalDate = formattedDate;
 
-                            $("#status").html(feature.attributes["Status"] + "&#8211; The final recommended boundaries for this project were transmitted to Congress on " + transmittalDate + ". These boundaries will become effective only if adopted by Congress through legislation.");
+                            $("#status").html('<strong>' + feature.attributes["Status"] + '</strong>' + "&#8211; The final recommended boundaries for this project were transmitted to Congress on " + transmittalDate + ". These boundaries will become effective only if adopted by Congress through legislation.");
 
                             $("#status").css("font-weight", "normal");
                             
@@ -996,46 +1040,7 @@ require([
             map.graphics.clear();
         });
 
-        on(map, "load", function () {
-
-            $('#disclaimerModal').modal('show');
-
-            var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/MyMapService/FeatureServer/3");
-            var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/1");
-            var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/0");
-            var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/2");
-            map.addLayer(changeLayer);
-            map.addLayer(swipeLayerRevised);
-            map.addLayer(underLayerExist);
-
-
-
-            map.addLayer(otherProjectsLayer);
-            /*map.reorderLayer(swipeLayer,1);*/
-
-            $("#swipeDiv").on(function () {
-                if (map.graphicsLayerIds == 0) {
-                    map.removeLayer(swipeLayerRevised);
-                }
-            });
-
-            //Layer swipe widget
-            var swipeWidget = new LayerSwipe({
-                type: "vertical",
-                left: 700,
-                map: map,
-                layers: [underLayerExist]
-            }, "swipeDiv");
-
-            swipeWidget.startup();
-
-            swipeWidget.on("swipe", function () {
-                // console.log(document.getElementsByClassName("vertical")[0].style["top"]);
-                document.getElementsByClassName("vertical")[0].style["top"] = "0";
-            });
-
-
-        });
+        
 
         /*map.on("layers-add-result", function (evt) {
         var layerInfo = arrayUtils.map(evt.layers, function (layer, index) {
