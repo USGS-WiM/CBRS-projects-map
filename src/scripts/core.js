@@ -861,7 +861,7 @@ require([
 
                             prDate = fulldate;
 
-                            $("#status").html('<strong>' + feature.attributes["Status"] + '</strong>' + "&#8211; Public review open from " + prDate + ". see docket on " + feature.attributes["Docket_URL"] + " to make comments during the comment period and/or view submitted comments.");
+                            $("#status").html('<strong>' + feature.attributes["Status"] + '</strong>' + "&#8211; Public review open from " + prDate + ". See docket on " + feature.attributes["Docket_URL"] + " to make comments during the comment period and/or view submitted comments.");
                             
                             $("#status").css("font-weight", "normal");
 
