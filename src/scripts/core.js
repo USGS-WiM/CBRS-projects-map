@@ -801,7 +801,7 @@ require([
                         // NO CHANGE PROPOSED --  [Unit] and [Unit_1] in “Change_Polygons” are equal
 
                         if ((feature.attributes["Unit"]) === feature.attributes["Unit_1"]) {
-                            $("#reclassification").html('You have clicked within an area that is proposed to remain within the CBRS as ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                            $("#reclassification").html('You have clicked within an area that is recommended to remain within the CBRS as ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
                         }
 
                         // ADDTIONS -- [Unit] is null and [Unit_1] is not null in the “Change_Polygons”
@@ -854,7 +854,7 @@ require([
                             var day = new Date(feature.attributes["PR_end_date"]).getDate();
                             var month = new Date(feature.attributes["PR_end_date"]).getMonth();
                             var year = new Date(feature.attributes["PR_end_date"]).getFullYear();
-                            var formattedDate = day + "/" + month + "/" + year;
+                            var formattedDate = month + "/" + day + "/" + year;
 
                             transmittalDate = formattedDate;
 
@@ -874,7 +874,7 @@ require([
                         $("#siteUnit").text(feature.attributes["Unit"]);
 
                         var sumURL = feature.attributes["Summary_URL"];
-                        $("#summaryUrl").html("View the Service&#146s Summary of " + status + "changes for this unit: " + '<a href="' + sumURL + '" target="_blank">' + sumURL + '</a>');
+                        $("#summaryUrl").html("View the Service&#146s Summary of Final Recommended Changes " + "for this unit: " + '<a href="' + sumURL + '" target="_blank">' + sumURL + '</a>');
 
                         $("#summaryUrl").css("font-weight", "normal");
 
