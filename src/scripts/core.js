@@ -187,7 +187,7 @@ require([
         var sources = search.get("sources");
 
         sources.push({
-            featureLayer: new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/2"),
+            featureLayer: new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/1"),
             searchFields: ["Unit"],
             displayField: "Unit",
             exactMatch: false,
@@ -630,10 +630,6 @@ require([
         });
 
         on(map, "load", function () {
-        
-        });
-
-        on(map, "load", function () {
             
                         $('#disclaimerModal').modal('show');
             
@@ -800,21 +796,7 @@ require([
 
 
 
-                        // checking to see if Transmittal_Date has a value and displaying text is so
-                        /* if (feature.attributes["Transmittal_Date"] !== null) {
-    
-                            function formatDateTransmittal(date) {
-    
-                                var day = new Date(feature.attributes["PR_end_date"]).getDate();
-                                var month = new Date(feature.attributes["PR_end_date"]).getMonth();
-                                var year = new Date(feature.attributes["PR_end_date"]).getFullYear();
-    
-                                return 'Final Recommended &#8211; The final recommended boundaries for this project were transmitted to Congress on ' + month + '/' + day + '/' + year + '. These boundaries will become effective only if adopted by Congress through legislation.';
-    
-                                
-                            }
-                            document.getElementById("transmittalURL").innerHTML = formatDateTransmittal();
-                        } */
+
 
                         // NO CHANGE PROPOSED --  [Unit] and [Unit_1] in “Change_Polygons” are equal
 
