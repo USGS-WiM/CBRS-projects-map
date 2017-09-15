@@ -1230,23 +1230,6 @@ require([
         $('#faq9header').click(function () { $('#faq9body').slideToggle(250); });
         $('#faq10header').click(function () { $('#faq10body').slideToggle(250); });
         $('#faq11header').click(function () { $('#faq11body').slideToggle(250); });
-        $('#faq12header').click(function () { $('#faq12body').slideToggle(250); });
-        $('#faq13header').click(function () { $('#faq13body').slideToggle(250); });
-        $('#faq14header').click(function () { $('#faq14body').slideToggle(250); });
-        $('#faq15header').click(function () { $('#faq15body').slideToggle(250); });
-        $('#faq16header').click(function () { $('#faq16body').slideToggle(250); });
-        $('#faq17header').click(function () { $('#faq17body').slideToggle(250); });
-        $('#faq18header').click(function () { $('#faq18body').slideToggle(250); });
-        $('#faq19header').click(function () { $('#faq19body').slideToggle(250); });
-        $('#faq20header').click(function () { $('#faq20body').slideToggle(250); });
-        $('#faq21header').click(function () { $('#faq21body').slideToggle(250); });
-        $('#faq22header').click(function () { $('#faq22body').slideToggle(250); });
-        $('#faq23header').click(function () { $('#faq23body').slideToggle(250); });
-        $('#faq24header').click(function () { $('#faq24body').slideToggle(250); });
-        $('#faq25header').click(function () { $('#faq25body').slideToggle(250); });
-        $('#faq26header').click(function () { $('#faq26body').slideToggle(250); });
-        $('#faq27header').click(function () { $('#faq27body').slideToggle(250); });
-        $('#faq28header').click(function () { $('#faq28body').slideToggle(250); });
 
         $('.fullsize').click(function () {
             var data = "<img src='" + $(this).attr('src') + "'/>";
@@ -1300,7 +1283,7 @@ require([
             //"legendLayers": [legendLayer]
             var docTitle = template.layoutOptions.titleText;
             printParams.template = template;
-            var printMap = new PrintTask("http://fwsprimary.wim.usgs.gov/server/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task");
+            var printMap = new PrintTask("https://fwsprimary.wim.usgs.gov/server/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task");
             printMap.execute(printParams, printDone, printError);
 
             /* $.get("https://fwsprimary.wim.usgs.gov/pdfLoggingService/pdfLog.asmx/Log?printInfo=" + map.getScale() + "," + map.extent.xmin + "," + map.extent.ymax + "," + map.extent.xmax + "," + map.extent.ymin + ",NWIV2", function (data) {
