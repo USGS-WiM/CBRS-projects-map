@@ -187,7 +187,7 @@ require([
         var sources = search.get("sources");
 
         sources.push({
-            featureLayer: new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/1"),
+            featureLayer: new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/1"),
             searchFields: ["Unit"],
             displayField: "Unit",
             exactMatch: false,
@@ -200,7 +200,7 @@ require([
         });
 
         sources.push({
-            featureLayer: new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/0"),
+            featureLayer: new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/0"),
             searchFields: ["Unit"],
             displayField: "Unit",
             exactMatch: false,
@@ -633,10 +633,10 @@ require([
 
             $('#disclaimerModal').modal('show');
 
-            var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/MyMapService/FeatureServer/2");
-            var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/1");
-            var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/0");
-            var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/3");
+            var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/3");
+            var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/1");
+            var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/projectmapperlive/FeatureServer/0");
+            var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/2");
 
 
             map.addLayer(swipeLayerRevised);
@@ -678,14 +678,14 @@ require([
         });
 
         on(map, "click", function (evt) {
-            if (evt.graphic != undefined && evt.graphic._graphicsLayer.layerId == 2) {
+            if (evt.graphic != undefined && evt.graphic._graphicsLayer.layerId == 3) {
 
                 queryTwo = new Query();
                 queryTwo.returnGeometry = true;
                 queryTwo.geometry = evt.mapPoint;
                 queryTwo.outFields = ["Unit"];
                 //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
-                queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/2");
+                queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/3");
                 queryTask.execute(queryTwo);
                 setCursorByID("mainDiv");
                 /*var deferredResult = queryTask.execute(query);*/
@@ -743,7 +743,7 @@ require([
                 query.geometry = evt.mapPoint;
                 query.outFields = ["Unit", "Name", "Unit_Type", "Change_Type", "Summary_URL", "Project_name", "Project_URL", "Status", "Docket_URL", "Unit_1", "Unit_Type_1", "PR_start_date", "PR_end_date", "Transmittal_Date"];
                 //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
-                queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/3");
+                queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/2");
                 queryTask.execute(query);
                 setCursorByID("mainDiv");
                 /*var deferredResult = queryTask.execute(query);*/
