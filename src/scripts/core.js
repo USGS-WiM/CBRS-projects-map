@@ -853,9 +853,9 @@ require([
 
                         } if (feature.attributes["Status"].includes("F")) { // Final recommended status
 
-                            var day = new Date(feature.attributes["PR_end_date"]).getDate();
-                            var month = new Date(feature.attributes["PR_end_date"]).getMonth();
-                            var year = new Date(feature.attributes["PR_end_date"]).getFullYear();
+                            var day = new Date(feature.attributes["Transmittal_Date"]).getDate();
+                            var month = new Date(feature.attributes["Transmittal_Date"]).getMonth();
+                            var year = new Date(feature.attributes["Transmittal_Date"]).getFullYear();
                             var formattedDate = month + "/" + day + "/" + year;
 
                             transmittalDate = formattedDate;
@@ -876,7 +876,7 @@ require([
                         $("#siteUnit").text(feature.attributes["Unit"]);
 
                         var sumURL = feature.attributes["Summary_URL"];
-                        $("#summaryUrl").html("View the Service&#146s Summary of Final Recommended Changes " + "for this unit: " + '<a href="' + sumURL + '" target="_blank">' + sumURL + '</a>');
+                        $("#summaryUrl").html("View the Service&#146s Summary of " + feature.attributes["Status"] +  " changes for this unit: " + '<a href="' + sumURL + '" target="_blank">' + sumURL + '</a>');
 
                         $("#summaryUrl").css("font-weight", "normal");
 
