@@ -853,12 +853,27 @@ require([
 
                         } if (feature.attributes["Status"].includes("F")) { // Final recommended status
 
-                            var day = new Date(feature.attributes["PR_end_date"]).getDate();
-                            var month = new Date(feature.attributes["PR_end_date"]).getMonth();
-                            var year = new Date(feature.attributes["PR_end_date"]).getFullYear();
-                            var formattedDate = month + "/" + day + "/" + year;
+                            /* var day = new Date(feature.attributes["Transmittal_Date"]).getDate();
+                            var month = new Date(feature.attributes["Transmittal_Date"]).getMonth();
+                            var year = new Date(feature.attributes["Transmittal_Date"]).getFullYear();
 
-                            transmittalDate = formattedDate;
+                            var strDay = day.toString();
+                            var strMonth = month.toString();
+                            var strYear = year.toString();
+
+
+                            var formattedDate = strMonth + "/" + strDay + "/" + strYear;
+
+
+                            transmittalDate = formattedDate; */
+
+                            /* moment().format(feature.attributes["Transmittal_Date"]); */
+
+                            var timeStamp = feature.attributes["Transmittal_Date"] + 1;
+                            var transDate = new Date(timeStamp);
+                            var str = transDate.toDateString();
+
+                            transmittalDate = str;
 
                             $("#status").html('<strong>' + feature.attributes["Status"] + '</strong>' + "&#8211; The final recommended boundaries for this project were transmitted to Congress on " + transmittalDate + ". These boundaries will become effective only if adopted by Congress through legislation.");
 
@@ -876,7 +891,7 @@ require([
                         $("#siteUnit").text(feature.attributes["Unit"]);
 
                         var sumURL = feature.attributes["Summary_URL"];
-                        $("#summaryUrl").html("View the Service&#146s Summary of Final Recommended Changes " + "for this unit: " + '<a href="' + sumURL + '" target="_blank">' + sumURL + '</a>');
+                        $("#summaryUrl").html("View the Service&#146s Summary of " + feature.attributes["Status"] + " Changes for this unit: " + '<a href="' + sumURL + '" target="_blank">' + sumURL + '</a>');
 
                         $("#summaryUrl").css("font-weight", "normal");
 
@@ -1237,6 +1252,11 @@ require([
             myWindow.focus();
         });
 
+        printTitle
+
+    
+
+
         function printMap() {
 
             var printParams = new PrintParameters();
@@ -1266,7 +1286,7 @@ require([
             //if user does not provide title, use default. otherwise apply user title
             if (userTitle == "") {
                 template.layoutOptions = {
-                    "titleText": "Wetlands",
+                    "titleText": "CBRS Project Mapper Excerpt",
                     "authorText": "Coastal Barrier Resources System (CBRS)",
                     "copyrightText": "This page was produced by the CBRS Projects Map",
                     "legendLayers": [existingLegendLayer, revisedLegendLayer, changeLegendLayer]
