@@ -834,18 +834,15 @@ require([
 
                         if (feature.attributes["Status"].includes("P")) { // Proposed status
 
-                            var dStartDay = new Date(feature.attributes["PR_start_date"]).getDate();
-                            var dStartMonth = new Date(feature.attributes["PR_start_date"]).getMonth();
-                            var dStartYear = new Date(feature.attributes["PR_start_date"]).getFullYear();
+                            var startStamp = feature.attributes["PR_start_date"];
+                            startDate = moment(startStamp).calendar();
 
-                            var dEndDay = new Date(feature.attributes["PR_end_date"]).getDate();
-                            var dEndMonth = new Date(feature.attributes["PR_end_date"]).getMonth();
-                            var dEndYear = new Date(feature.attributes["PR_end_date"]).getFullYear();
-                            var fulldate = (dStartMonth + '/' + dStartDay + '/' + dStartYear + ' &#8211; ' + dEndMonth + '/' + dEndDay + '/' + dEndYear);
+                            var endStamp = feature.attributes["PR_end_date"];
+                            endDate = moment(endStamp).calendar();
 
-                            prDate = fulldate;
+                            prDates = startDate + ' &#8211; ' + endDate;
 
-                            $("#status").html('<strong>' + feature.attributes["Status"] + '</strong>' + "&#8211; Public review open from " + prDate + ". See docket on " + feature.attributes["Docket_URL"] + " to make comments during the comment period and/or view submitted comments.");
+                            $("#status").html('<strong>' + feature.attributes["Status"] + '</strong>' + "&#8211; Public review open from " + prDates + ". See docket on " + feature.attributes["Docket_URL"] + " to make comments during the comment period and/or view submitted comments.");
 
                             $("#status").css("font-weight", "normal");
 
@@ -853,27 +850,9 @@ require([
 
                         } if (feature.attributes["Status"].includes("F")) { // Final recommended status
 
-                            /* var day = new Date(feature.attributes["Transmittal_Date"]).getDate();
-                            var month = new Date(feature.attributes["Transmittal_Date"]).getMonth();
-                            var year = new Date(feature.attributes["Transmittal_Date"]).getFullYear();
+                            var timeStamp = feature.attributes["Transmittal_Date"];
 
-                            var strDay = day.toString();
-                            var strMonth = month.toString();
-                            var strYear = year.toString();
-
-
-                            var formattedDate = strMonth + "/" + strDay + "/" + strYear;
-
-
-                            transmittalDate = formattedDate; */
-
-                            /* moment().format(feature.attributes["Transmittal_Date"]); */
-
-                            var timeStamp = feature.attributes["Transmittal_Date"] + 1;
-                            var transDate = new Date(timeStamp);
-                            var str = transDate.toDateString();
-
-                            transmittalDate = str;
+                            transmittalDate = moment(timeStamp).calendar();
 
                             $("#status").html('<strong>' + feature.attributes["Status"] + '</strong>' + "&#8211; The final recommended boundaries for this project were transmitted to Congress on " + transmittalDate + ". These boundaries will become effective only if adopted by Congress through legislation.");
 
