@@ -236,14 +236,6 @@ require([
 
         });
 
-
-
-
-
-
-        //var utmCoords = $('<tr class="esriMeasurementTableRow" id="utmCoords"><td><span>UTM17</span></td><td class="esriMeasurementTableCell"> <span id="utmX" dir="ltr">UTM X</span></td> <td class="esriMeasurementTableCell"> <span id="utmY" dir="ltr">UTM Y</span></td></tr>');
-        //$('.esriMeasurementResultTable').append(utmCoords);
-
         //following block forces map size to override problems with default behavior
         $(window).resize(function () {
             if ($("#legendCollapse").hasClass('in')) {
@@ -308,6 +300,8 @@ require([
             } */
         });
 
+        
+
         /*var featureLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/1?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
         var featureLayerRevise = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
         var layer = featureLayerExist;*/
@@ -319,6 +313,8 @@ require([
         layers: [ layer ]
       }, "widget");
       layerSwipe.startup();*/
+
+        // cookie code
 
         /*     function setCookie(cname, cvalue, exdays) {
                 var d = new Date();
@@ -348,10 +344,21 @@ require([
             } */
 
 
+
         //displays map scale on scale change (i.e. zoom level)
         on(map, "zoom-end", function () {
             var scale = map.getScale().toFixed(0);
             $('#scale')[0].innerHTML = addCommas(scale);
+
+            $(document).ready(function () {
+                if (scale < 2311162) {
+                    $('#printNavButton').prop('disabled', false);
+                }
+                if (scale > 2311162) {
+                    $('#printNavButton').prop('disabled', true);
+                } else {
+                }
+            });
         });
 
         //updates lat/lng indicator on mouse move. does not apply on devices w/out mouse. removes "map center" label
@@ -1233,7 +1240,7 @@ require([
 
         printTitle
 
-    
+
 
 
         function printMap() {
@@ -1251,14 +1258,14 @@ require([
             template.layout = "Letter ANSI A Landscape cbrs projects";
             template.preserveScale = false;
 
-            var existingLegendLayer = new LegendLayer();
+            /* var existingLegendLayer = new LegendLayer();
             existingLegendLayer.layerId = "existingPoly";
 
             var revisedLegendLayer = new LegendLayer();
             revisedLegendLayer.layerId = "revisedPoly";
 
             var changeLegendLayer = new LegendLayer();
-            changeLegendLayer.layerId = "changePoly"
+            changeLegendLayer.layerId = "changePoly" */
             //legendLayer.subLayerIds = [*];
 
             var userTitle = $("#printTitle").val();
@@ -1268,14 +1275,12 @@ require([
                     "titleText": "CBRS Project Mapper Excerpt",
                     "authorText": "Coastal Barrier Resources System (CBRS)",
                     "copyrightText": "This page was produced by the CBRS Projects Map",
-                    "legendLayers": [existingLegendLayer, revisedLegendLayer, changeLegendLayer]
                 };
             } else {
                 template.layoutOptions = {
                     "titleText": userTitle,
                     "authorText": "Coastal Barrier Resources System (CBRS)",
                     "copyrightText": "This page was produced by the CBRS Projects Map",
-                    "legendLayers": [existingLegendLayer, revisedLegendLayer, changeLegendLayer]
                 };
             }
 
