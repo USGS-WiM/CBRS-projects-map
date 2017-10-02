@@ -351,10 +351,10 @@ require([
             $('#scale')[0].innerHTML = addCommas(scale);
 
             $(document).ready(function () {
-                if (scale < 2311162) {
+                if (scale <= 2311162) {
                     $('#printNavButton').prop('disabled', false);
                 }
-                if (scale > 2311162) {
+                if (scale > 2311163) {
                     $('#printNavButton').prop('disabled', true);
                 } else {
                 }
