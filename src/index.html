@@ -155,12 +155,12 @@
                 <div class="panel panel-default wim-sidebar-panel">
                     <div class="panel-heading" id="basemapsHeader">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" href="#basemapsPanel" aria-expanded="true" aria-controls="basemapsPanel">
+                            <a class="accordion-toggle collapse" data-toggle="collapse" href="#basemapsPanel" aria-expanded="true" aria-controls="basemapsPanel">
                                     Basemaps
                                 </a>
                         </h4>
                     </div>
-                    <div id="basemapsPanel" class="panel-collapse" role="tabpanel" aria-labelledby="basemapsHeader">
+                    <div id="basemapsPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="basemapsHeader">
                         <div class="panel-body collapse in">
                             <button id="btnStreets" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/streets.jpg"><br class="basemapThumb">Streets</button>
                             <!-- <button id="btnSatellite" class="btn btn-default basemapBtn equalize" ><img class="basemapThumb" alt="" src="images/satellite.jpg"><br class="basemapThumb">Satellite</button> -->
@@ -663,7 +663,7 @@
                 </div>
                 <div class="faq-modal-body">
                     <h4 style="margin-bottom: 15px; font-weight: 600;">Study scope</h4>
-                    <div class="faq-header" id="faq1header">1. What is the Coastal Barrier Resources Act (CBRA)? <i class="fa fa-angle-right"></i></div>
+                    <div class="faq-header" id="faq1header">1. What is the Coastal Barrier Resources Act (CBRA)? <div id="angle1" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div></div>
                     <div class="faq-body" id="faq1body">
                         The Coastal Barrier Resources Act, enacted in 1982, designated relatively undeveloped coastal barriers along the Atlantic
                         and Gulf of Mexico coasts as part of the Coastal Barrier Resources System (CBRS), and made these
@@ -674,7 +674,7 @@
                             target="_blank"> Learn more</a>.
                     </div>
 
-                    <div class="faq-header" id="faq2header">2. What is the Coastal Barrier Resources System (CBRS)? <i class="fa fa-angle-right"></i></div>
+                    <div class="faq-header" id="faq2header">2. What is the Coastal Barrier Resources System (CBRS)? <div id="angle2" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div></div>
                     <div class="faq-body" id="faq2body">
                         A geographic system, established by the Coastal Barrier Resources Act of 1982, that consists of the undeveloped coastal barriers
                         and other areas located on the coasts of the U.S. that are identified and generally depicted on the
@@ -684,7 +684,7 @@
                             target="_blank"> Learn more</a>.
                     </div>
 
-                    <div class="faq-header" id="faq3header">3. What is the difference between System Units and Otherwise Protected Areas (OPAs)? <i class="fa fa-angle-right"></i></div>
+                    <div class="faq-header" id="faq3header">3. What is the difference between System Units and Otherwise Protected Areas (OPAs)? <div id="angle3" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div></div>
                     <div class="faq-body" id="faq3body">
                         The Coastal Barrier Resources System includes two types of units, System Units and Otherwise Protected Areas (OPAs).
                         <br>
@@ -700,7 +700,7 @@
                         OPAs is the prohibition related to Federal flood insurance.
                     </div>
 
-                    <div class="faq-header" id="faq4header">4. How does the Service determine whether areas should be removed from the CBRS? <i class="fa fa-angle-right"></i></div>
+                    <div class="faq-header" id="faq4header">4. How does the Service determine whether areas should be removed from the CBRS? <div id="angle4" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div></div>
                     <div class="faq-body" id="faq4body">
                         The U.S. Fish & Wildlife Service receives numerous requests from property owners and other interested parties who seek to
                         remove land from the Coastal Barrier Resources System (CBRS). The Service does not recommend removing
@@ -715,14 +715,14 @@
                     </div>
 
                     <div class="faq-header" id="faq5header">5. What is the Service&#8217;s authority to prepare digital maps and recommend additions to the CBRS?
-                        <i class="fa fa-angle-right"></i></div>
+                        <div id="angle5" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div></div>
                     <div class="faq-body" id="faq5body">
                         Section 4(a) of the <a href="https://www.fws.gov/cbra/Legislation.html#Act2005" target="_blank">2006 Coastal Barrier Resources Reauthorization Act (CBRRA) (Pub. L. 109-226)</a>                        directs the Secretary of the Interior (Secretary) to prepare digital maps for the CBRS. Section 4(c)(3)(D)
                         of the 2006 CBRRA directs the Secretary to make recommendations for the expansion of the CBRS when
                         carrying out the digital mapping.
                     </div>
 
-                    <div class="faq-header" id="faq6header">6. What is &#34;comprehensive map modernization&#34;? <i class="fa fa-angle-right"></i></div>
+                    <div class="faq-header" id="faq6header">6. What is &#34;comprehensive map modernization&#34;? <div id="angle6" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div></div>
                     <div class="faq-body" id="faq6body">
                         The comprehensive map modernization approach makes modifications necessary to account for natural changes, corrects mapping
                         errors that affect property owners, and also adds areas that are appropriate for inclusion within
@@ -737,7 +737,7 @@
                             target="_blank"> Learn More</a>.
                     </div>
 
-                    <div class="faq-header" id="faq7header">7. What is the difference between an &#34;existing&#34; and &#34;revised&#34; CBRS boundary? <i class="fa fa-angle-right"></i></div>
+                    <div class="faq-header" id="faq7header">7. What is the difference between an &#34;existing&#34; and &#34;revised&#34; CBRS boundary? <div id="angle7" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div></div>
                     <div class="faq-body" id="faq7body">
                         &#34;Existing&#34; Coastal Barrier Resources System (CBRS) boundaries are the current boundaries of the CBRS that are depicted
                         on the official set of CBRS maps maintained by the U.S. Fish and Wildlife Service (Service).
@@ -752,7 +752,7 @@
 
                     <div class="faq-header" id="faq8header">8. What is the difference between a &#34;proposed&#34; CBRS boundary and a &#34;final recommended&#34;
                         CBRS boundary?
-                        <i class="fa fa-angle-right"></i></div>
+                        <div id="angle8" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div></div>
                     <div class="faq-body" id="faq8body">
                         Revised Coastal Barrier Resources System (CBRS) boundaries that are prepared by the U.S. Fish & Wildlife Service (Service)
                         through the comprehensive map modernization process for public review are referred to as &#34;proposed.&#34;
@@ -762,7 +762,7 @@
                         legislation.
                     </div>
 
-                    <div class="faq-header" id="faq9header">9. Where can I download CBRS GIS data? <i class="fa fa-angle-right"></i></div>
+                    <div class="faq-header" id="faq9header">9. Where can I download CBRS GIS data? <div id="angle9" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div></div>
                     <div class="faq-body" id="faq9body">
                         The U.S. Fish & Wildlife Service (Service) has geospatial Coastal Barrier Resources System (CBRS) polygon data for the existing
                         and revised units available in a variety of formats. Please visit the
@@ -770,14 +770,14 @@
                             target="_blank"> Comprehensive Map Modernization</a> webpage for the revised CBRS boundary data.
                     </div>
 
-                    <div class="faq-header" id="faq10header">10. Where can I get more information? <i class="fa fa-angle-right"></i></div>
+                    <div class="faq-header" id="faq10header">10. Where can I get more information? <div id="angle10" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div></div>
                     <div class="faq-body" id="faq10body">
                         For more information visit the U.S. Fish and Wildlife Service&#8217;s Coastal Barrier Resources System
                         <a href="https://www.fws.gov/cbra" target="_blank"> webpage</a> or contact us via email at <a href="mailto:cbra@fws.gov"
                             target="_blank">cbra@fws.gov</a>.
                     </div>
 
-                    <div class="faq-header" id="faq11header">11. How do I submit comments?<i class="fa fa-angle-right"></i></div>
+                    <div class="faq-header" id="faq11header">11. How do I submit comments?<div id="angle11" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div></div>
                     <div class="faq-body" id="faq11body">
                         Written comments may be submitted by the methods described in the Federal Register at the following link:
                         <a href="https://www.federalregister.gov/d/2016-16100/p-5" target="_blank"> https://www.federalregister.gov/d/2016-16100/p-5</a>.
