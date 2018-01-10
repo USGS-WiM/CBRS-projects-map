@@ -16,11 +16,11 @@
   height: 0; 
   border-top: 15px solid transparent;
   border-bottom: 15px solid transparent; 
-  border-right: 40px solid #fff; 
+  border-left: 40px solid #fff; 
   position: fixed;
-  padding-left: 200px;
-  margin-top: 142px;
-  padding-left: 230px;
+  margin-top: 450px;
+  margin-right: 670px;
+  right: inherit;
   outline-color: black;
   transition-property: transform;
   transition-duration: 0.3s;
@@ -85,7 +85,7 @@
 }
 
 #reclassification{
-  font-size: 1.2em;
+  font-size: 11pxem;
   text-align: center;
   background-color: #e0ebff;
   padding: 10px;
@@ -104,8 +104,8 @@
   width: 600px;
   margin: 10px;
   position: relative;
-  margin-left: 270px;
-  padding-top: 60px;
+  margin-left: 155px;
+  padding-top: 345px;
 }
 @media (max-width: 991px) {
   #firstuserModal {
@@ -203,4 +203,279 @@
 
 .esriLegendOther {
   display: none;
+}
+
+/* Styling the Swiper */
+
+.LayerSwipe .vertical {
+  position: absolute;
+  opacity: 0.80;
+  border-left: 1px solid #848484;
+  border-right: 1px solid #848484;
+  background-color: #4c4c4c;
+  width: 11px;
+  height: 100%;
+  padding: 0!important;
+  margin: 0;
+  z-index: 30;
+  cursor: col-resize;
+  }
+
+.LayerSwipe .vertical .handle {
+  width: 51px;
+  height: 24px;
+  margin-top: -12px;
+  margin-left: -20px;
+  top: 50%;
+  left: 0;
+  position: absolute;
+  z-index: 30;
+  background-color: #4c4c4c;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  background-image: url("../images/arrows.png");
+  line-height: 1;
+  font-size: 12px;
+  text-indent: 0;
+  border-radius: 0;
+}
+
+/* Custom Legend Squares */
+
+.squareDiv {
+  float: left;
+  width: 20px;
+  height: 20px;
+  margin: 5px;
+  border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.sysUnit {
+  background: #bee8ff;
+  border-color: #000000;
+  border-width: 1.5px;
+}
+
+.opa {
+  background: #ffebaf;
+  border-color: #000000;
+  border-width: 1.5px;
+}
+
+.sysUnitRevised {
+  background: #8400a8;
+  border-color: #000000;
+  border-width: 2px;
+  border-style: dashed;
+  opacity: 0.5;
+}
+
+.opaRevised {
+  background: #e64c00;
+  border-color: #000000;
+  border-width: 2px;
+  border-style: dashed;
+  opacity: 0.5;
+}
+
+.otherExistingProjects {
+  background: #999999;
+  border-style: solid;
+  border-color: #000000;
+  border-width: 1.5px;
+  opacity: 0.8;
+}
+
+.legendSpacing {
+  margin-bottom: 15px;
+}
+
+#showHelp {
+  background-color: rgb(69, 116, 204);
+  border-color: rgb(69, 116, 204);
+  border-radius: 0;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300px;
+  font-size: 9pt;
+}
+
+.panel-heading .accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    color: grey;         /* adjust as needed */
+    padding-left:8px;
+}
+.panel-heading .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+    padding-left:8px;
+}
+
+/* Custom style CBRS Search */
+
+#cbrsNav{
+    background-color: #3C6DD1;
+    border: 1px solid #3C6DD1;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    font-weight: 300;
+    font-family: 'Lato', sans-serif;
+    font-size: 10pt;
+    box-sizing: border-box;
+    padding: 6px 15px 6px 15px;
+    transition: 0.2s;
+    }
+
+#cbrsNav:hover{
+    background-color: #2b5ab9;
+    transition: 0.2s;
+    border-color: #2b5ab9;
+    cursor: pointer;
+}
+
+/* CBRS Search */
+
+
+
+#searchContainer {
+    width: 300px;
+    height: 34px;
+}
+
+#search {
+         display: block;
+         position: absolute;
+         z-index: 2;
+         top: 20px;
+      }
+
+.panel-group{
+  margin-top: -25px;
+}
+
+#popupList{
+  margin-right: 10px;
+  margin-left: -30px;
+}
+
+/* rotating arrows css */
+
+#angle1 {
+  transition-duration: 0.5s;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+}
+#angle2 {
+  transition-duration: 0.5s;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+}
+#angle3 {
+  transition-duration: 0.5s;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+}
+#angle4 {
+  transition-duration: 0.5s;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+}
+#angle5 {
+  transition-duration: 0.5s;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+}
+#angle6 {
+  transition-duration: 0.5s;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+}
+#angle7 {
+  transition-duration: 0.5s;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+}
+#angle8 {
+  transition-duration: 0.5s;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+}
+#angle9 {
+  transition-duration: 0.5s;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+}
+#angle10 {
+  transition-duration: 0.5s;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+}
+#angle11 {
+  transition-duration: 0.5s;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+}
+
+.panel-heading .accordion-toggle:after {
+  /* symbol for "opening" panels */
+  font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+  content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+  float: right;        /* adjust as needed */
+  color: grey;         /* adjust as needed */
+  padding: 0 0 0 10px;
+  font-weight: 100;
+}
+.panel-heading .accordion-toggle.collapsed:after {
+  /* symbol for "collapsed" panels */
+  content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+}
+
+/* Making cbrs search box longer */
+.arcgisSearch .searchGroup .searchInput {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  float: left;
+  display: block;
+  height: 20px;
+  width: 235px;
+  padding: 6px 24px 6px 12px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #4C4C4C;
+  background-color: #fff;
+  border: 1px solid #57585A;
+  border-right: 0;
+}
+
+#searchContainer {
+  width: 350px;
+  height: 34px;
+}
+
+  /* formatting search help in Find Location modal */
+
+.search-help{
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding-top: 15px;
+  font-size: 12px;
+}
+.search-help b{
+  display: block;
+  margin: 0 auto;
+  font-size: 14px;
+  margin-bottom: 8px;
+  margin-top: 25px;
+}
+.search-help code{
+  display: inline-block;
+  margin: 2px;
 }

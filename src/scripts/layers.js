@@ -5,6 +5,7 @@ var allLayers;
 var renderer;
 
 require([
+    'esri/map',
     'esri/InfoTemplate',
     'esri/renderers/UniqueValueRenderer',
     'esri/symbols/PictureMarkerSymbol',
@@ -13,6 +14,7 @@ require([
     'esri/Color',
     'dojo/domReady!'
 ], function(
+    Map,
     InfoTemplate,
     UniqueValueRenderer,
     PictureMarkerSymbol,
@@ -28,27 +30,27 @@ var defaultSymbol =
         new Color([85,255,0,1])),new Color([85,255,0,0.54]));
 
 var addition = 
-        new SimpleFillSymbol(SimpleFillSymbol.STYLE_BACKWARD_DIAGONAL,
-        new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL,
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL,
         new Color([61,196,255]), 2),new Color([61,196,255,2]));
         
 var removal = 
-        new SimpleFillSymbol(SimpleFillSymbol.STYLE_BACKWARD_DIAGONAL,
-        new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL,
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL,
         new Color([225,0,0]), 2),new Color([255,0,0,2]));
 
 var noChange = 
-        new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-        new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL,
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL,
         new Color([255,255,190,0])),new Color([255,255,190,0.54]));
 
 var reclassOpa = 
-        new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL,
         new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL,
         new Color([38, 115, 0]), 2),new Color([38, 115, 0, 0.25]));
 
 var reclassSu = 
-        new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+        new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL,
         new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL,
         new Color([255,0,0,0.25])),new Color([255,0,0,0.25]));
 
@@ -84,14 +86,32 @@ rendererExisting.addValue('Otherwise Protected Area', otherwiseProtected);
 
 
 
-    allLayers = [
+    /*allLayers = [
         {
             'groupHeading': 'ESRI dynamic map services',
             'showGroupHeading': false,
             'includeInLayerList': true,
             'layers': {
-                'Existing Polygons' : {
-                    'url': 'https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/1?token=ZV7De1_cJp2l04OTOiQSSg4l3isB4h0QvROkZlw1L8OS-8MOpX6jREyHo6ZII8mjzFfZi9Nu-7mV3tdxRRNV9G0wVi9jXrH5Vtqp3SjPTjz5YymCG-lmENwM10PIZtwUck0x5uqvDfwzyExqn7jcbFeNitIEqrB9JriPUjuiZaBQVVVF6TImBZaAe7tR8r7emDsqFlZvj1MIXgJ-SKiutbivEHLAZGTjY98suNUx-s4.',
+                'Change Polygons' : {
+                    'url': 'https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/2?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.',
+                    'visibleLayers': [2],
+                    'options': {
+                        'id': 'changePoly',
+                        'opacity': 0.75,
+                        'visible': false
+                    },
+                    'wimOptions': {
+                        'type': 'layer',
+                        'layerType': 'agisFeature',
+                        'includeInLayerList': false,
+                        'exclusiveGroupName':"Layers",
+                        'zoomScale': 144448,
+                        'hasOpacitySlider': false,
+                        'includeLegend' : false,
+                        'renderer': renderer
+                },
+                    'Existing CBRS Polygons' : {
+                    'url': 'https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/1?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.',
                     'visibleLayers': [1],
                     'options': {
                         'id': 'existingPoly',
@@ -101,15 +121,15 @@ rendererExisting.addValue('Otherwise Protected Area', otherwiseProtected);
                     'wimOptions': {
                         'type': 'layer',
                         'layerType': 'agisFeature',
-                        'includeInLayerList': true,
+                        'includeInLayerList': false,
                         'exclusiveGroupName':"Layers",
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
                         'includeLegend' : true
                     }
                 },
-                    'Revised Polygons' : {
-                    'url': 'https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=ZV7De1_cJp2l04OTOiQSSg4l3isB4h0QvROkZlw1L8OS-8MOpX6jREyHo6ZII8mjzFfZi9Nu-7mV3tdxRRNV9G0wVi9jXrH5Vtqp3SjPTjz5YymCG-lmENwM10PIZtwUck0x5uqvDfwzyExqn7jcbFeNitIEqrB9JriPUjuiZaBQVVVF6TImBZaAe7tR8r7emDsqFlZvj1MIXgJ-SKiutbivEHLAZGTjY98suNUx-s4.',
+                    'Revised CBRS Polygons' : {
+                    'url': 'https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.',
                     'options': {
                         'id': 'revisedPoly',
                         'opacity': 0.75,
@@ -118,33 +138,15 @@ rendererExisting.addValue('Otherwise Protected Area', otherwiseProtected);
                     'wimOptions': {
                         'type': 'layer',
                         'layerType': 'agisFeature',
-                        'includeInLayerList': true,
+                        'includeInLayerList': false,
                         'exclusiveGroupName':"Layers",
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
                         'includeLegend' : true,
                     }
-                },
-                    'Change Polygons' : {
-                    'url': 'https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/2?token=ZV7De1_cJp2l04OTOiQSSg4l3isB4h0QvROkZlw1L8OS-8MOpX6jREyHo6ZII8mjzFfZi9Nu-7mV3tdxRRNV9G0wVi9jXrH5Vtqp3SjPTjz5YymCG-lmENwM10PIZtwUck0x5uqvDfwzyExqn7jcbFeNitIEqrB9JriPUjuiZaBQVVVF6TImBZaAe7tR8r7emDsqFlZvj1MIXgJ-SKiutbivEHLAZGTjY98suNUx-s4.',
-                    'visibleLayers': [2],
-                    'options': {
-                        'id': 'changePoly',
-                        'opacity': 0.75,
-                        'visible': true
-                    },
-                    'wimOptions': {
-                        'type': 'layer',
-                        'layerType': 'agisFeature',
-                        'includeInLayerList': true,
-                        'exclusiveGroupName':"Layers",
-                        'zoomScale': 144448,
-                        'hasOpacitySlider': true,
-                        'includeLegend' : true,
-                        'renderer': renderer
-                    },
-                    'polygons' : {
-                    'url': 'https://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/projectMapper/FeatureServer/?token=22TP-iUfNlwcovRXCEItcUtA_xPAaXHyjKw5AcGI10EvAflVSGY5j1REuzXggCpioVmy9tu21teUttdS8EohEbH6BtvZASplogVGuNpDcwxPQsiyn2aS8YUTgcQJcgDhU5S45WXQVdncnkpMFr5asywlK3rJBQUdnLwLoorplZHpYmDugyZ6xU57ify-mqR0BQVfPnXPk8s8_PvqXX6McA..',
+                }
+                    /*'polygons' : {
+                    'url': 'https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.',
                     'visibleLayers': [0],
                     'options': {
                         'id': 'polygons',
@@ -154,7 +156,7 @@ rendererExisting.addValue('Otherwise Protected Area', otherwiseProtected);
                     'wimOptions': {
                         'type': 'layer',
                         'layerType': 'agisFeature',
-                        'includeInLayerList': true,
+                        'includeInLayerList': false,
                         'exclusiveGroupName':"Layers",
                         'zoomScale': 144448,
                         'hasOpacitySlider': true,
@@ -164,6 +166,7 @@ rendererExisting.addValue('Otherwise Protected Area', otherwiseProtected);
                 }
             }   
         }
-    ];
+    ];*/
  
 });
+

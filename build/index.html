@@ -1,276 +1,450 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>CBRS Projects Map</title>
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<head>
+    <title>CBRS Projects Mapper</title>
 
-        <link rel="stylesheet" href="styles/vendor.css">
-        <!-- CSS for the mapping components -->
-        <link rel="stylesheet" href="https://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
-        <link rel="stylesheet" href="https://js.arcgis.com/3.14/esri/css/esri.css">
-        <link rel="stylesheet" href="https://txpub.usgs.gov/DSS/search_api/2.0/api/search_api.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        <link rel="stylesheet" href="styles/main.css">
-        <link rel="stylesheet" href="styles/base.css">
-        <link rel="shortcut icon" id="favicon" type="image/png" href="images/favicon-dark.png" />
+    <link rel="stylesheet" href="styles/vendor.css">
+    <!-- CSS for the mapping components -->
+    <link rel="stylesheet" href="https://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.14/esri/css/esri.css">
+    <link rel="stylesheet" href="https://txpub.usgs.gov/DSS/search_api/2.0/api/search_api.css" />
 
-        
-
-        <script src="scripts/vendor.js"></script>
-
-        <script src="https://js.arcgis.com/3.14/"></script>
-        <script type="text/javascript" src="https://txpub.usgs.gov/DSS/search_api/2.0/api/search_api.min.js"></script>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="shortcut icon" id="favicon" type="image/png" href="images/favicon-dark.png" />
 
 
-        <script src="scripts/combined.js"></script>
 
-    </head>
-    <body class="claro">
+    <script src="scripts/vendor.js"></script>
 
-        <div id="navbar" class="navbar navbar-static navbar-default navbar-fixed-top navbar-dark">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle toggle-left hidden-md hidden-lg" data-toggle="sidebar" data-target=".sidebar-left">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://js.arcgis.com/3.14/"></script>
+    <script type="text/javascript" src="https://txpub.usgs.gov/DSS/search_api/2.0/api/search_api.min.js"></script>
+
+
+    <script src="scripts/combined.js"></script>
+
+</head>
+
+<body class="claro">
+
+    <div id="navbar" class="navbar navbar-static navbar-default navbar-fixed-top navbar-dark">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle toggle-left hidden-md hidden-lg" data-toggle="sidebar" data-target=".sidebar-left">
                         <!--Layers-->
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="https://www.fws.gov">
+                <a class="navbar-brand" href="https://www.fws.gov">
                         <img id="fwsLogo" alt="FWS logo" src="images/fwsLogo.png" style="padding: 10px 0 0 0;">
                         <a class="navbar-brand" target="_blank" href="https://www.fws.gov/cbra/">
                             <div id="titles">
                                 <div class='hidden-lg hidden-md hidden-sm' style='font-size:20px;'>CBRS</div>
-                                <div class='hidden-xs' style='font-size:20px;'>CBRS Projects Map</div>
+                                <div class='hidden-xs' style='font-size:20px;'>CBRS Projects Mapper</div>
                                 <div class='hidden-xs' style='font-size:14px;'>Coastal Barrier Resources System</div>
                             </div>
                         </a>
-                    </a>
-                </div>
+                </a>
+            </div>
 
-                <button id="geosearchNav" type="button" class="btn btn-primary navbar-btn pull-right">
+            <button id="geosearchNav" type="button" class="btn btn-primary navbar-btn pull-right">
                     <span class="glyphicon glyphicon-search"></span>
                     <span id="geosearchButtonText"> Find Location</span>
                 </button>
 
-                <button id="printNavButton" type="button" class="btn btn-primary navbar-btn pull-right">
+            <button id="cbrsNav" type="button" class="btn btn-primary navbar-btn pull-right">
+                    <span class="glyphicon glyphicon-search"></span>
+                    <span id="geosearchButtonText"> Find CBRS</span>		                      
+                </button>
+
+            <button id="printNavButton" type="button" disabled class="btn btn-primary navbar-btn pull-right" data-toggle="tooltip" title="Must be zoomed in to use Print">
                     <span class="glyphicon glyphicon-print"></span>
                     <span id="printButtonText"> Print</span>
                 </button>
 
-                <button id="aboutNav" class  ="btn btn-default navbar-btn pull-right">
+            <button id="aboutNav" class="btn btn-default navbar-btn pull-right">
                     <i class="fa fa-question-circle"></i><span class="hidden-xs">&nbsp;&nbsp;About</span>
                 </button>
 
-                <button id="faqNav" class  ="btn btn-default navbar-btn pull-right">
+            <button id="faqNav" class="btn btn-default navbar-btn pull-right">
                     <i class="fa fa-question-circle"></i><span class="hidden-xs">&nbsp;&nbsp;FAQ</span>
                 </button>
 
-                <!-- legend buttton for navbar. to be removed if we like the in-map legend toggle -->
-                <!--<button id="legendButtonNavBar" type="button" class="btn btn-primary navbar-btn pull-right" style="margin-right: 1em;"><span class="glyphicon glyphicon-list"></span> Legend</button>-->
-                <!-- toggle for a right sidebar (currently not in use) -->
-                <!--<button type="button" class="navbar-toggle toggle-right" data-toggle="sidebar" data-target=".sidebar-right">-->
-                <!--<span class="icon-bar"></span>-->
-                <!--<span class="icon-bar"></span>-->
-                <!--<span class="icon-bar"></span>-->
-                <!--</button>-->
-            </div>
+            <!-- legend buttton for navbar. to be removed if we like the in-map legend toggle -->
+            <!--<button id="legendButtonNavBar" type="button" class="btn btn-primary navbar-btn pull-right" style="margin-right: 1em;"><span class="glyphicon glyphicon-list"></span> Legend</button>-->
+            <!-- toggle for a right sidebar (currently not in use) -->
+            <!--<button type="button" class="navbar-toggle toggle-right" data-toggle="sidebar" data-target=".sidebar-right">-->
+            <!--<span class="icon-bar"></span>-->
+            <!--<span class="icon-bar"></span>-->
+            <!--<span class="icon-bar"></span>-->
+            <!--</button>-->
         </div>
+    </div>
 
 
-        
-        
-        <style>
-            .close-alert:hover{
-                cursor: pointer;
+
+
+    <style>
+        .close-alert:hover {
+            cursor: pointer;
+        }
+    </style>
+
+    <!-- <script>
+            function showSidebar() {
+                var x = document.getElementById('sidebar');
+                if (x.style.display === 'none') {
+                    x.style.display = 'block';
+                }
             }
-        </style>
+        </script> -->
 
-        
-
-        <!-- Begin page content -->
-        <div class="container-fluid keepit100">
-            <div class="row keepit100">
-                <!--<div id="sidebar" class="col-xs-7 col-sm-3 col-md-3 sidebar sidebar-left sidebar-animate sidebar-md-show no-col-padding">-->
-                <div id="sidebar" class="col-xs-11 col-sm-10 col-md-3 col-lg-2 sidebar sidebar-left sidebar-animate sidebar-md-show no-col-padding">
-                    <!-- # include line below to get accordion effect with panels - opening one closes the others. remember closing div tag at bottom -->
-                    <!--<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">-->
-                    <!-- include btn-toolbar below to put legend and geosearch buttons next to eachother -->
-                    <!--<div class="btn-toolbar" style="margin-bottom: 2px;">-->
-                    <!--<div class="btn-group no-col-padding">-->
-                    <!-- sidebar legend button. to be rmoved if we like the in-map legend toggle -->
-                    <!--<button id="legendButtonSidebar" type="button" class="btn btn-default" ><span class="glyphicon glyphicon-list"></span> Legend</button>-->
-                    <!--<button id="geosearchButtonSidebar" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Geosearch</button>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--<button id="legendButtonSidebar" type="button" class="btn btn-default" ><span class="glyphicon glyphicon-list"></span> Legend</button>-->
-                    <div class="panel panel-default wim-sidebar-panel">
-                        <div class="panel-heading" id="basemapsHeader">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse"  href="#basemapsPanel" aria-expanded="false" aria-controls="basemapsPanel">
+    <!-- Begin page content -->
+    <div class="container-fluid keepit100">
+        <div class="row keepit100">
+            <!--<div id="sidebar" class="col-xs-7 col-sm-3 col-md-3 sidebar sidebar-left sidebar-animate sidebar-md-show no-col-padding">-->
+            <div id="sidebar" class="col-xs-11 col-sm-10 col-md-3 col-lg-2 sidebar sidebar-left sidebar-animate sidebar-md-show no-col-padding">
+                <!-- # include line below to get accordion effect with panels - opening one closes the others. remember closing div tag at bottom -->
+                <!--<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">-->
+                <!-- include btn-toolbar below to put legend and geosearch buttons next to eachother -->
+                <!--<div class="btn-toolbar" style="margin-bottom: 2px;">-->
+                <!--<div class="btn-group no-col-padding">-->
+                <!-- sidebar legend button. to be rmoved if we like the in-map legend toggle -->
+                <!--<button id="legendButtonSidebar" type="button" class="btn btn-default" ><span class="glyphicon glyphicon-list"></span> Legend</button>-->
+                <!--<button id="geosearchButtonSidebar" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Geosearch</button>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<button id="legendButtonSidebar" type="button" class="btn btn-default" ><span class="glyphicon glyphicon-list"></span> Legend</button>-->
+                <div class="panel panel-default wim-sidebar-panel">
+                    <div class="panel-heading" id="basemapsHeader">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapse" data-toggle="collapse" href="#basemapsPanel" aria-expanded="true" aria-controls="basemapsPanel">
                                     Basemaps
                                 </a>
-                            </h4>
-                        </div>
-                        <div id="basemapsPanel" class="panel-collapse collapse" role="tabpanel" aria-labelledby="basemapsHeader">
-                            <div class="panel-body collapse in">
-                                <button id="btnStreets" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/streets.jpg"><br class="basemapThumb">Streets</button>
-                                <button id="btnSatellite" class="btn btn-default basemapBtn equalize" ><img class="basemapThumb" alt="" src="images/satellite.jpg"><br class="basemapThumb">Satellite</button>
-                                <button id="btnHybrid" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/imagery_labels.jpg"><br class="basemapThumb">Hybrid</button>
-                                <button id="btnTopo" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/topo.jpg"><br class="basemapThumb">Topo</button>
-                                <button id="btnTerrain" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/terrain.jpg"><br class="basemapThumb">Terrain</button>
-                                <button id="btnGray" class="btn btn-default basemapBtn equalize" ><img class="basemapThumb" alt="" src="images/gray.jpg"><br class="basemapThumb">Gray</button>
-                                <button id="btnOSM" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/osm.jpg"><br class="basemapThumb">Open Street Map</button>
-                                <button id="btnNatGeo" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/natgeo.jpg"><br class="basemapThumb">NatGeo</button>
-                                <button id="btnUsgsTopo" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/usgs_topo.jpg"><br class="basemapThumb">USGS Topo</button>
-                                <button id="btnUsgsImgTopo" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/usgs_imagerytopo.jpg"><br class="basemapThumb">USGS Imagery Topo</button>
-                                <button id="btnNatlMap" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/national_map.jpg"><br class="basemapThumb">Nat'l Map</button>
-                            </div>
-
-                        </div>
+                        </h4>
                     </div>
-                    <div class="panel panel-default wim-sidebar-panel">
-                        <div class="panel-heading" id="layersPanelHeader">
+                    <div id="basemapsPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="basemapsHeader">
+                        <div class="panel-body collapse in">
+                            <button id="btnStreets" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/streets.jpg"><br class="basemapThumb">Streets</button>
+                            <!-- <button id="btnSatellite" class="btn btn-default basemapBtn equalize" ><img class="basemapThumb" alt="" src="images/satellite.jpg"><br class="basemapThumb">Satellite</button> -->
+                            <button id="btnHybrid" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/imagery_labels.jpg"><br class="basemapThumb">Hybrid</button>
+                            <!-- <button id="btnTopo" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/topo.jpg"><br class="basemapThumb">Topo</button> -->
+                            <!-- <button id="btnTerrain" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/terrain.jpg"><br class="basemapThumb">Terrain</button> -->
+                            <button id="btnGray" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/gray.jpg"><br class="basemapThumb">Gray</button>
+                            <!-- <button id="btnOSM" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/osm.jpg"><br class="basemapThumb">Open Street Map</button> -->
+                            <!-- <button id="btnNatGeo" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/natgeo.jpg"><br class="basemapThumb">NatGeo</button> -->
+                            <button id="btnUsgsTopo" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/usgs_topo.jpg"><br class="basemapThumb">USGS Topo</button>
+                            <button id="btnUsgsImgTopo" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/usgs_imagerytopo.jpg"><br class="basemapThumb">USGS Imagery Topo</button>
+                            <!-- <button id="btnNatlMap" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/national_map.jpg"><br class="basemapThumb">Nat'l Map</button> -->
+                        </div>
+
+                    </div>
+                </div>
+                <div class="panel panel-default wim-sidebar-panel">
+                    <!--<div class="panel-heading" id="layersPanelHeader">
                             <h4 class="panel-title">
                                 <a class="collapsed" data-toggle="collapse" href="#layersPanel" aria-expanded="true" aria-controls="layersPanel">
                                     Map Layers
                                 </a>
                             </h4>
-                        </div>
-                        <div id="layersPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="layersPanelHeader">
-                            <div id="toggle" style="padding: 2px 2px;"></div>
-                            <!--<div class="layerHelp">Click <a id="showWelcomeModal" style="cursor:pointer;">here</a> for a quick walkthrough.</div>-->
-                            <div><button id="showLayerWalk" class="btn btn-default btn-xs" style="cursor: pointer; margin-top: 10px; margin-bottom: 10px;">Layer walkthrough</button></div>
+                        </div>-->
+                    <div id="layersPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="layersPanelHeader">
+                        <button id="showHelp" class="btn btn-info btn-block" style="margin-top:5px;">Layer Help</button>
+                        <div id="toggle" style="padding: 2px 2px;"></div>
+                        <!--<div class="layerHelp">Click <a id="showWelcomeModal" style="cursor:pointer;">here</a> for a quick walkthrough.</div>-->
+                    </div>
+                </div>
+                <!-- # closing div tag for accordion style panels -->
+                <!--</div>-->
+            </div>
+            <div class="col-md-9 col-lg-10 col-md-offset-3 col-lg-offset-2 no-col-padding keepit100">
+                <!-- legend, associated with legend buttons. to be removed if we stick with the in-map legend toggle -->
+                <!--<div id="legend" class="legend" style="display: none" >-->
+                <!--<button id="legendClose" type="button" class="close" data-dismiss="legend" aria-label="Close" aria-hidden="true">x</button>-->
+                <!--<h4><b>Explanation</b></h4>-->
+                <!--<div id="legendDiv"></div>-->
+                <!--</div>-->
+
+                <div id="mapDiv">
+                    <!-- <div id="search"></div> -->
+                    <div id="swipeDiv" title="Drag to see underlying layer" class="layerSwipe"></div>
+
+                    <!-- Unit Selection Pop Up -->
+                    <div>
+                        <div id="siteInfoDiv" class="panel panel-defaults siteInfoClass">
+                            <div class="panel-heading" data-toggle="tooltip" title="Drag the modal to reposition on the page">
+                                <div class="panel-title">
+                                    <div>
+                                        <h5 id="siteInfoPanelHeader">John H. Chafee Coastal Barrier Resources System</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-group">
+                                <br>
+                                <div style="margin-bottom: -25px !important;">
+                                    <ul id="popupList" style="font-size:11px;">
+                                        <p><label id="reclassification"></label></p>
+                                        <p>Project Name: <label id="projName"></label></p>
+                                        <p>Project Status: <span id="status"></span></p>
+                                        <!-- <li id="attrList"><label id="transmittalURL"></label></li> -->
+                                        <!--<li id="attrList">Unit Number: <label id="unitNum"></label></li>-->
+                                        <!--<li id="attrList">Unit Number 1: <label id="unitNumOne"></label></li>-->
+                                        <!--<li id="attrList">Unit Name: <label id="unitName"></label></li>-->
+                                        <!--<li id="attrList">Unit Type: <label id="unitType"></label></li>-->
+                                        <!--<li id="attrList">Change Type: <label id="changeTyp"></label></li>-->
+                                        <p>Please see our <a href="https://www.fws.gov/cbra/change-types.html" target="_blank">website</a> for
+                                            a description of the types of changes that the Service may propose to the CBRS
+                                            (e.g., additions, removals, reclassifications).</p>
+                                        <p><label id="summaryUrl"></label><label id="finalRecText"></label></p>
+                                        <p>CBRS units extend seaward out to either the 20 or 30 foot bathymetric contour (depending
+                                            on the location of the unit). The true seaward extent of the units is not shown
+                                            in this mapper. For additional information, please contact <a href="mailto:CBRA@fws.gov"
+                                                target="_blank">CBRA@fws.gov</a>.</p>
+                                        <br>
+                                    </ul>
+                                </div>
+                                <br>
+                            </div>
                         </div>
                     </div>
-                    <!-- # closing div tag for accordion style panels -->
-                    <!--</div>-->
-                </div>
-                <div class="col-md-9 col-lg-10 col-md-offset-3 col-lg-offset-2 no-col-padding keepit100">
-                    <!-- legend, associated with legend buttons. to be removed if we stick with the in-map legend toggle -->
-                    <!--<div id="legend" class="legend" style="display: none" >-->
-                    <!--<button id="legendClose" type="button" class="close" data-dismiss="legend" aria-label="Close" aria-hidden="true">x</button>-->
-                    <!--<h4><b>Explanation</b></h4>-->
-                    <!--<div id="legendDiv"></div>-->
-                    <!--</div>-->
-
-                    <div id="mapDiv">
-
-                         <!-- Unit Selection Pop Up -->
-                    <div>
-                        <div id="selectionDiv" class="panel panel-defaults siteInfoClass">
-                            <div class="panel-heading">
-                                <div class="panel-title">
-                                    <div><h4 id="siteInfoPanelHeader">John H. Chafee Coastal Barrier Resources System</h4></div>
-                                </div>
-                            </div>
-                                <div class="panel-group">
-                                    <br>
-                                        <div>
-                                            <ul id="popupList">
-                                                <p><label id="reclassification"></label></p>
-                                                <li id="attrList">Project Name: <label id="projName"></label></li>
-                                                <li id="attrList">Project Status: <label id="status"></label> - Public review open from April 1, 2016--June 30, 20126- see docket on <label id="docketURL"></label> to make comments during the comment period and/or view submitted comments.</li>
-                                                <li id="attrList">Unit Number: <label id="unitNum"></label></li>
-                                                <li id="attrList">Unit Name: <label id="unitName"></label></li>
-                                                <li id="attrList">Unit Type: <label id="unitType"></label></li>
-                                                <li id="attrList">Change Type: <label id="changeTyp"></label></li>
-                                                <p>See our website for information about the various change types.</p>
-                                                <br>
-                                                <p>View the Service&#146s Summary of Proposed Changes for this unit: <a href="" id="summaryUrl" target="_blank"></a></p>
-                                                <p>To view the existing CBRS units in this area please click the <strong>Existing Polygons</strong> layer in the Map Layers panel.</p>
-                                                <br>
-                                            </ul>
-                                        </div>
-                                    <br>
-                                </div>
-                            </div>
-                        </div>
                     <!-- End PopUp -->
 
-                        <div id="legendElement" class="panel panel-default legendClass">
-                            <div id="legendHeading" class=" legendHeading" role="tab">
-                                <h4 class="panel-title" id="work">
-                                    <a data-toggle="collapse" style="text-decoration: none"  href="#legendCollapse" aria-expanded="true" aria-controls="collapseOne">
+                    <div id="legendElement" class="panel panel-default legendClass" style="height: 350px;max-height: 350px;">
+                        <div id="legendHeading" class="legendHeading" role="tab">
+                            <h4 class="panel-title" id="work">
+                                <a data-toggle="collapse" style="text-decoration: none" href="#legendCollapse" aria-expanded="true" aria-controls="collapseOne">
                                         <span class="glyphicon glyphicon-list"></span>
                                         Legend
                                     </a>
-                                </h4>
-                            </div>
-                            <div id="legendCollapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                                <div id="legendDiv" class="panel-body"></div>
+                            </h4>
+                        </div>
+                        <div id="legendCollapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" style="height: 350px;max-height: 350px;">
+                            <div id="legendDiv" class="panel-body">
+                                <h5 style="padding-top: 10px;font-weight:bold;">Existing Units</h5>
+                                <p class="legendSpacing">
+                                    <div class="squareDiv sysUnit"></div> System Unit</p>
+                                <p class="legendSpacing">
+                                    <div class="squareDiv opa"></div> Otherwise Protected Area</p>
+                                <p class="legendSpacing">
+                                    <div class="squareDiv otherExistingProjects"></div> Unit Outside Project Area</p>
+                                <h5 style="padding-top: 10px;font-weight:bold;">Revised Units</h5>
+                                <p class="legendSpacing">
+                                    <div class="squareDiv sysUnitRevised"></div> System Unit</p>
+                                <p class="legendSpacing">
+                                    <div class="squareDiv opaRevised"></div> Otherwise Protected Area</p>
                             </div>
                         </div>
+                    </div>
 
-                        <div id="measurementElement" class="panel panel-default measurementClass">
-                            <div id="measurementHeading" class="measurementHeading" role="tab">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" style="text-decoration: none"  href="#measurementCollapse" aria-expanded="true" aria-controls="collapseOne">
+                    <div id="measurementElement" class="panel panel-default measurementClass">
+                        <div id="measurementHeading" class="measurementHeading" role="tab">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" style="text-decoration: none" href="#measurementCollapse" aria-expanded="true" aria-controls="collapseOne">
                                         <i class="fa fa-ellipsis-h"></i>
                                         <span id="measureLabel">Measure</span>
                                     </a>
-                                </h4>
-                            </div>
-                            <div id="measurementCollapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                                <div id="measurementDiv" class="panel-body"></div>
-                                <!--<span id="snappingLabel" style="font-size:smaller;padding:5px 5px;">Press <b>CTRL</b> to enable snapping.</span>-->
-                            </div>
+                            </h4>
                         </div>
-
-                    </div>
-
-                    <div id="homeButton"></div>
-                    <div id="locateButton"></div>
-
-                    <div id="latLngScale" class="latLngScale">
-                        <span class="hover-content"> <b>Map scale </b></span>
-                        1:<span id="scale"></span> <br>
-                        <span class="hover-content"><b>Latitude</b></span>
-                        <span id="latitude">y</span> |
-                        <span class="hover-content"> <b>Longitude</b></span>
-                        <span id="longitude">x</span>
-                        <span id="mapCenterLabel"  class="hover-content"> (center)</span>
+                        <div id="measurementCollapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                            <div id="measurementDiv" class="panel-body"></div>
+                            <!--<span id="snappingLabel" style="font-size:smaller;padding:5px 5px;">Press <b>CTRL</b> to enable snapping.</span>-->
+                        </div>
                     </div>
 
                 </div>
-                <div class="col-xs-7 col-sm-3 col-md-3 sidebar sidebar-right sidebar-animate"></div>
+
+                <div id="homeButton"></div>
+                <div id="locateButton"></div>
+
+                <div id="latLngScale" class="latLngScale">
+                    <span class="hover-content"> <b>Map scale </b></span> 1:
+                    <span id="scale"></span> <br>
+                    <span class="hover-content"><b>Latitude</b></span>
+                    <span id="latitude">y</span> |
+                    <span class="hover-content"> <b>Longitude</b></span>
+                    <span id="longitude">x</span>
+                    <span id="mapCenterLabel" class="hover-content"> (center)</span>
+                </div>
+
+            </div>
+            <div class="col-xs-7 col-sm-3 col-md-3 sidebar sidebar-right sidebar-animate"></div>
+        </div>
+    </div>
+
+    <!-- Disclaimer -->
+    <div id="disclaimerModal" aria-hidden="true" class="modal fade overflow-y-hidden">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 style="text-align: center">Disclaimer</h3>
+                </div>
+                <div class="modal-body">
+                    <p>The U.S. Fish and Wildlife Service (Service) is not responsible for any misuse or misinterpretation of
+                        this digital data set, including use of these boundaries (which are approximate digital representations
+                        of the boundaries shown on the official maps) to determine eligibility for Federal expenditures and
+                        financial assistance including Federal flood insurance. The official Coastal Barrier Resources System
+                        (CBRS) maps (not these digital data) are the controlling documents of the CBRS boundaries and are
+                        maintained by the Service.</p>
+                    <p>Copies of the official CBRS maps are available for viewing at the Service Headquarters office and are
+                        also available for download on the CBRS Mapper and at the <a href="https://www.fws.gov/cbra/maps/index.html"
+                            target="_blank">Maps</a> web page. For information on obtaining an official determination of whether
+                        or not an area or specific property is located within the CBRS, please visit the <a href="https://www.fws.gov/cbra/Determinations.html"
+                            target="_blank">Determinations</a> web page. For information on project consultations, please visit
+                        the <a href="https://www.fws.gov/ecological-services/habitat-conservation/cbra/ConsultationS.html"
+                            target="_blank">Consultations</a> web page. For general questions regarding the CBRS, you may contact
+                        <a href="mailto:CBRA@fws.gov" target="_blank">cbra@fws.gov</a>. For information on the horizontal
+                        accuracy of this digital data set, please read the <a href="https://www.fws.gov/cbra/Metadata.html"
+                            target="_blank">metadata</a>.</p>
+                    <p>Base cartographic information used as part of this CBRS Mapper has been provided through third party
+                        products. The FWS does not maintain, and is not responsible for the accuracy or completeness of the
+                        base cartographic information.</p>
+                    <p>This application may not be fully accessible to people with disabilities. If you need assistance accessing
+                        this mapper or CBRS data email us at: <a href="mailto:CBRA@fws.gov" target="_blank">cbra@fws.gov</a>.</p>
+                </div>
+                <div class="modal-footer">
+                    <div style="text-align: center"><button type="button" class="btn btn-default" data-dismiss="modal" style="background-color: #ffd1d1">I accept the terms and conditions</button></div>
+                </div>
             </div>
         </div>
+    </div>
+    <!--End diclaimer modal -->
 
-        <!-- Welcome Modal -->
-            <div id="welcomeModal" aria-hidden="true" class="modal fade overflow-y-hidden">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header"><h4>Welcome! Want a quick walkthrough of the CBRS Projects Map?</h4>
+    <!--CBRS Unit Search -->
+    <div class="modal fade overflow-y-hidden" id="cbrsModal" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                    <h4 class="modal-title">Find CBRS Unit</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div align="center">
+                            <div id="searchContainer">
+                                <div id="search"></div>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <h5 style="text-align: center">Just click the <span type="button" class="btn btn-default btn-xs"> Next </span> button below and we'll walk you through the Map Layers.</h5>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" id="hidemobileModal">Dismiss</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal" id="firstStep">Next</button>
-                        </div>
+                    </div>
+                    <form class="form-inline">
+                        <button id="btnunitDismiss" type="submit" class="btn btn-default btn-fixed" data-dismiss="modal">Dismiss</button>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!--End CBRS Unit Search -->
+
+    <!-- Welcome Modal -->
+    <div id="welcomeModal" aria-hidden="true" class="modal fade overflow-y-hidden">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Welcome! Here's a quick explanation of the CBRS Projects Mapper.</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-header">
+                        <p>Use the Swipe tool to compare the Existing CBRS Units to the Revised CBRS Units.</p>
+                        <br>
+                        <p>Click any of the polygons to learn about the Service&#39s &#34proposed&#34 or &#34final recommended&#34
+                            changes. The proposed (or recommended) changes will only take effect if adopted by Congress.</p>
+                        <!--<h5><strong> Swiping Tool: </strong></h5>
+                    <p style="text-align: center">Drag the Swipe Tool left and right to compare the two layers.</p>-->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="hidemobileModal">Dismiss</button>
+                        <!--<button type="button" class="btn btn-default" data-dismiss="modal" id="firstStep">Next</button>-->
                     </div>
                 </div>
             </div>
-        <!-- End Welcome Modal -->
+        </div>
+    </div>
+    <!-- End Welcome Modal -->
 
 
     <!-- Mobile Modal -->
-    <div id="mobileModal" aria-hidden="true" class="modal fade overflow-y-hidden" >
+    <div id="mobileModal" aria-hidden="true" class="modal fade overflow-y-hidden">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header"><h4 style="text-align: center;"> Welcome! Here's a quick walkthrough of the new CBRS Projects Map.</h4>
+                <div class="modal-header">
+                    <h4>Welcome! Here's a quick explanation of the CBRS Projects Mapper.</h4>
                 </div>
                 <div class="modal-body">
-                    <h5 style="padding-bottom: 5px;">There are three map layers in this map. We explain each layer below.</h5>
-                    <h5><strong>Existing Polygons</strong></h5>
-                        <p style="padding-bottom: 5px;">This layer shows the existing CBRS locations.</p>
-                    <h5><strong>Revised Polygons</strong></h5>
-                        <p style="padding-bottom: 5px;">This layer shows the CBRS locations that have been revised.</p>
-                    <h5><strong>Change Polygons</strong></h5>
-                        <p>This layer shows what changes were made to a location such as reclassification or removal.</p>
+                    <div class="modal-header">
+                        <p>Use the Swipe tool to compare the Existing CBRS Units to the Revised CBRS Units.</p>
+                        <br>
+                        <p>Click any of the polygons to learn about the Service’s “proposed” or “final recommended” changes.
+                            The proposed (or recommended) changes will only take effect if adopted by Congress.</p>
+                        <!--<h5><strong> Swiping Tool: </strong></h5>
+                    <p style="text-align: center">Drag the Swipe Tool left and right to compare the two layers.</p>-->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="hidemobileModal">Dismiss</button>
+                        <!--<button type="button" class="btn btn-default" data-dismiss="modal" id="firstStep">Next</button>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Mobile Modal -->
+
+    <!-- First Modal -->
+    <div id="firstModal" aria-hidden="true" class="modal fade overflow-y-hidden">
+        <div class="arrow-left-one"></div>
+        <div class="modal-dialog" id="firstuserModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>The Swiping Tool</h4>
+                </div>
+                <div class="modal-body">
+                    <h5 style="text-align: center">Drag the Swipe Tool left and right to compare the two layers.</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="secondStep">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End First Modal -->
+
+    <!-- Second Modal -->
+    <div id="secondModal" aria-hidden="true" class="modal fade overflow-y-hidden">
+        <div class="arrow-left-two"></div>
+        <div class="modal-dialog" id="seconduserModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Revised Polygons</h4>
+                </div>
+                <div class="modal-body">
+                    <h5 style="text-align: center">Clicking and dragging the swipe tool to right will reveal the Existing CBRS Units. They are symbolized
+                        as the grey polygons</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="thirdStep">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Second Modal -->
+
+    <!-- Third Modal -->
+    <div id="thirdModal" aria-hidden="true" class="modal fade overflow-y-hidden">
+        <div class="arrow-left-three"></div>
+        <div class="modal-dialog" id="thirduserModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Change Polygons</h4>
+                </div>
+                <div class="modal-body">
+                    <h5 style="text-align: center">
+                        <p>Click a polygon at anytime to see what changes are happing to that CBRS Unit.</p>
+                    </h5>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" id="hideotherModals">Dismiss</button>
@@ -278,241 +452,330 @@
             </div>
         </div>
     </div>
-        <!-- End Mobile Modal -->
+    <!-- End Third Modal -->
+    <!-- End User Helping Hands-->
 
-        <!-- First Modal -->
-         <div id="firstModal" aria-hidden="true" class="modal fade overflow-y-hidden">
-             <div class="arrow-left-one"></div>
-             <div class="modal-dialog" id="firstuserModal">
-                 <div class="modal-content">
-                     <div class="modal-header"><h4>Existing Polygons</h4>
-                     </div>
-                     <div class="modal-body">
-                         <h5 style="text-align: center">This layer shows the existing CBRS locations.</h5>
-                     </div>
-                     <div class="modal-footer">
-                         <button type="button" class="btn btn-default" data-dismiss="modal" id="secondStep">Next</button>
-                     </div>
-                 </div>
-             </div>
-         </div>
-        <!-- End First Modal -->
-
-        <!-- Second Modal -->
-        <div id="secondModal" aria-hidden="true" class="modal fade overflow-y-hidden">
-            <div class="arrow-left-two"></div>
-            <div class="modal-dialog" id="seconduserModal">
-                <div class="modal-content">
-                    <div class="modal-header"><h4>Revised Polygons</h4></div>
-                    <div class="modal-body">
-                        <h5 style="text-align: center">This layer shows the CBRS locations that have been revised.</h5>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" id="thirdStep">Next</button>
-                    </div>
+    <!-- Outside CBRS modal -->
+    <div id="outsideCBRS" aria-hidden="true" class="modal fade overflow-y-hidden">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align: center;">
+                    <h4>No Results.</h4>
+                </div>
+                <div class="modal-body">
+                    <h5 style="text-align: center">This area is outside of the CBRS.</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="hidemobileModal">Dismiss</button>
                 </div>
             </div>
         </div>
-        <!-- End Second Modal -->
+    </div>
+    <!-- End Outside CBRS modal -->
 
-        <!-- Third Modal -->
-        <div id="thirdModal" aria-hidden="true" class="modal fade overflow-y-hidden">
-            <div class="arrow-left-three"></div>
-            <div class="modal-dialog" id="thirduserModal">
-                <div class="modal-content">
-                    <div class="modal-header"><h4>Change Polygons</h4>
-                    </div>
-                    <div class="modal-body">
-                        <h5 style="text-align: center">This layer shows what changes were made to a location such as reclassification, addition, or removal.</h5>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" id="hideotherModals">Dismiss</button>
-                    </div>
+    <!-- Other Existing CBRS modal -->
+    <div id="existingCBRS" aria-hidden="true" class="modal fade overflow-y-hidden">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align: center;">
+                    <h4>No Results.</h4>
+                </div>
+                <div class="modal-body">
+                    <h5 style="text-align: center">Unit <label id="unitOther"></label> is not part of an ongoing project.</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="clearSelection">Dismiss</button>
                 </div>
             </div>
         </div>
-            <!-- End Third Modal -->
-        <!-- End User Helping Hands-->
+    </div>
+    <!-- End Other Existing CBRS modal -->
 
-        <!-- Outside CBRS modal -->
-        <div id="outsideCBRS" aria-hidden="true" class="modal fade overflow-y-hidden">
-             <div class="modal-dialog">
-                 <div class="modal-content">
-                     <div class="modal-header" style="text-align: center;"><h4>No Results.</h4>
-                     </div>
-                     <div class="modal-body">
-                         <h5 style="text-align: center">This area is outside of the CBRS.</h5>
-                     </div>
-                     <div class="modal-footer">
-                         <button type="button" class="btn btn-default" data-dismiss="modal" id="hidemobileModal">Dismiss</button>
-                     </div>
-                 </div>
-             </div>
-         </div>
-         <!-- End Outside CBRS modal -->
-
-<div class="modal fade overflow-y-hidden" id="geosearchModal" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                        <h4 class="modal-title">Find Location</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <div id="geosearch" align="center"></div>
-                            <div align="center">
-                                <br>
-                                <p>Search provided by <a href="https://txpub.usgs.gov/dss/search_api/2.0/" target="_blank">USGS Search Javascript API</a></p>
+    <div class="modal fade overflow-y-hidden" id="geosearchModal" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                    <h4 class="modal-title">Find Location</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div id="geosearch" align="center"></div>
+                        <div align="center">
+                                <div class="search-help">
+                                    <b>Supported Search Strings:</b>
+                                    <code>GNIS locations</code>
+                                    <code>USGS Sites</code>
+                                    <code>Zip Codes</code>
+                                    <code>Area Codes</code>
+                                    <code>States</code>
+                                    <code>Lat/Long (ie. '43.9,-72.1')</code>
+                                    <code>Street Address</code>
+                                    <br/>
+                                    <br/> Search provided by
+                                    <a href="https://txpub.usgs.gov/dss/search_api/2.0/" target="_blank">USGS Search JavaScript API</a>
+                                </div>
                             </div>
-                        </div>
-                        <form id="geosearch-form" class="form-inline">
-                            <!--<button id="btnGeosearch" type="button" class="btn btn-success btn-fixed" data-dismiss="modal"> Go </button>-->
-                            <button id="btnDismiss" type="submit" class="btn btn-default btn-fixed" data-dismiss="modal">Dismiss</button>
-                        </form>
                     </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
+                    <form id="geosearch-form" class="form-inline">
+                        <!--<button id="btnGeosearch" type="button" class="btn btn-success btn-fixed" data-dismiss="modal"> Go </button>-->
+                        <button id="btnDismiss" type="submit" class="btn btn-default btn-fixed" data-dismiss="modal">Dismiss</button>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
         </div>
+        <!-- /.modal-dialog -->
+    </div>
 
-        <div class="modal fade overflow-y-hidden" id="printModal" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                        <h4 class="modal-title"><span class="glyphicon glyphicon-print"></span> Print Map</h4>
-                    </div>
-                    <div id="printModalBody" class="modal-body">
-
-                        <form id="print-title-form" class="form-group">
-                            <label for="printTitle">Title </label>
-                            <input class="form-control" id="printTitle" placeholder="Enter a title for your printout">
+    <div class="modal fade overflow-y-hidden" id="printModal" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                    <h4 class="modal-title"><span class="glyphicon glyphicon-print"></span> Print Map</h4>
+                </div>
+                <div id="printModalBody" class="modal-body">
+                    <form id="print-title-form" class="form-group">
+                        <label for="printTitle">Title </label>
+                        <input class="form-control" id="printTitle" placeholder="Enter a title for your printout" maxlength="30">
                         <!--</form>
 
                         <form id="print-form" class="form-inline">-->
-                            <button id="printExecuteButton" type="submit" class="btn btn-success btn-fixed" data-loading-text="Printing..." > Print </button>
-                            <button id="printDismissButton" type="button" class="btn btn-default btn-fixed" data-dismiss="modal"> Dismiss</button>
-                        </form>
+                        <button id="printExecuteButton" type="submit" class="btn btn-success btn-fixed" data-loading-text="Printing..."> Print </button>
+                        <button id="printDismissButton" type="button" class="btn btn-default btn-fixed" data-dismiss="modal"> Dismiss</button>
+                    </form>
 
-                        <div id="printJobsDiv" style="margin-top: 5px;"><label>Print Jobs </label><p class="toRemove"> No print jobs yet</p></div>
+                    <div id="printJobsDiv" style="margin-top: 5px;"><label>Print Jobs </label>
+                        <p class="toRemove"> No print jobs yet</p>
                     </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
+                </div>
+            </div>
+            <!-- /.modal-content -->
         </div>
+        <!-- /.modal-dialog -->
+    </div>
 
     <!-- Notifying User of Invalid Search -->
-        <div id="invalidSearchLocationModal" aria-hidden="true" class="modal fade overflow-y-hidden">
-             <div class="modal-dialog">
-                 <div class="modal-content">
-                     <div class="modal-header"><h4 id="test">Sorry, no results. Please try again.</h4>
-                     </div>
-                     <div class="modal-body">
-                         <h5 style="text-align: center">Here's a list of our supported Search Strings:</h5>
-                             <li>Street Address</li>
-                             <li>States</li>
-                             <li>Zip Codes</li>
-                             <li>Area Codes</li>
-                             <li>Lat/Long (i.e. '43.9,-72.1')</li>
-                     </div>
-                     <div class="modal-footer">
-                         <button type="button" class="btn btn-default" data-dismiss="modal">Dismiss</button>
-                     </div>
-                 </div>
-             </div>
-         </div>
+    <div id="invalidSearchLocationModal" aria-hidden="true" class="modal fade overflow-y-hidden">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="test">Sorry, no results. Please try again.</h4>
+                </div>
+                <div class="modal-body">
+                    <h5 style="text-align: center">Here's a list of our supported Search Strings:</h5>
+                    <li>Street Address</li>
+                    <li>States</li>
+                    <li>Zip Codes</li>
+                    <li>Area Codes</li>
+                    <li>Lat/Long (i.e. '43.9,-72.1')</li>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Dismiss</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-         <div id="aboutModal" class="modal fade"  tabindex="-1" role="dialog" >
-            <div class="modal-dialog  modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
-                        <h3 class="modal-title" ><img src="images/fwsLogo.png"/> CBRS Projects Map</h3>
-                    </div>
-                    <div id="aboutModalBody" class="modal-body">
-                        <ul class="nav nav-tabs" id="aboutModalTabs">
-                            <li role="presentation" class="active"><a id="aboutTab" href="#aboutTabPane" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;About the Application</a></li>
-                            <li role="presentation"><a id="contactTab" href="#contactTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Contact Us</a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="aboutTabPane"></br>
-                                 <p>The Coastal Barrier Resources System (CBRS) contains two types of mapped units, System units and Otherwise Protected Areas (OPAs). OPAs are denoted with a "P" at the end of the unit designation (e.g., FL-64P, P10P).
+    <div id="aboutModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog  modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
+                    <h3 class="modal-title"><img src="images/fwsLogo.png" /> CBRS Projects Mapper</h3>
+                </div>
+                <div id="aboutModalBody" class="modal-body">
+                    <ul class="nav nav-tabs" id="aboutModalTabs">
+                        <li role="presentation" class="active"><a id="aboutTab" href="#aboutTabPane" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;About the Application</a></li>
+                        <li role="presentation"><a id="contactTab" href="#contactTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Contact Us</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="aboutTabPane">
+                            </br>
+                            <p>The Coastal Barrier Resources System (CBRS) Projects Mapper contains both existing and draft revised boundaries 
+                                of the CBRS. This application allows you to compare the existing boundaries to the revised boundaries by 
+                                using the slider bar.</p>
 
-                                 <p>System Units are generally comprised of private lands that were relatively undeveloped at the time of their designation within the CBRS. The boundaries of these units are generally intended to follow geomorphic, development, or cultural features. Most new Federal expenditures and financial assistance, including Federal flood insurance, are prohibited within System units.</p>
+                            <p>The Coastal Barrier Resources System (CBRS) Projects Mapper contains both existing and draft revised boundaries 
+                                of the CBRS. This application allows you to compare the existing boundaries to the revised boundaries by 
+                                using the slider bar.  By moving the slider bar to the right, the existing boundary will be displayed on top 
+                                of the revised boundary, allowing you to compare the two boundaries.  To see the revised boundary by itself, 
+                                move the slider bar to the left.</p>
 
-                                 <p>OPAs are generally comprised of lands held by a qualified organization primarily for wildlife refuge, sanctuary, recreational, or natural resource conservation purposes. The boundaries of these units are generally intended to coincide with the boundaries of conservation or recreation areas such as state parks and national wildlife refuges. The only Federal spending prohibition within OPAs is the prohibition on Federal flood insurance.</p>
+                            <p>Units shown in gray do not currently have a revised boundary and are depicted for informational
+                                purposes only. To view the existing CBRS mapper, visit: <a href="https://www.fws.gov/cbra/maps/Mapper.html"
+                                    target="_blank"> https://www.fws.gov/cbra/maps/Mapper.html</a>.</p>
 
-                                 <p>For more information visit the CBRS <a href="https://www.fws.gov/ecological-services/habitat-conservation/cbra/Act/index.html" target="_blank"> webpage</a> and the CBRS Unit <a href="https://www.fws.gov/ecological-services/habitat-conservation/cbra/Maps/Metadata.html" target="_blank"> metadata</a></p>
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="contactTabPane"></br>
-                                <h3>Contact Us</h3>
-                                <p>Jerky porchetta sirloin tenderloin chicken rump boudin pastrami flank landjaeger drumstick corned beef sausage. Boudin kevin strip steak picanha short ribs pastrami. Meatloaf cupim kielbasa tenderloin. Shank meatloaf landjaeger pig venison filet mignon short ribs.</p>
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="dataLimitationsTabPane"></br>
-                                <h3>Data Limitations</h3>
-                            </div>
-
+                            <p>For more information visit the CBRS <a href="https://www.fws.gov/ecological-services/habitat-conservation/cbra/Act/index.html"
+                                    target="_blank"> webpage</a> and the CBRS Unit <a href="https://www.fws.gov/ecological-services/habitat-conservation/cbra/Maps/Metadata.html"
+                                    target="_blank"> metadata</a></p>
                         </div>
+                        <div role="tabpanel" class="tab-pane" id="contactTabPane">
+                            </br>
+                            <h3>Contact Us</h3>
+                            <p>You may contact the U.S. Fish & Wildlife Service with questions about the Coastal Barrier Resources
+                                Act or Coastal Barrier Resources System by emailing <a href="mailto:cbra@fws.gov"
+                                target="_blank">CBRA@fws.gov</a>.</p>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="dataLimitationsTabPane">
+                            </br>
+                            <h3>Data Limitations</h3>
+                        </div>
+
                     </div>
-
-                    <div class="modal-footer">
-                        <button class=" btn btn-default close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;" class="btn btn-default">Close</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div> <!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-
-<div id="faqModal" class="modal fade"  tabindex="-1" role="dialog" >
-    <div class="modal-dialog  modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
-                <h3 class="modal-title"><img src="images/fwsLogo.png"/> Frequently Asked Questions</h3>
-            </div>
-            <div class="faq-modal-body">
-                <h4 style="margin-bottom: 15px; font-weight: 600;">Study scope</h4>
-                <div class="faq-header" id="faq1header">1. What is the purpose of this study? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq1body">
-                    Bacon ipsum dolor amet beef jerky sirloin strip steak tongue. 
                 </div>
 
-                <div class="faq-header" id="faq2header">2. Where can I get more information on this study? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq2body">
-                    MVenison ribeye strip steak ground round biltong turducken prosciutto. Tongue t-bone flank corned beef drumstick cow, filet mignon bacon salami leberkas pork belly. Brisket hamburger shank, sirloin swine boudin flank. Tri-tip short loin cow, salami brisket boudin kevin flank.
-                </div>
-
-                <div class="faq-header" id="faq3header">3. Why evaluate changes in water quality? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq3body">
-                    Swine pork tail doner chicken, brisket jerky. Swine brisket beef ribs, ground round short loin kevin landjaeger sirloin. Corned beef ground round pancetta filet mignon turducken. 
-                </div>
-
-                <div class="faq-header" id="faq4header">4. Who completed this study? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq4body">
-                    Venison kevin turducken prosciutto tail t-bone shoulder pork loin spare ribs short loin jerky biltong doner landjaeger. Tongue ham hock short loin rump bresaola. Ham short ribs short loin turkey tail spare ribs pastrami prosciutto bresaola porchetta ground round swine. Short loin burgdoggen alcatra salami ham hock. Sirloin ball tip beef ribs ribeye bacon pancetta.
-                </div>
-
-                <div class="faq-header" id="faq5header">5. What data were included in your analyses? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq5body">
-                    Landjaeger flank prosciutto pork loin jowl venison short ribs. Turkey strip steak turducken, ham porchetta boudin jerky swine shankle jowl. Sausage tenderloin drumstick salami chicken shankle landjaeger. Andouille biltong meatloaf picanha doner porchetta, ball tip swine. Corned beef turducken boudin shank beef ribs biltong tri-tip brisket sirloin salami beef bacon spare ribs pork belly pastrami. Shoulder tail beef short loin kevin tongue salami porchetta flank fatback alcatra doner spare ribs rump frankfurter.
-                </div>
-
-                <div class="faq-header" id="faq6header">6. What constituents were included in your analyses? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq6body">
-                    Boudin shank frankfurter ham doner. T-bone pork loin chuck shoulder porchetta. Sausage sirloin corned beef swine, turducken beef pig shank meatloaf short ribs. Chicken sirloin short loin jowl kielbasa, swine kevin.
-                </div>
-
-                <div class="faq-header" id="faq7header">7. What time periods did you assess in your trend analyses? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq7body">
-                    Chuck venison pig, turkey salami shankle doner pastrami t-bone meatball pork loin shoulder cow chicken. Spare ribs sirloin pig cupim, hamburger picanha boudin tenderloin pancetta chuck short loin.
-                </div>
-
-                <div class="faq-header" id="faq8header">8. Why do your trends only extend through 2012? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq8body">
-                     Sausage tenderloin drumstick salami chicken shankle landjaeger. Andouille biltong meatloaf picanha doner porchetta, ball tip swine. Corned beef turducken boudin shank beef ribs biltong tri-tip brisket sirloin salami beef bacon spare ribs pork belly pastrami.
+                <div class="modal-footer">
+                    <button class=" btn btn-default close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;" class="btn btn-default">Close</button>
                 </div>
             </div>
-        </div><!-- /.modal-content -->
-    </div> <!-- /.modal-dialog -->
-</div><!-- /.modal -->
-         
-    </body>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+
+    <div id="faqModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog  modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
+                    <h3 class="modal-title"><img src="images/fwsLogo.png" /> Frequently Asked Questions</h3>
+                </div>
+                <div class="faq-modal-body">
+                    <h4 style="margin-bottom: 15px; font-weight: 600;">Study scope</h4>
+                    <div class="faq-header" id="faq1header">1. What is the Coastal Barrier Resources Act (CBRA)? <div id="angle1" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div></div>
+                    <div class="faq-body" id="faq1body">
+                        The Coastal Barrier Resources Act, enacted in 1982, designated relatively undeveloped coastal barriers along the Atlantic
+                        and Gulf of Mexico coasts as part of the Coastal Barrier Resources System (CBRS), and made these
+                        areas ineligible for most new Federal expenditures and financial assistance. The CBRS was expanded
+                        in 1990 to include areas along the Great Lakes, Puerto Rico, and the U.S. Virgin Islands. The three
+                        purposes of this law are to minimize the loss of human life, conserve natural resources associated
+                        with coastal barriers, and save taxpayers&#8217; dollars.<a href="https://www.fws.gov/cbra/Act.html"
+                            target="_blank"> Learn more</a>.
+                    </div>
+
+                    <div class="faq-header" id="faq2header">2. What is the Coastal Barrier Resources System (CBRS)? <div id="angle2" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div></div>
+                    <div class="faq-body" id="faq2body">
+                        A geographic system, established by the Coastal Barrier Resources Act of 1982, that consists of the undeveloped coastal barriers
+                        and other areas located on the coasts of the U.S. that are identified and generally depicted on the
+                        maps on file with the Secretary of the Interior entitled &#34;John H. Chafee Coastal Barrier Resources
+                        System.&#34; The CBRS was renamed the &#34;John H. Chafee Coastal Barrier Resources System&#34; by
+                        Pub. L. 106-167 in 1999 to honor the late Senator Chafee. <a href="https://www.fws.gov/cbra/Act.html#CBRS"
+                            target="_blank"> Learn more</a>.
+                    </div>
+
+                    <div class="faq-header" id="faq3header">3. What is the difference between System Units and Otherwise Protected Areas (OPAs)? <div id="angle3" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div></div>
+                    <div class="faq-body" id="faq3body">
+                        The Coastal Barrier Resources System includes two types of units, System Units and Otherwise Protected Areas (OPAs).
+                        <br>
+                        <br>
+                        <strong>System Units</strong> are predominantly comprised of privately owned areas, though they may
+                        also contain areas that are held for conservation and/or recreation. Most new Federal expenditures
+                        and financial assistance, including Federal flood insurance, are prohibited within System Units.
+                        <br>
+                        <br>
+                        <strong>OPAs</strong> are predominantly comprised of conservation and/or recreation areas, though
+                        they may also contain private areas that are not held for conservation and/or recreation. OPAs are
+                        denoted with a &#34;P&#34; at the end of the unit number. The only Federal spending prohibition within
+                        OPAs is the prohibition related to Federal flood insurance.
+                    </div>
+
+                    <div class="faq-header" id="faq4header">4. How does the Service determine whether areas should be removed from the CBRS? <div id="angle4" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div></div>
+                    <div class="faq-body" id="faq4body">
+                        The U.S. Fish & Wildlife Service receives numerous requests from property owners and other interested parties who seek to
+                        remove land from the Coastal Barrier Resources System (CBRS). The Service does not recommend removing
+                        lands from the CBRS unless there is clear and compelling evidence that a technical mapping error
+                        led to the inclusion of land in the CBRS. In order to determine whether a technical mapping error
+                        exists, the Service conducts a comprehensive review of the history of the CBRS unit in question,
+                        which includes an assessment of the Service&#8217;s records for the unit, the controlling and historical
+                        CBRS maps of the area, historical aerial imagery and development status of the area (including the
+                        number of structures and level of infrastructure on the ground at the time of designation), an assortment
+                        of natural resource data, land ownership information, and any materials submitted by interested parties.
+                        <a href="https://www.fws.gov/cbra/maps/Boundary-Modifications.html" target="_blank"> Learn more</a>.
+                    </div>
+
+                    <div class="faq-header" id="faq5header">5. What is the Service&#8217;s authority to prepare digital maps and recommend additions to the CBRS?
+                        <div id="angle5" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div></div>
+                    <div class="faq-body" id="faq5body">
+                        Section 4(a) of the <a href="https://www.fws.gov/cbra/Legislation.html#Act2005" target="_blank">2006 Coastal Barrier Resources Reauthorization Act (CBRRA) (Pub. L. 109-226)</a>                        directs the Secretary of the Interior (Secretary) to prepare digital maps for the CBRS. Section 4(c)(3)(D)
+                        of the 2006 CBRRA directs the Secretary to make recommendations for the expansion of the CBRS when
+                        carrying out the digital mapping.
+                    </div>
+
+                    <div class="faq-header" id="faq6header">6. What is &#34;comprehensive map modernization&#34;? <div id="angle6" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div></div>
+                    <div class="faq-body" id="faq6body">
+                        The comprehensive map modernization approach makes modifications necessary to account for natural changes, corrects mapping
+                        errors that affect property owners, and also adds areas that are appropriate for inclusion within
+                        the CBRS. This requires a thorough review process and generally follows these steps: (1) research
+                        by the Service into the intent of the original boundaries and the development status on-the-ground
+                        at the time the areas were originally included within the CBRS (the Service generally does not recommend
+                        removal of areas from the CBRS unless there is compelling evidence that a mapping error was made);
+                        (2) preparation of draft revised maps by the Service; (3) public review of the draft maps; (4) preparation
+                        of final recommended maps by the Service that take into consideration information provided during
+                        the public comment period as well as the CBRA criteria and objective mapping protocols; and (5) Congressional
+                        enactment of legislation to make the revised maps effective.<a href="https://www.fws.gov/cbra/maps/Map-Modernization.html"
+                            target="_blank"> Learn More</a>.
+                    </div>
+
+                    <div class="faq-header" id="faq7header">7. What is the difference between an &#34;existing&#34; and &#34;revised&#34; CBRS boundary? <div id="angle7" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div></div>
+                    <div class="faq-body" id="faq7body">
+                        &#34;Existing&#34; Coastal Barrier Resources System (CBRS) boundaries are the current boundaries of the CBRS that are depicted
+                        on the official set of CBRS maps maintained by the U.S. Fish and Wildlife Service (Service).
+                        <br>
+                        <br> &#34;Revised&#34; CBRS boundaries are draft boundaries that are prepared by the Service through
+                        the comprehensive map modernization process. Revised boundaries that have been prepared for public
+                        review are referred to as &#34;proposed.&#34; Following the public review process, the Service considers
+                        all submitted comments and prepares &#34;final recommended boundaries,&#34; which are then transmitted
+                        to Congress for consideration. Revised CBRS boundaries that are produced through this process only
+                        become effective if adopted by Congress through legislation.
+                    </div>
+
+                    <div class="faq-header" id="faq8header">8. What is the difference between a &#34;proposed&#34; CBRS boundary and a &#34;final recommended&#34;
+                        CBRS boundary?
+                        <div id="angle8" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div></div>
+                    <div class="faq-body" id="faq8body">
+                        Revised Coastal Barrier Resources System (CBRS) boundaries that are prepared by the U.S. Fish & Wildlife Service (Service)
+                        through the comprehensive map modernization process for public review are referred to as &#34;proposed.&#34;
+                        Following the public review process, the Service considers all submitted comments and prepares &#34;final
+                        recommended boundaries,&#34; which are then transmitted to Congress for consideration. Revised CBRS
+                        boundaries that are produced through this process only become effective if adopted by Congress through
+                        legislation.
+                    </div>
+
+                    <div class="faq-header" id="faq9header">9. Where can I download CBRS GIS data? <div id="angle9" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div></div>
+                    <div class="faq-body" id="faq9body">
+                        The U.S. Fish & Wildlife Service (Service) has geospatial Coastal Barrier Resources System (CBRS) polygon data for the existing
+                        and revised units available in a variety of formats. Please visit the
+                        <a href="https://www.fws.gov/cbra/maps/Boundaries.html" target="_blank"> Digital CBRS Boundaries</a> webpage for the existing CBRS boundary data. Please visit the <a href="https://www.fws.gov/cbra/maps/Map-Modernization.html"
+                            target="_blank"> Comprehensive Map Modernization</a> webpage for the revised CBRS boundary data.
+                    </div>
+
+                    <div class="faq-header" id="faq10header">10. Where can I get more information? <div id="angle10" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div></div>
+                    <div class="faq-body" id="faq10body">
+                        For more information visit the U.S. Fish and Wildlife Service&#8217;s Coastal Barrier Resources System
+                        <a href="https://www.fws.gov/cbra" target="_blank"> webpage</a> or contact us via email at <a href="mailto:cbra@fws.gov"
+                            target="_blank">cbra@fws.gov</a>.
+                    </div>
+
+                    <div class="faq-header" id="faq11header">11. How do I submit comments?<div id="angle11" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div></div>
+                    <div class="faq-body" id="faq11body">
+                            Click the unit that you would like to make comments about in the mapper. If a comment period is currently open, 
+                            the "Project Status" section of the pop-up window that appears will contain instructions for submitting comments.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class=" btn btn-default close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;" class="btn btn-default">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+</body>
+
 </html>
