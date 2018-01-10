@@ -178,9 +178,11 @@ require([
         var search = new Search({
             enableButtonMode: false, //this enables the search widget to display as a single button
             enableLabel: false,
+            enableSearchingAll: false,
             enableInfoWindow: false,
             showInfoWindowOnSelect: false,
             map: map,
+            allPlaceholder: 'Enter CBRS unit number (e.g Q01P)',
             sources: []
         }, "search");
 
@@ -193,7 +195,7 @@ require([
             exactMatch: false,
             outFields: ["Unit"],
             name: "Revised Units",
-            placeholder: "e.g NJ-07",
+            placeholder: "Enter CBRS unit number (e.g Q01P)",
             highlightSymbol: new PictureMarkerSymbol("https://js.arcgis.com/3.21/esri/dijit/Search/images/search-pointer.png", 40, 40).setOffset(9, 18),
             maxResults: 6,
             maxSuggestions: 6,
@@ -206,7 +208,7 @@ require([
             exactMatch: false,
             outFields: ["Unit"],
             name: "Existing Units",
-            placeholder: "e.g NJ-07",
+            placeholder: "Enter CBRS unit number (e.g Q01P)",
             highlightSymbol: new PictureMarkerSymbol("https://js.arcgis.com/3.21/esri/dijit/Search/images/search-pointer.png", 40, 40).setOffset(9, 18),
             maxResults: 6,
             maxSuggestions: 6,
@@ -216,6 +218,7 @@ require([
 
         $('#cbrsNav').click(function () {
             search.startup();
+            search.clear();
         });
 
         $(document).ready(function () {
@@ -225,6 +228,17 @@ require([
                     $("#btnunitDismiss").trigger("click");
                 }
             }); */
+
+            function showAboutModal() {
+                $('#aboutModal').modal('show');
+            }
+            $('#aboutNav').click(function () {
+                showAboutModal();
+            });
+            $('.searchBtn searchSubmit').click(function () {
+                search.clear();
+            })
+
 
             on(search, 'select-result', function (e) {
                 $("#btnunitDismiss").trigger("click");
@@ -915,6 +929,10 @@ require([
         $(document).ready(function () {
             function showModal() {
                 $('#cbrsModal').modal('show');
+
+                /* $('#search_input').text(function(i, oldText) {
+                    return oldText === 'Find address or place' ? 'Enter CBRS unit number (e.g Q01P)' : oldText;
+                }); */
             }
 
             $('#cbrsNav').click(function () {
@@ -1241,12 +1259,7 @@ require([
                 showModal();
             });
 
-            function showAboutModal() {
-                $('#aboutModal').modal('show');
-            }
-            $('#aboutNav').click(function () {
-                showAboutModal();
-            });
+            
 
             function showDisclaimerModal() {
                 $('#disclaimerModal').modal('show');

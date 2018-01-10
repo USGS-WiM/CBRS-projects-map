@@ -435,3 +435,47 @@
   /* symbol for "collapsed" panels */
   content: "\e080";    /* adjust as needed, taken from bootstrap.css */
 }
+
+/* Making cbrs search box longer */
+.arcgisSearch .searchGroup .searchInput {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  float: left;
+  display: block;
+  height: 20px;
+  width: 235px;
+  padding: 6px 24px 6px 12px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #4C4C4C;
+  background-color: #fff;
+  border: 1px solid #57585A;
+  border-right: 0;
+}
+
+#searchContainer {
+  width: 350px;
+  height: 34px;
+}
+
+  /* formatting search help in Find Location modal */
+
+.search-help{
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding-top: 15px;
+  font-size: 12px;
+}
+.search-help b{
+  display: block;
+  margin: 0 auto;
+  font-size: 14px;
+  margin-bottom: 8px;
+  margin-top: 25px;
+}
+.search-help code{
+  display: inline-block;
+  margin: 2px;
+}
