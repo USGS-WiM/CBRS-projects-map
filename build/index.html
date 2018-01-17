@@ -171,8 +171,14 @@
                 <!--</div>-->
 
                 <div id="mapDiv">
-                    <!-- <div id="search"></div> -->
+
+                    <!-- Swipe Tool -->
                     <div id="swipeDiv" title="Drag to see underlying layer" class="layerSwipe"></div>
+
+                    <!-- Toast print warning -->
+                    <div id="toast">
+                        <br>The Existing Units layer has been removed for printing. It will return in a few seconds.</span>
+                    </div>
 
                     <!-- Unit Selection Pop Up -->
                     <div>
@@ -375,12 +381,12 @@
                 </div>
                 <div class="modal-body">
                     <div class="modal-header">
-                        <p>Use the Swipe tool to compare the Existing CBRS Units to the Revised CBRS Units.</p>
+                        <p>Use the slider bar to compare the Existing CBRS Units to the Revised CBRS Units.</p>
                         <br>
                         <p>Click any of the polygons to learn about the Service’s “proposed” or “final recommended” changes.
                             The proposed (or recommended) changes will only take effect if adopted by Congress.</p>
                         <!--<h5><strong> Swiping Tool: </strong></h5>
-                    <p style="text-align: center">Drag the Swipe Tool left and right to compare the two layers.</p>-->
+                    <p style="text-align: center">Drag the slider bar left and right to compare the two layers.</p>-->
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" id="hidemobileModal">Dismiss</button>
@@ -401,7 +407,7 @@
                     <h4>The Swiping Tool</h4>
                 </div>
                 <div class="modal-body">
-                    <h5 style="text-align: center">Drag the Swipe Tool left and right to compare the two layers.</h5>
+                    <h5 style="text-align: center">Drag the slider bar left and right to compare the two layers.</h5>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" id="secondStep">Next</button>
@@ -420,7 +426,7 @@
                     <h4>Revised Polygons</h4>
                 </div>
                 <div class="modal-body">
-                    <h5 style="text-align: center">Clicking and dragging the swipe tool to right will reveal the Existing CBRS Units. They are symbolized
+                    <h5 style="text-align: center">Clicking and dragging the slider bar  to right will reveal the Existing CBRS Units. They are symbolized
                         as the grey polygons</h5>
                 </div>
                 <div class="modal-footer">
@@ -526,11 +532,11 @@
         <!-- /.modal-dialog -->
     </div>
 
-    <div class="modal fade overflow-y-hidden" id="printModal" style="display: none;" aria-hidden="true">
+    <div class="modal fade overflow-y-hidden" id="printModal" style="display: none;" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                    <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button> -->
                     <h4 class="modal-title"><span class="glyphicon glyphicon-print"></span> Print Map</h4>
                 </div>
                 <div id="printModalBody" class="modal-body">

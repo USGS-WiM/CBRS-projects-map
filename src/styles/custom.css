@@ -479,3 +479,56 @@
   display: inline-block;
   margin: 2px;
 }
+
+/* Toast */
+
+/* #_example-toast {
+  display: none;
+} */
+
+#toast {
+  visibility: hidden;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  position: fixed;
+  top: 50px;
+  left: 0;
+  min-height: 57px;
+  height: auto;
+  font-size: 11pt;
+  text-align: center;
+  background-color: #F4F5F6;
+  font-weight: bold;
+  z-index: 5000;
+  box-shadow: 2px 2px 10px rgba(0,0,30,.09);
+  padding: 0 55px;
+  background-color: rgb(219, 203, 114);
+  border-color: rgb(219, 203, 114);
+}
+
+#toast.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 8s;
+  animation: fadein 0.5s, fadeout 0.5s 8s;
+}
+
+@-webkit-keyframes fadein {
+  from {top: 0; opacity: 0;} 
+  to {top: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {top: 0; opacity: 0;}
+  to {top: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {top: 30px; opacity: 1;} 
+  to {top: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {top: 30px; opacity: 1;}
+  to {top: 0; opacity: 0;}
+}

@@ -17,6 +17,7 @@ var measurement;
 var queryTask, query;
 
 var polyClicked = false;
+var printing = false;
 
 require([
     'esri/map',
@@ -111,6 +112,9 @@ require([
 
         //bring this line back after experiment////////////////////////////
         //allLayers = mapLayers;
+
+        var mapLayersTwo = [];
+        allLayers = mapLayersTwo;
 
         esriConfig.defaults.io.corsEnabledServers.push("fwsprimary.wim.usgs.gov");
         esri.config.defaults.io.proxyUrl = "https://fwsprimary.wim.usgs.gov/serviceProxy/proxy.ashx";
@@ -272,7 +276,24 @@ require([
             showPrintModal();
         });
 
+        $('#printDismissButton').click(function(){
+            if (printing == true) {
+                var x = document.getElementById("toast")
+                x.className = "show";
+                setTimeout(function () {
+                    x.className = x.className.replace("show", "");
+                }, 7000);
+            } else {
+
+            }
+        });
+
+        
+
+
         $('#printExecuteButton').click(function (e) {
+            printing = true;
+            
             e.preventDefault();
             $(this).button('loading');
             printMap();
@@ -664,6 +685,8 @@ require([
             map.addLayer(underLayerExist);
             map.addLayer(changeLayer);
             map.addLayer(otherProjectsLayer);
+
+            mapLayersTwo.push(swipeLayerRevised, underLayerExist, changeLayer, otherProjectsLayer);
             /*map.reorderLayer(swipeLayer,1);*/
 
             $("#swipeDiv").on(function () {
@@ -1042,6 +1065,8 @@ require([
             function showModal() {
                 $('#invalidSearchLocationModal').modal('show');
             }
+
+            
         });
 
         // FAQ Modal controls.
@@ -1158,6 +1183,9 @@ require([
             var printParams = new PrintParameters();
             printParams.map = map;
 
+            allLayers[1].setVisibility(false);
+
+
             var template = new PrintTemplate();
             template.exportOptions = {
                 width: 500,
@@ -1180,6 +1208,7 @@ require([
 
             var userTitle = $("#printTitle").val();
             //if user does not provide title, use default. otherwise apply user title
+
             if (userTitle == "") {
                 template.layoutOptions = {
                     "titleText": "CBRS Project Mapper Excerpt",
@@ -1199,6 +1228,7 @@ require([
             printParams.template = template;
             var printMap = new PrintTask("https://fwsprimary.wim.usgs.gov/server/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task");
             printMap.execute(printParams, printDone, printError);
+            
 
             /* $.get("https://fwsprimary.wim.usgs.gov/pdfLoggingService/pdfLog.asmx/Log?printInfo=" + map.getScale() + "," + map.extent.xmin + "," + map.extent.ymax + "," + map.extent.xmax + "," + map.extent.ymin + ",NWIV2", function (data) {
                 //console.log(data);
@@ -1215,10 +1245,14 @@ require([
                 $("#printModalBody").append(printJob);
                 $("#printTitle").val("");
                 $("#printExecuteButton").button('reset');
+
+                allLayers[1].setVisibility(true);
+                printing = false;
             }
 
             function printError(event) {
                 alert("Sorry, an unclear print error occurred. Please try refreshing the application to fix the problem");
+                allLayers[1].setVisibility(true);
             }
         }
 
@@ -1241,6 +1275,15 @@ require([
             $('#siteModal').load(function () {
                 showSiteModal();
                 alert("worked");
+            });
+
+            $("#printTitle").keypress(function(e) {
+                var k = e.keyCode,
+                $return = ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32  || (k >= 48 && k <= 57));
+                if(!$return) {
+                    return false;
+                }
+                
             });
 
 
