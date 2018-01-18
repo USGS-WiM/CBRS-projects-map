@@ -1213,13 +1213,13 @@ require([
                 template.layoutOptions = {
                     "titleText": "CBRS Project Mapper Excerpt",
                     "authorText": "Coastal Barrier Resources System (CBRS)",
-                    "copyrightText": "This page was produced by the CBRS Projects Map",
+                    "copyrightText": "This page was produced by the CBRS Projects Mapper",
                 };
             } else {
                 template.layoutOptions = {
                     "titleText": userTitle,
                     "authorText": "Coastal Barrier Resources System (CBRS)",
-                    "copyrightText": "This page was produced by the CBRS Projects Map",
+                    "copyrightText": "This page was produced by the CBRS Projects Mapper",
                 };
             }
 
