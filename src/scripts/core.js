@@ -1263,6 +1263,7 @@ require([
             function printError(event) {
                 alert("Sorry, an unclear print error occurred. Please try refreshing the application to fix the problem");
                 allLayers[1].setVisibility(true);
+                $("#printExecuteButton").button('reset');
             }
         }
 
