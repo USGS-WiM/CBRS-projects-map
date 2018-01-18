@@ -532,3 +532,33 @@
   from {top: 30px; opacity: 1;}
   to {top: 0; opacity: 0;}
 }
+
+@media(max-width:900px){
+    #printButtonText, #geosearchButtonText{
+      display: none !important;
+    }
+  }
+  @media(max-width:500px){
+    .navbar-btn{
+      padding-left: 9px !important;
+      padding-right:9px !important;
+      margin:0 !important;
+    }
+    .navbar .container-fluid{
+      padding-left: 8px !important;
+      padding-right: 0px !important;
+    }
+    .navbar-brand{
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    
+  }
+#titles{
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 0 0 5px !important;
+  font-size: 14px !important;
+}

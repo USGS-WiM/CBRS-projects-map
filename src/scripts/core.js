@@ -233,6 +233,16 @@ require([
                 }
             }); */
 
+            $("#IEwarnContinue").click(function () {
+                $('#disclaimerModal').modal('show');
+            });
+
+            if(navigator.userAgent.indexOf('MSIE')!==-1 || navigator.appVersion.indexOf('Trident/') > 0){
+                $("#IEwarningModal").modal('show');
+            } else {
+                $('#disclaimerModal').modal('show');
+            }
+
             function showAboutModal() {
                 $('#aboutModal').modal('show');
             }
@@ -673,7 +683,7 @@ require([
 
         on(map, "load", function () {
 
-            $('#disclaimerModal').modal('show');
+            /* $('#disclaimerModal').modal('show'); */
 
             var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/3");
             var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/1");

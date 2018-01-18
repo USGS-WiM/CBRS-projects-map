@@ -744,3 +744,8 @@ html {
   margin: 0 auto;
   font-family: 'Open Sans', sans-serif;
 }
+@media(max-width:900px){
+  #printButtonText, #geosearchButtonText{
+    display: none !important;
+  }
+}
