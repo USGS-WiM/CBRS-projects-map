@@ -252,9 +252,11 @@ require([
 
             function showAboutModal() {
                 $('#aboutModal').modal('show');
+                gtag('event', 'click', { 'event_category': 'About Modal', 'event_label': 'About modal opened' });
             }
             $('#aboutNav').click(function () {
                 showAboutModal();
+                gtag('event', 'click', { 'event_category': 'About Modal', 'event_label': 'About modal opened' });
             });
             $('.searchBtn searchSubmit').click(function () {
                 search.clear();
@@ -559,6 +561,7 @@ require([
             }
             $('#showWelcomeModal').click(function () {
                 $('#welcomeModal').modal('show');
+                gtag('event', 'click', { 'event_category': 'Layer Help', 'event_label': 'Layer Help Opened' });
             });
 
             function showModal() {
