@@ -220,6 +220,13 @@ require([
 
         search.set("sources", sources);
 
+        on(search, 'select-result', function (e) {
+            var unitSearched = $("#search_input").val();
+            gtag('event', 'click', { 'event_category': 'Find CBRS', 'event_label': unitSearched });
+
+            $("#btnunitDismiss").trigger("click");
+        });
+
         $('#cbrsNav').click(function () {
             search.startup();
             search.clear();
@@ -251,11 +258,6 @@ require([
             });
             $('.searchBtn searchSubmit').click(function () {
                 search.clear();
-            })
-
-
-            on(search, 'select-result', function (e) {
-                $("#btnunitDismiss").trigger("click");
             });
 
             /* $('#').click(function(){
@@ -432,6 +434,7 @@ require([
             map.removeLayer(nationalMapBasemap);
             map.removeLayer(usgsTopo);
             map.removeLayer(usgsImageryTopo);
+            gtag('event', 'click', { 'event_category': 'Basemap', 'event_label': 'basemap: Streets' });
         });
         /*     on(dom.byId('btnSatellite'), 'click', function () {
                 map.setBasemap('satellite');
@@ -444,6 +447,7 @@ require([
             map.removeLayer(nationalMapBasemap);
             map.removeLayer(usgsTopo);
             map.removeLayer(usgsImageryTopo);
+            gtag('event', 'click', { 'event_category': 'Basemap', 'event_label': 'basemap: Hybrid' });
         });
         /*     on(dom.byId('btnTerrain'), 'click', function () {
                 map.setBasemap('terrain');
@@ -456,6 +460,7 @@ require([
             map.removeLayer(nationalMapBasemap);
             map.removeLayer(usgsTopo);
             map.removeLayer(usgsImageryTopo);
+            gtag('event', 'click', { 'event_category': 'Basemap', 'event_label': 'basemap: Gray' });
         });
         /*     on(dom.byId('btnNatGeo'), 'click', function () {
                 map.setBasemap('national-geographic');
@@ -487,12 +492,14 @@ require([
             map.addLayer(usgsImageryTopo, 1);
             map.removeLayer(nationalMapBasemap);
             map.removeLayer(usgsTopo);
+            gtag('event', 'click', { 'event_category': 'Basemap', 'event_label': 'basemap: USGS Imagery Topo' });
         });
 
         on(dom.byId('btnUsgsTopo'), 'click', function () {
             map.addLayer(usgsTopo, 1);
             map.removeLayer(nationalMapBasemap);
             map.removeLayer(usgsImageryTopo);
+            gtag('event', 'click', { 'event_category': 'Basemap', 'event_label': 'basemap: USGS Topo' });
         })
 
         //start LobiPanel
@@ -718,6 +725,8 @@ require([
             swipeWidget.on("swipe", function () {
                 // console.log(document.getElementsByClassName("vertical")[0].style["top"]);
                 document.getElementsByClassName("vertical")[0].style["top"] = "0";
+
+                gtag('event', 'click', { 'event_category': 'Slide Tool', 'event_label': 'Slider Used' });
             });
         });
 
@@ -1049,7 +1058,7 @@ require([
                             );
                         });
                     }
-
+                    gtag('event', 'click', { 'event_category': 'Find Location', 'event_label': o.result.properties.Name + ", " + o.result.properties.Lon + ", " + o.result.properties.Lat  });
                 });
 
             },
@@ -1264,7 +1273,11 @@ require([
                 alert("Sorry, an unclear print error occurred. Please try refreshing the application to fix the problem");
                 allLayers[1].setVisibility(true);
                 $("#printExecuteButton").button('reset');
+
+                gtag('event', 'click', { 'event_category': 'Print', 'event_label': 'Print Error' });
             }
+
+            gtag('event', 'click', { 'event_category': 'Print', 'event_label': 'successful Print' });
         }
 
         function setCursorByID(id, cursorStyle) {
