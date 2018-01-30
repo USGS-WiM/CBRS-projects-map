@@ -18,6 +18,7 @@ var queryTask, query;
 
 var polyClicked = false;
 var printing = false;
+var measuring = false;
 
 require([
     'esri/map',
@@ -238,6 +239,10 @@ require([
                 if ( event.which == 13 ) {
                     $("#btnunitDismiss").trigger("click");
                 }
+            }); */
+
+           /*  $("#measureLabel").click(function () {
+                measuring = true;
             }); */
 
             $("#IEwarnContinue").click(function () {
@@ -739,7 +744,11 @@ require([
              }*/
         on(map, "click", function (evt) {
             if (evt.graphic === undefined) {
-                $('#outsideCBRS').modal('show');
+                if (measuring == false) {
+                    $('#outsideCBRS').modal('show');
+                } else {
+
+                }
             }
         });
 
@@ -983,6 +992,37 @@ require([
             $('#cbrsNav').click(function () {
                 showModal();
             });
+
+            function secondClick() {
+                if (!(count++ % 2)) {
+                    measuring = false;
+                }
+            }
+
+            var count = 0;
+            var widget = dijit.byId(dijit_form_ToggleButton_1);
+
+            $('#dijit_form_ToggleButton_1').click(function () {
+
+                count++;
+
+                if (!(count % 2)){
+                    measuring = false;
+                } else {
+                    measuring = true;
+                }
+            });
+
+            
+
+            /* $('.dijit dijitReset').click(function () {
+                if ($(".dijit dijitReset").hasClass("dijitChecked")) {
+                    measuring = false;
+                }
+                
+            }); */
+
+
         });
 
         $("#clearSelection").click(function () {
@@ -1336,6 +1376,11 @@ require([
             }
 
             function showCBRSModal() {
+                /* if (measuring = false) {
+                    $('#outsideCBRS').modal('show');
+                } else if (measuring = true){
+
+                } */
                 $('#outsideCBRS').modal('show');
             }
 
