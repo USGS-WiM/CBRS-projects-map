@@ -917,7 +917,11 @@ require([
 
                             prDates = startDate + ' &#8211; ' + endDate;
 
+<<<<<<< HEAD
                             $("#status").html('<strong>' + feature.attributes["Status"] + '</strong>' + "&#8211; Public review open from " + prDates + ". See docket on " + '<a href="' + feature.attributes["Docket_URL"] + '" target="_blank">' + feature.attributes["Docket_URL"] + '</a>' +" to make comments during the comment period and/or view submitted comments.");
+=======
+                            $("#status").html('<strong>' + feature.attributes["Status"] + '</strong>' + "&#8211; Public review open from " + prDates + ". Visit: " + '<a href="' + feature.attributes["Docket_URL"] + '" target="_blank">' + feature.attributes["Docket_URL"] + '</a>' + " to make comments during the comment period and/or view submitted comments.");
+>>>>>>> staging
 
                             $("#status").css("font-weight", "normal");
 
