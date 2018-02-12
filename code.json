@@ -18,7 +18,7 @@
   
       "homepageURL": "https://wim.usgs.gov",
       "downloadURL": "https://github.com/USGS-WiM/CBRS-projects-map/archive/master.zip",
-      "disclaimerURL": "https://github.com/USGS-WiM/CBRS-projects-map/blob/master/LICENSE.md",
+      "disclaimerURL": "https://github.com/USGS-WiM/CBRS-projects-map/blob/master/DISCLAIMER.md",
       "repositoryUrl": "https://github.com/USGS-WiM/CBRS-projects-map",
       "vcs": "git",
   
