@@ -194,7 +194,7 @@ require([
         var sources = search.get("sources");
 
         sources.push({
-            featureLayer: new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/projectmapperlive/FeatureServer/1"),
+            featureLayer: new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/1"),
             searchFields: ["Unit"],
             displayField: "Unit",
             exactMatch: false,
@@ -207,7 +207,7 @@ require([
         });
 
         sources.push({
-            featureLayer: new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/projectmapperlive/FeatureServer/0"),
+            featureLayer: new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/0"),
             searchFields: ["Unit"],
             displayField: "Unit",
             exactMatch: false,
@@ -582,6 +582,13 @@ require([
                 $('#mobileModal').modal('show');
                 /*$("#swipeDiv").offset({ top: 0, left: 0 });*/
             });
+            openLayerHelp
+
+            $('#openLayerHelp').click(function () {
+                $('#welcomeModal').modal('show');
+                $('#mobileModal').modal('show');
+                /*$("#swipeDiv").offset({ top: 0, left: 0 });*/
+            });
 
             function showModal() {
                 $('#secondModal').modal('show');
@@ -700,10 +707,10 @@ require([
 
             /* $('#disclaimerModal').modal('show'); */
 
-            var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/projectmapperlive/FeatureServer/3");
-            var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/1");
-            var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/0");
-            var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/2");
+            var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/3");
+            var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/1");
+            var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/0");
+            var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/2");
 
 
             map.addLayer(swipeLayerRevised);
@@ -760,7 +767,7 @@ require([
                 queryTwo.geometry = evt.mapPoint;
                 queryTwo.outFields = ["Unit"];
                 //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
-                queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/projectmapperlive/FeatureServer/3");
+                queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/3");
                 queryTask.execute(queryTwo);
                 setCursorByID("mainDiv");
                 /*var deferredResult = queryTask.execute(query);*/
@@ -818,7 +825,7 @@ require([
                 query.geometry = evt.mapPoint;
                 query.outFields = ["Unit", "Name", "Unit_Type", "Change_Type", "Summary_URL", "Project_name", "Project_URL", "Status", "Docket_URL", "Unit_1", "Unit_Type_1", "PR_start_date", "PR_end_date", "Transmittal_Date"];
                 //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
-                queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/projectmapperlive/FeatureServer/2");
+                queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/2");
                 queryTask.execute(query);
                 setCursorByID("mainDiv");
                 /*var deferredResult = queryTask.execute(query);*/
@@ -910,10 +917,24 @@ require([
                         if (feature.attributes["Status"].includes("P")) { // Proposed status
 
                             var startStamp = feature.attributes["PR_start_date"];
-                            startDate = moment(startStamp).calendar();
+                            startDate = moment(startStamp).calendar(null,{
+                                lastDay : 'L',
+                                sameDay : 'L',
+                                nextDay : 'L',
+                                lastWeek : 'L',
+                                nextWeek : 'L',
+                                sameElse : 'L'
+                            });
 
                             var endStamp = feature.attributes["PR_end_date"];
-                            endDate = moment(endStamp).calendar();
+                            endDate = moment(endStamp).calendar(null,{
+                                lastDay : 'L',
+                                sameDay : 'L',
+                                nextDay : 'L',
+                                lastWeek : 'L',
+                                nextWeek : 'L',
+                                sameElse : 'L'
+                            });
 
                             prDates = startDate + ' &#8211; ' + endDate;
 
@@ -927,7 +948,14 @@ require([
 
                             var timeStamp = feature.attributes["Transmittal_Date"];
 
-                            transmittalDate = moment(timeStamp).calendar();
+                            transmittalDate = moment(timeStamp).calendar(null,{
+                                lastDay : 'L',
+                                sameDay : 'L',
+                                nextDay : 'L',
+                                lastWeek : 'L',
+                                nextWeek : 'L',
+                                sameElse : 'L'
+                            });
 
                             $("#status").html('<strong>' + feature.attributes["Status"] + '</strong>' + "&#8211; The final recommended boundaries for this project were transmitted to Congress on " + transmittalDate + ". These boundaries will become effective only if adopted by Congress through legislation.");
 

@@ -324,7 +324,7 @@
     </div>
 
     <!-- Disclaimer -->
-    <div id="disclaimerModal" aria-hidden="true" class="modal fade overflow-y-hidden">
+    <div id="disclaimerModal" aria-hidden="true" class="modal fade overflow-y-hidden" data-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -355,7 +355,7 @@
                 </div>
                 <div class="modal-footer">
                     <div style="text-align: center">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" style="background-color: #ffd1d1">I accept the terms and conditions</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" style="background-color: #ffd1d1" id="openLayerHelp">I accept the terms and conditions</button>
                     </div>
                 </div>
             </div>
@@ -391,7 +391,7 @@
     <!--End CBRS Unit Search -->
 
     <!-- Welcome Modal -->
-    <div id="welcomeModal" aria-hidden="true" class="modal fade overflow-y-hidden">
+    <div id="welcomeModal" aria-hidden="true" class="modal fade overflow-y-hidden" data-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -406,7 +406,6 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" id="hidemobileModal">Dismiss</button>
-                        <!--<button type="button" class="btn btn-default" data-dismiss="modal" id="firstStep">Next</button>-->
                     </div>
                 </div>
             </div>
@@ -416,7 +415,7 @@
 
 
     <!-- Mobile Modal -->
-    <div id="mobileModal" aria-hidden="true" class="modal fade overflow-y-hidden">
+    <div id="mobileModal" aria-hidden="true" class="modal fade overflow-y-hidden" data-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -428,12 +427,9 @@
                         <br>
                         <p>Click any of the polygons to learn about the Service’s “proposed” or “final recommended” changes.
                             The proposed (or recommended) changes will only take effect if adopted by Congress.</p>
-                        <!--<h5><strong> Swiping Tool: </strong></h5>
-                    <p style="text-align: center">Drag the slider bar left and right to compare the two layers.</p>-->
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" id="hidemobileModal">Dismiss</button>
-                        <!--<button type="button" class="btn btn-default" data-dismiss="modal" id="firstStep">Next</button>-->
                     </div>
                 </div>
             </div>
@@ -576,8 +572,7 @@
         <!-- /.modal-dialog -->
     </div>
 
-    <div class="modal fade overflow-y-hidden" id="printModal" style="display: none;" aria-hidden="true" data-backdrop="static"
-        data-keyboard="false">
+    <div class="modal fade overflow-y-hidden" id="printModal" style="display: none;" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
