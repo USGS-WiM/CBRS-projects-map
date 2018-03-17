@@ -127,7 +127,7 @@ body {
     width: 100%;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 900px) {
     #geosearchButtonText {
         display: none;
     }

@@ -17,6 +17,8 @@ var measurement;
 var queryTask, query;
 
 var polyClicked = false;
+var printing = false;
+var measuring = false;
 
 require([
     'esri/map',
@@ -109,8 +111,25 @@ require([
     on
 ) {
 
+        // *** SWITCH BACK AND FORTH DEPENDING ON IF TEST OR PRODUCTION ***
+        
+        // TEST URLS
+        /* var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/3");
+        var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/1");
+        var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/0");
+        var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/2"); */
+
+        // PROD URLS
+        var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/projectmapperlive/FeatureServer/3");
+        var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/1");
+        var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/0");
+        var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/2");
+
         //bring this line back after experiment////////////////////////////
         //allLayers = mapLayers;
+
+        var mapLayersTwo = [];
+        allLayers = mapLayersTwo;
 
         esriConfig.defaults.io.corsEnabledServers.push("fwsprimary.wim.usgs.gov");
         esri.config.defaults.io.proxyUrl = "https://fwsprimary.wim.usgs.gov/serviceProxy/proxy.ashx";
@@ -178,35 +197,37 @@ require([
         var search = new Search({
             enableButtonMode: false, //this enables the search widget to display as a single button
             enableLabel: false,
+            enableSearchingAll: false,
             enableInfoWindow: false,
             showInfoWindowOnSelect: false,
             map: map,
+            allPlaceholder: 'Enter CBRS unit number (e.g Q01P)',
             sources: []
         }, "search");
 
         var sources = search.get("sources");
 
         sources.push({
-            featureLayer: new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/1"),
+            featureLayer: swipeLayerRevised,
             searchFields: ["Unit"],
             displayField: "Unit",
             exactMatch: false,
             outFields: ["Unit"],
             name: "Revised Units",
-            placeholder: "e.g NJ-07",
+            placeholder: "Enter CBRS unit number (e.g Q01P)",
             highlightSymbol: new PictureMarkerSymbol("https://js.arcgis.com/3.21/esri/dijit/Search/images/search-pointer.png", 40, 40).setOffset(9, 18),
             maxResults: 6,
             maxSuggestions: 6,
         });
 
         sources.push({
-            featureLayer: new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/0"),
+            featureLayer: underLayerExist,
             searchFields: ["Unit"],
             displayField: "Unit",
             exactMatch: false,
             outFields: ["Unit"],
             name: "Existing Units",
-            placeholder: "e.g NJ-07",
+            placeholder: "Enter CBRS unit number (e.g Q01P)",
             highlightSymbol: new PictureMarkerSymbol("https://js.arcgis.com/3.21/esri/dijit/Search/images/search-pointer.png", 40, 40).setOffset(9, 18),
             maxResults: 6,
             maxSuggestions: 6,
@@ -214,8 +235,16 @@ require([
 
         search.set("sources", sources);
 
+        on(search, 'select-result', function (e) {
+            var unitSearched = $("#search_input").val();
+            gtag('event', 'click', { 'event_category': 'Find CBRS', 'event_label': unitSearched });
+
+            $("#btnunitDismiss").trigger("click");
+        });
+
         $('#cbrsNav').click(function () {
             search.startup();
+            search.clear();
         });
 
         $(document).ready(function () {
@@ -226,8 +255,30 @@ require([
                 }
             }); */
 
-            on(search, 'select-result', function (e) {
-                $("#btnunitDismiss").trigger("click");
+           /*  $("#measureLabel").click(function () {
+                measuring = true;
+            }); */
+
+            $("#IEwarnContinue").click(function () {
+                $('#disclaimerModal').modal('show');
+            });
+
+            if(navigator.userAgent.indexOf('MSIE')!==-1 || navigator.appVersion.indexOf('Trident/') > 0){
+                $("#IEwarningModal").modal('show');
+            } else {
+                $('#disclaimerModal').modal('show');
+            }
+
+            function showAboutModal() {
+                $('#aboutModal').modal('show');
+                gtag('event', 'click', { 'event_category': 'About Modal', 'event_label': 'About modal opened' });
+            }
+            $('#aboutNav').click(function () {
+                showAboutModal();
+                gtag('event', 'click', { 'event_category': 'About Modal', 'event_label': 'About modal opened' });
+            });
+            $('.searchBtn searchSubmit').click(function () {
+                search.clear();
             });
 
             /* $('#').click(function(){
@@ -235,14 +286,6 @@ require([
             }); */
 
         });
-
-
-
-
-
-
-        //var utmCoords = $('<tr class="esriMeasurementTableRow" id="utmCoords"><td><span>UTM17</span></td><td class="esriMeasurementTableCell"> <span id="utmX" dir="ltr">UTM X</span></td> <td class="esriMeasurementTableCell"> <span id="utmY" dir="ltr">UTM Y</span></td></tr>');
-        //$('.esriMeasurementResultTable').append(utmCoords);
 
         //following block forces map size to override problems with default behavior
         $(window).resize(function () {
@@ -266,7 +309,24 @@ require([
             showPrintModal();
         });
 
+        $('#printDismissButton').click(function(){
+            if (printing == true) {
+                var x = document.getElementById("toast")
+                x.className = "show";
+                setTimeout(function () {
+                    x.className = x.className.replace("show", "");
+                }, 7000);
+            } else {
+
+            }
+        });
+
+        
+
+
         $('#printExecuteButton').click(function (e) {
+            printing = true;
+            
             e.preventDefault();
             $(this).button('loading');
             printMap();
@@ -308,6 +368,8 @@ require([
             } */
         });
 
+
+
         /*var featureLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Project_Mapper_data/FeatureServer/1?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
         var featureLayerRevise = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer/0?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.");
         var layer = featureLayerExist;*/
@@ -319,6 +381,8 @@ require([
         layers: [ layer ]
       }, "widget");
       layerSwipe.startup();*/
+
+        // cookie code
 
         /*     function setCookie(cname, cvalue, exdays) {
                 var d = new Date();
@@ -348,10 +412,21 @@ require([
             } */
 
 
+
         //displays map scale on scale change (i.e. zoom level)
         on(map, "zoom-end", function () {
             var scale = map.getScale().toFixed(0);
             $('#scale')[0].innerHTML = addCommas(scale);
+
+            $(document).ready(function () {
+                if (scale <= 2311162) {
+                    $('#printNavButton').prop('disabled', false);
+                }
+                if (scale > 2311163) {
+                    $('#printNavButton').prop('disabled', true);
+                } else {
+                }
+            });
         });
 
         //updates lat/lng indicator on mouse move. does not apply on devices w/out mouse. removes "map center" label
@@ -380,6 +455,7 @@ require([
             map.removeLayer(nationalMapBasemap);
             map.removeLayer(usgsTopo);
             map.removeLayer(usgsImageryTopo);
+            gtag('event', 'click', { 'event_category': 'Basemap', 'event_label': 'basemap: Streets' });
         });
         /*     on(dom.byId('btnSatellite'), 'click', function () {
                 map.setBasemap('satellite');
@@ -392,6 +468,7 @@ require([
             map.removeLayer(nationalMapBasemap);
             map.removeLayer(usgsTopo);
             map.removeLayer(usgsImageryTopo);
+            gtag('event', 'click', { 'event_category': 'Basemap', 'event_label': 'basemap: Hybrid' });
         });
         /*     on(dom.byId('btnTerrain'), 'click', function () {
                 map.setBasemap('terrain');
@@ -404,6 +481,7 @@ require([
             map.removeLayer(nationalMapBasemap);
             map.removeLayer(usgsTopo);
             map.removeLayer(usgsImageryTopo);
+            gtag('event', 'click', { 'event_category': 'Basemap', 'event_label': 'basemap: Gray' });
         });
         /*     on(dom.byId('btnNatGeo'), 'click', function () {
                 map.setBasemap('national-geographic');
@@ -435,12 +513,14 @@ require([
             map.addLayer(usgsImageryTopo, 1);
             map.removeLayer(nationalMapBasemap);
             map.removeLayer(usgsTopo);
+            gtag('event', 'click', { 'event_category': 'Basemap', 'event_label': 'basemap: USGS Imagery Topo' });
         });
 
         on(dom.byId('btnUsgsTopo'), 'click', function () {
             map.addLayer(usgsTopo, 1);
             map.removeLayer(nationalMapBasemap);
             map.removeLayer(usgsImageryTopo);
+            gtag('event', 'click', { 'event_category': 'Basemap', 'event_label': 'basemap: USGS Topo' });
         })
 
         //start LobiPanel
@@ -500,6 +580,7 @@ require([
             }
             $('#showWelcomeModal').click(function () {
                 $('#welcomeModal').modal('show');
+                gtag('event', 'click', { 'event_category': 'Layer Help', 'event_label': 'Layer Help Opened' });
             });
 
             function showModal() {
@@ -511,6 +592,13 @@ require([
             });
 
             $('#showHelp').click(function () {
+                $('#welcomeModal').modal('show');
+                $('#mobileModal').modal('show');
+                /*$("#swipeDiv").offset({ top: 0, left: 0 });*/
+            });
+            openLayerHelp
+
+            $('#openLayerHelp').click(function () {
                 $('#welcomeModal').modal('show');
                 $('#mobileModal').modal('show');
                 /*$("#swipeDiv").offset({ top: 0, left: 0 });*/
@@ -631,18 +719,12 @@ require([
 
         on(map, "load", function () {
 
-            $('#disclaimerModal').modal('show');
-
-            var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/MyMapService/FeatureServer/2");
-            var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/1");
-            var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/0");
-            var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/3");
-
-
             map.addLayer(swipeLayerRevised);
             map.addLayer(underLayerExist);
             map.addLayer(changeLayer);
             map.addLayer(otherProjectsLayer);
+
+            mapLayersTwo.push(swipeLayerRevised, underLayerExist, changeLayer, otherProjectsLayer);
             /*map.reorderLayer(swipeLayer,1);*/
 
             $("#swipeDiv").on(function () {
@@ -664,6 +746,8 @@ require([
             swipeWidget.on("swipe", function () {
                 // console.log(document.getElementsByClassName("vertical")[0].style["top"]);
                 document.getElementsByClassName("vertical")[0].style["top"] = "0";
+
+                gtag('event', 'click', { 'event_category': 'Slide Tool', 'event_label': 'Slider Used' });
             });
         });
 
@@ -673,19 +757,23 @@ require([
              }*/
         on(map, "click", function (evt) {
             if (evt.graphic === undefined) {
-                $('#outsideCBRS').modal('show');
+                if (measuring == false) {
+                    $('#outsideCBRS').modal('show');
+                } else {
+
+                }
             }
         });
 
         on(map, "click", function (evt) {
-            if (evt.graphic != undefined && evt.graphic._graphicsLayer.layerId == 2) {
+            if (evt.graphic != undefined && evt.graphic._graphicsLayer.layerId == 3) {
 
                 queryTwo = new Query();
                 queryTwo.returnGeometry = true;
                 queryTwo.geometry = evt.mapPoint;
                 queryTwo.outFields = ["Unit"];
                 //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
-                queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/2");
+                queryTask = new QueryTask(otherProjectsLayer.url);
                 queryTask.execute(queryTwo);
                 setCursorByID("mainDiv");
                 /*var deferredResult = queryTask.execute(query);*/
@@ -743,7 +831,7 @@ require([
                 query.geometry = evt.mapPoint;
                 query.outFields = ["Unit", "Name", "Unit_Type", "Change_Type", "Summary_URL", "Project_name", "Project_URL", "Status", "Docket_URL", "Unit_1", "Unit_Type_1", "PR_start_date", "PR_end_date", "Transmittal_Date"];
                 //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
-                queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/3");
+                queryTask = new QueryTask(changeLayer.url);
                 queryTask.execute(query);
                 setCursorByID("mainDiv");
                 /*var deferredResult = queryTask.execute(query);*/
@@ -834,18 +922,29 @@ require([
 
                         if (feature.attributes["Status"].includes("P")) { // Proposed status
 
-                            var dStartDay = new Date(feature.attributes["PR_start_date"]).getDate();
-                            var dStartMonth = new Date(feature.attributes["PR_start_date"]).getMonth();
-                            var dStartYear = new Date(feature.attributes["PR_start_date"]).getFullYear();
+                            var startStamp = feature.attributes["PR_start_date"];
+                            startDate = moment(startStamp).calendar(null,{
+                                lastDay : 'L',
+                                sameDay : 'L',
+                                nextDay : 'L',
+                                lastWeek : 'L',
+                                nextWeek : 'L',
+                                sameElse : 'L'
+                            });
 
-                            var dEndDay = new Date(feature.attributes["PR_end_date"]).getDate();
-                            var dEndMonth = new Date(feature.attributes["PR_end_date"]).getMonth();
-                            var dEndYear = new Date(feature.attributes["PR_end_date"]).getFullYear();
-                            var fulldate = (dStartMonth + '/' + dStartDay + '/' + dStartYear + ' &#8211; ' + dEndMonth + '/' + dEndDay + '/' + dEndYear);
+                            var endStamp = feature.attributes["PR_end_date"];
+                            endDate = moment(endStamp).calendar(null,{
+                                lastDay : 'L',
+                                sameDay : 'L',
+                                nextDay : 'L',
+                                lastWeek : 'L',
+                                nextWeek : 'L',
+                                sameElse : 'L'
+                            });
 
-                            prDate = fulldate;
+                            prDates = startDate + ' &#8211; ' + endDate;
 
-                            $("#status").html('<strong>' + feature.attributes["Status"] + '</strong>' + "&#8211; Public review open from " + prDate + ". See docket on " + feature.attributes["Docket_URL"] + " to make comments during the comment period and/or view submitted comments.");
+                            $("#status").html('<strong>' + feature.attributes["Status"] + '</strong>' + "&#8211; Public review open from " + prDates + ". Visit: " + '<a href="' + feature.attributes["Docket_URL"] + '" target="_blank">' + feature.attributes["Docket_URL"] + '</a>' + " to make comments during the comment period and/or view submitted comments.");
 
                             $("#status").css("font-weight", "normal");
 
@@ -853,12 +952,16 @@ require([
 
                         } if (feature.attributes["Status"].includes("F")) { // Final recommended status
 
-                            var day = new Date(feature.attributes["Transmittal_Date"]).getDate();
-                            var month = new Date(feature.attributes["Transmittal_Date"]).getMonth();
-                            var year = new Date(feature.attributes["Transmittal_Date"]).getFullYear();
-                            var formattedDate = month + "/" + day + "/" + year;
+                            var timeStamp = feature.attributes["Transmittal_Date"];
 
-                            transmittalDate = formattedDate;
+                            transmittalDate = moment(timeStamp).calendar(null,{
+                                lastDay : 'L',
+                                sameDay : 'L',
+                                nextDay : 'L',
+                                lastWeek : 'L',
+                                nextWeek : 'L',
+                                sameElse : 'L'
+                            });
 
                             $("#status").html('<strong>' + feature.attributes["Status"] + '</strong>' + "&#8211; The final recommended boundaries for this project were transmitted to Congress on " + transmittalDate + ". These boundaries will become effective only if adopted by Congress through legislation.");
 
@@ -876,7 +979,7 @@ require([
                         $("#siteUnit").text(feature.attributes["Unit"]);
 
                         var sumURL = feature.attributes["Summary_URL"];
-                        $("#summaryUrl").html("View the Service&#146s Summary of " + feature.attributes["Status"] +  " changes for this unit: " + '<a href="' + sumURL + '" target="_blank">' + sumURL + '</a>');
+                        $("#summaryUrl").html("View the Service&#146s Summary of " + feature.attributes["Status"] + " Changes for this unit: " + '<a href="' + sumURL + '" target="_blank">' + sumURL + '</a>');
 
                         $("#summaryUrl").css("font-weight", "normal");
 
@@ -906,118 +1009,60 @@ require([
                             instance.unpin();
                         }
                     }
-
-
-
-                    /*if  (((evt.graphic._graphicsLayer.layerId == 0) && (featureSet.features.length > 0)) || ((evt.graphic._graphicsLayer.layerId == 1) && (featureSet.features.length > 0))) {
-                        $( "#changePolygons" ).on( "click", function() {
-                            console.log("got it");
-                        });
-    
-                        $("#changePolygons").trigger("click");
-                    }*/
-
                 }
 
             }
-
-
-
-            /*deferredResult.addCallback(function(response) {
-
-                if (response.length > 1) {
-
-                    var feature = featureSet.features[0];
-                    var attr;
-                    var attrStatus;
-
-                    for (var i = 0; i < response.length; i++) {
-                        feature = response[i].feature;
-
-                        //getting feature attributes
-                        attr = feature.attributes;
-                        
-                        var symbol;
-                        if (response[i].layerId == 0) {
-                            $("#siteUnit").text(attr["Unit"]);
-                            symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID,
-                                new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
-                                    new dojo.Color([255,0,225]), 2), new dojo.Color([98,194,204,0])
-                            );
-                        }
-                    }
-
-                    feature.geometry.spatialReference = map.spatialReference;
-                    var graphic = feature;
-                    graphic.setSymbol(symbol);
-
-                    map.graphics.add(graphic);
-
-                    //ties the above defined InfoTemplate to the feature result returned from a click event
-
-                    setCursorByID("mainDiv", "default");
-                    map.setCursor("default");
-
-                    ////map.infoWindow.show(evt.mapPoint);
-
-                } 
-        });*/
         });
 
-        // Find CBRS Unit Search
-
-        /* query = new Query();
-        query.returnGeometry = true;
-        query.geometry = evt.mapPoint;
-        query.outFields = ["Unit"];
-        query.outSpatialReference = true;
-        //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
-        queryTask = new QueryTask("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer/2");
-        queryTask.execute(query);
-        console.log("find unit:", query.outSpatialReference); */
-
-        /* var findCBRS = new FindTask('https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/MyMapService/FeatureServer');
-    
-        var params = new FindParameters();
-            
-        params.layerIds = [2];
-        params.searchFields = ["Unit"];
-        params.outSpatialReference = map.spatialReference;
-        params.returnGeometry = true;
-        console.log("find unit:", params.outSpatialReference);
-        
-        function doFind() {
-            params.searchText = dom.byId("searchText").value;
-            findCBRS.execute(params, showResults);
-        }
-
         $(document).ready(function(){
-                $("#btnUnitSearch").click(function(){
-                doFind();
-                });
-            });
-
-        function showResults(results){
-            if (results.length > 0){
-                var graphics = [];
-                var graphic = results[0].feature;
-                graphics.push(graphic);
-                var graphicsExtent = graphicsUtils.graphicsExtent(graphics);                  
-                map.setExtent(graphicsExtent);
-            } else {
-                    alert("No Results. Please Try again");
-            }
-            
-        } */
+            $('[data-toggle="tooltip"]').tooltip();   
+        });
 
         $(document).ready(function () {
             function showModal() {
                 $('#cbrsModal').modal('show');
+
+                
+
+                /* $('#search_input').text(function(i, oldText) {
+                    return oldText === 'Find address or place' ? 'Enter CBRS unit number (e.g Q01P)' : oldText;
+                }); */
             }
 
             $('#cbrsNav').click(function () {
                 showModal();
             });
+
+            function secondClick() {
+                if (!(count++ % 2)) {
+                    measuring = false;
+                }
+            }
+
+            var count = 0;
+            var widget = dijit.byId(dijit_form_ToggleButton_1);
+
+            $('#dijit_form_ToggleButton_1').click(function () {
+
+                count++;
+
+                if (!(count % 2)){
+                    measuring = false;
+                } else {
+                    measuring = true;
+                }
+            });
+
+            
+
+            /* $('.dijit dijitReset').click(function () {
+                if ($(".dijit dijitReset").hasClass("dijitChecked")) {
+                    measuring = false;
+                }
+                
+            }); */
+
+
         });
 
         $("#clearSelection").click(function () {
@@ -1096,7 +1141,7 @@ require([
                             );
                         });
                     }
-
+                    gtag('event', 'click', { 'event_category': 'Find Location', 'event_label': o.result.properties.Name + ", " + o.result.properties.Lon + ", " + o.result.properties.Lat  });
                 });
 
             },
@@ -1122,101 +1167,9 @@ require([
             function showModal() {
                 $('#invalidSearchLocationModal').modal('show');
             }
+
+            
         });
-
-        // Geosearch functions
-        /*on(dom.byId('btnGeosearch'),'click', geosearch);*/
-
-        // Optionally confine search to map extent
-        /*function setSearchExtent (){
-            geocoder.activeGeocoder.searchExtent = null;*/
-        /*if (dom.byId('chkExtent').checked === 1) {
-            geocoder.activeGeocoder.searchExtent = map.extent;
-        } else {
-            geocoder.activeGeocoder.searchExtent = null;
-        }*/
-        /*}*/
-        /*function geosearch() {
-            setSearchExtent();
-            var def = geocoder.find();
-            def.then(function (res){
-                geocodeResults(res);
-            });
-            // Close modal
-            $('#geosearchModal').modal('hide');
-        }
-        function geocodeSelect(item) {
-            clearFindGraphics();
-            var g = (item.graphic ? item.graphic : item.result.feature);
-            g.setSymbol(sym);
-            //addPlaceGraphic(item.result,g.symbol);
-            // Close modal
-            //$('#geosearchModal').modal('hide');
-        }
-        function geocodeResults(places) {
-            places = places.results;
-            if (places.length > 0) {
-                clearFindGraphics();
-                var symbol = sym;
-                // Create and add graphics with pop-ups
-                for (var i = 0; i < places.length; i++) {
-                    //addPlaceGraphic(places[i], symbol);
-                }
-                //zoomToPlaces(places);
-                if (places[0].extent != null) {
-                    map.setExtent(places[0].extent, true)
-                } else {
-                    var centerPoint = new Point(places[0].feature.geometry);
-                    map.centerAndZoom(centerPoint, 17);
-                }
-            } else {
-                //alert('Sorry, address or place not found.');  // TODO
-            }
-        }
-        function stripTitle(title) {
-            var i = title.indexOf(',');
-            if (i > 0) {
-                title = title.substring(0,i);
-            }
-            return title;
-        }
-        function addPlaceGraphic(item,symbol)  {
-            var place = {};
-            var attributes,infoTemplate,pt,graphic;
-            pt = item.feature.geometry;
-            place.address = item.name;
-            place.score = item.feature.attributes.Score;
-            // Graphic components
-            attributes = { address:stripTitle(place.address), score:place.score, lat:pt.getLatitude().toFixed(2), lon:pt.getLongitude().toFixed(2) };
-            infoTemplate = new PopupTemplate({title:'{address}', description: 'Latitude: {lat}<br/>Longitude: {lon}'});
-            graphic = new Graphic(pt,symbol,attributes,infoTemplate);
-            // Add to map
-            map.graphics.add(graphic);
-        }
-    
-        function zoomToPlaces(places) {
-            var multiPoint = new Multipoint(map.spatialReference);
-            for (var i = 0; i < places.length; i++) {
-                multiPoint.addPoint(places[i].feature.geometry);
-            }
-            map.setExtent(multiPoint.getExtent().expand(2.0));
-        }
-    
-        function clearFindGraphics() {
-            map.infoWindow.hide();
-            map.graphics.clear();
-        }
-    
-        function createPictureSymbol(url, xOffset, yOffset, xWidth, yHeight) {
-            return new PictureMarkerSymbol(
-                {
-                    'angle': 0,
-                    'xoffset': xOffset, 'yoffset': yOffset, 'type': 'esriPMS',
-                    'url': url,
-                    'contentType': 'image/png',
-                    'width':xWidth, 'height': yHeight
-                });
-        }*/
 
         // FAQ Modal controls.
         $('#faq1header').click(function () { $('#faq1body').slideToggle(250); });
@@ -1237,10 +1190,103 @@ require([
             myWindow.focus();
         });
 
+        $("#faq1header").click(function () {
+            if ($("#angle1").css("transform") == 'none') {
+                $("#angle1").css("transform", "rotate(90deg)");
+            } else {
+                $("#angle1").css("transform", "");
+            }
+        });
+        $("#faq2header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if ($("#angle2").css("transform") == 'none') {
+                $("#angle2").css("transform", "rotate(90deg)");
+            } else {
+                $("#angle2").css("transform", "");
+            }
+        });
+        $("#faq3header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if ($("#angle3").css("transform") == 'none') {
+                $("#angle3").css("transform", "rotate(90deg)");
+            } else {
+                $("#angle3").css("transform", "");
+            }
+        });
+        $("#faq4header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if ($("#angle4").css("transform") == 'none') {
+                $("#angle4").css("transform", "rotate(90deg)");
+            } else {
+                $("#angle4").css("transform", "");
+            }
+        });
+        $("#faq5header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if ($("#angle5").css("transform") == 'none') {
+                $("#angle5").css("transform", "rotate(90deg)");
+            } else {
+                $("#angle5").css("transform", "");
+            }
+        });
+        $("#faq6header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if ($("#angle6").css("transform") == 'none') {
+                $("#angle6").css("transform", "rotate(90deg)");
+            } else {
+                $("#angle6").css("transform", "");
+            }
+        });
+        $("#faq7header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if ($("#angle7").css("transform") == 'none') {
+                $("#angle7").css("transform", "rotate(90deg)");
+            } else {
+                $("#angle7").css("transform", "");
+            }
+        });
+        $("#faq8header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if ($("#angle8").css("transform") == 'none') {
+                $("#angle8").css("transform", "rotate(90deg)");
+            } else {
+                $("#angle8").css("transform", "");
+            }
+        });
+        $("#faq9header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if ($("#angle9").css("transform") == 'none') {
+                $("#angle9").css("transform", "rotate(90deg)");
+            } else {
+                $("#angle9").css("transform", "");
+            }
+        });
+        $("#faq10header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if ($("#angle10").css("transform") == 'none') {
+                $("#angle10").css("transform", "rotate(90deg)");
+            } else {
+                $("#angle10").css("transform", "");
+            }
+        });
+        $("#faq11header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if ($("#angle11").css("transform") == 'none') {
+                $("#angle11").css("transform", "rotate(90deg)");
+            } else {
+                $("#angle11").css("transform", "");
+            }
+        });
+
+        printTitle
+
         function printMap() {
 
             var printParams = new PrintParameters();
             printParams.map = map;
+
+            allLayers[1].setVisibility(false);
+
 
             var template = new PrintTemplate();
             template.exportOptions = {
@@ -1252,31 +1298,30 @@ require([
             template.layout = "Letter ANSI A Landscape cbrs projects";
             template.preserveScale = false;
 
-            var existingLegendLayer = new LegendLayer();
+            /* var existingLegendLayer = new LegendLayer();
             existingLegendLayer.layerId = "existingPoly";
 
             var revisedLegendLayer = new LegendLayer();
             revisedLegendLayer.layerId = "revisedPoly";
 
             var changeLegendLayer = new LegendLayer();
-            changeLegendLayer.layerId = "changePoly"
+            changeLegendLayer.layerId = "changePoly" */
             //legendLayer.subLayerIds = [*];
 
             var userTitle = $("#printTitle").val();
             //if user does not provide title, use default. otherwise apply user title
+
             if (userTitle == "") {
                 template.layoutOptions = {
-                    "titleText": "Wetlands",
+                    "titleText": "CBRS Project Mapper Excerpt",
                     "authorText": "Coastal Barrier Resources System (CBRS)",
-                    "copyrightText": "This page was produced by the CBRS Projects Map",
-                    "legendLayers": [existingLegendLayer, revisedLegendLayer, changeLegendLayer]
+                    "copyrightText": "This page was produced by the CBRS Projects Mapper",
                 };
             } else {
                 template.layoutOptions = {
                     "titleText": userTitle,
                     "authorText": "Coastal Barrier Resources System (CBRS)",
-                    "copyrightText": "This page was produced by the CBRS Projects Map",
-                    "legendLayers": [existingLegendLayer, revisedLegendLayer, changeLegendLayer]
+                    "copyrightText": "This page was produced by the CBRS Projects Mapper",
                 };
             }
 
@@ -1285,6 +1330,7 @@ require([
             printParams.template = template;
             var printMap = new PrintTask("https://fwsprimary.wim.usgs.gov/server/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task");
             printMap.execute(printParams, printDone, printError);
+            
 
             /* $.get("https://fwsprimary.wim.usgs.gov/pdfLoggingService/pdfLog.asmx/Log?printInfo=" + map.getScale() + "," + map.extent.xmin + "," + map.extent.ymax + "," + map.extent.xmax + "," + map.extent.ymin + ",NWIV2", function (data) {
                 //console.log(data);
@@ -1301,11 +1347,20 @@ require([
                 $("#printModalBody").append(printJob);
                 $("#printTitle").val("");
                 $("#printExecuteButton").button('reset');
+
+                allLayers[1].setVisibility(true);
+                printing = false;
             }
 
             function printError(event) {
                 alert("Sorry, an unclear print error occurred. Please try refreshing the application to fix the problem");
+                allLayers[1].setVisibility(true);
+                $("#printExecuteButton").button('reset');
+
+                gtag('event', 'click', { 'event_category': 'Print', 'event_label': 'Print Error' });
             }
+
+            gtag('event', 'click', { 'event_category': 'Print', 'event_label': 'successful Print' });
         }
 
         function setCursorByID(id, cursorStyle) {
@@ -1329,6 +1384,15 @@ require([
                 alert("worked");
             });
 
+            $("#printTitle").keypress(function(e) {
+                var k = e.keyCode,
+                $return = ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32  || (k >= 48 && k <= 57));
+                if(!$return) {
+                    return false;
+                }
+                
+            });
+
 
             function showModal() {
                 $('#faqModal').modal('show');
@@ -1345,18 +1409,18 @@ require([
                 showModal();
             });
 
-            function showAboutModal() {
-                $('#aboutModal').modal('show');
-            }
-            $('#aboutNav').click(function () {
-                showAboutModal();
-            });
+            
 
             function showDisclaimerModal() {
                 $('#disclaimerModal').modal('show');
             }
 
             function showCBRSModal() {
+                /* if (measuring = false) {
+                    $('#outsideCBRS').modal('show');
+                } else if (measuring = true){
+
+                } */
                 $('#outsideCBRS').modal('show');
             }
 
@@ -1930,147 +1994,6 @@ require([
                         }
                     }
                 }
-
-
-                //get visible and non visible layer lists
-                /*function addMapServerLegend(layerName, layerDetails) {
-        
-        
-                    if (layerDetails.wimOptions.layerType === 'agisFeature') {
-        
-                        //for feature layer since default icon is used, put that in legend
-                        var legendItem = $('<div align="left" id="' + camelize(layerName) + '"><img alt="Legend Swatch" src="https://raw.githubusercontent.com/Leaflet/Leaflet/master/dist/images/marker-icon.png" /><strong>&nbsp;&nbsp;' + layerName + '</strong></br></div>');
-                        $('#legendDiv').append(legendItem);
-        
-                    }
-        
-                    else if (layerDetails.wimOptions.layerType === 'agisWMS') {
-        
-                        //for WMS layers, for now just add layer title
-                        var legendItem = $('<div align="left" id="' + camelize(layerName) + '"><img alt="Legend Swatch" src="http://placehold.it/25x41" /><strong>&nbsp;&nbsp;' + layerName + '</strong></br></div>');
-                        $('#legendDiv').append(legendItem);
-        
-                    }
-        
-                    else if (layerDetails.wimOptions.layerType === 'agisDynamic') {
-        
-                        //create new legend div
-                        var legendItemDiv = $('<div align="left" id="' + camelize(layerName) + '"><strong>&nbsp;&nbsp;' + layerName + '</strong></br></div>');
-                        $('#legendDiv').append(legendItemDiv);
-        
-                        //get legend REST endpoint for swatch
-                        $.getJSON(layerDetails.url + '/legend?f=json', function (legendResponse) {
-        
-                            console.log(layerName,'legendResponse',legendResponse);
-        
-        
-        
-                            //make list of layers for legend
-                            if (layerDetails.options.layers) {
-                                //console.log(layerName, 'has visisble layers property')
-                                //if there is a layers option included, use that
-                                var visibleLayers = layerDetails.options.layers;
-                            }
-                            else {
-                                //console.log(layerName, 'no visible layers property',  legendResponse)
-        
-                                //create visibleLayers array with everything
-                                var visibleLayers = [];
-                                $.grep(legendResponse.layers, function(i,v) {
-                                    visibleLayers.push(v);
-                                });
-                            }
-        
-                            //loop over all map service layers
-                            $.each(legendResponse.layers, function (i, legendLayer) {
-        
-                                //var legendHeader = $('<strong>&nbsp;&nbsp;' + legendLayer.layerName + '</strong>');
-                                //$('#' + camelize(layerName)).append(legendHeader);
-        
-                                //sub-loop over visible layers property
-                                $.each(visibleLayers, function (i, visibleLayer) {
-        
-                                    //console.log(layerName, 'visibleLayer',  visibleLayer);
-        
-                                    if (visibleLayer == legendLayer.layerId) {
-        
-                                        console.log(layerName, visibleLayer,legendLayer.layerId, legendLayer)
-        
-                                        //console.log($('#' + camelize(layerName)).find('<strong>&nbsp;&nbsp;' + legendLayer.layerName + '</strong></br>'))
-        
-                                        var legendHeader = $('<strong>&nbsp;&nbsp;' + legendLayer.layerName + '</strong></br>');
-                                        $('#' + camelize(layerName)).append(legendHeader);
-        
-                                        //get legend object
-                                        var feature = legendLayer.legend;
-                                        /*
-                                         //build legend html for categorized feautres
-                                         if (feature.length > 1) {
-                                         */
-
-                //placeholder icon
-                //<img alt="Legend Swatch" src="http://placehold.it/25x41" />
-
-                /*$.each(feature, function () {
-
-                    //make sure there is a legend swatch
-                    if (this.imageData) {
-                        var legendFeature = $('<img alt="Legend Swatch" src="data:image/png;base64,' + this.imageData + '" /><small>' + this.label.replace('<', '').replace('>', '') + '</small></br>');
-
-                        $('#' + camelize(layerName)).append(legendFeature);
-                    }
-                });
-                /*
-                 }
-                 //single features
-                 else {
-                 var legendFeature = $('<img alt="Legend Swatch" src="data:image/png;base64,' + feature[0].imageData + '" /><small>&nbsp;&nbsp;' + legendLayer.layerName + '</small></br>');
-
-                 //$('#legendDiv').append(legendItem);
-                 $('#' + camelize(layerName)).append(legendFeature);
-
-                 }
-                 */
-                /*}
-            }); //each visible layer
-        }); //each legend item
-    }); //get legend json
-}
-}*/
-                /* parse layers.js */
-
-                //var outSR = new SpatialReference(26917);
-                /*measurement.on("measure-end", function(evt){
-                    //$("#utmCoords").remove();//
-                    //var resultGeom = evt.geometry;
-                    //var utmResult;
-                    //var absoluteX = (evt.geometry.x)*-1;
-                    /*if ( absoluteX < 84 && absoluteX > 78 ){
-                        geomService.project ( [ resultGeom ], outSR, function (projectedGeoms){
-                            utmResult = projectedGeoms[0];
-                            console.log(utmResult);
-                            var utmX = utmResult.x.toFixed(0);
-                            var utmY = utmResult.y.toFixed(0);
-                            $("#utmX").html(utmX);
-                            $("#utmY").html(utmY);
-                            //var utmCoords = $('<tr id="utmCoords"><td dojoattachpoint="pinCell"><span>UTM17</span></td> <td class="esriMeasurementTableCell"> <span id="utmX" dir="ltr">' + utmX + '</span></td> <td class="esriMeasurementTableCell"> <span id="utmY" dir="ltr">' + utmY + '</span></td></tr>');
-                            //$('.esriMeasurementResultTable').append(utmCoords);
-                        });
-        
-                    } else {
-                        //$("#utmX").html("out of zone");
-                        $("#utmX").html('<span class="label label-danger">outside zone</span>');
-                        //$("#utmY").html("out of zone");
-                        $("#utmY").html('<span class="label label-danger">outside zone</span>');
-                    }*/
-
-
-                //geomService.project ( [ resultGeom ], outSR, function (projectedGeoms){
-                //utmResult = projectedGeoms[0];
-                //console.log(utmResult);
-                //});
-
-                //});//
 
             });//end of require statement containing legend building code
 
