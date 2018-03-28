@@ -114,16 +114,16 @@ require([
         // *** SWITCH BACK AND FORTH DEPENDING ON IF TEST OR PRODUCTION ***
         
         // TEST URLS
-        /* var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/3");
+        var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/3");
         var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/1");
         var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/0");
-        var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/2"); */
+        var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/2");
 
         // PROD URLS
-        var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/projectmapperlive/FeatureServer/3");
+        /* var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/projectmapperlive/FeatureServer/3");
         var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/1");
         var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/0");
-        var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/2");
+        var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/2"); */
 
         //bring this line back after experiment////////////////////////////
         //allLayers = mapLayers;
@@ -261,6 +261,13 @@ require([
 
             $("#IEwarnContinue").click(function () {
                 $('#disclaimerModal').modal('show');
+            });
+
+            $("#existingInfo").click(function () {
+                $('#existingModal').modal('show');
+            });
+            $("#revisedInfo").click(function () {
+                $('#revisedModal').modal('show');
             });
 
             if(navigator.userAgent.indexOf('MSIE')!==-1 || navigator.appVersion.indexOf('Trident/') > 0){
@@ -1012,10 +1019,6 @@ require([
                 }
 
             }
-        });
-
-        $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();   
         });
 
         $(document).ready(function () {

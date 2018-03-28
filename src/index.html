@@ -45,7 +45,7 @@
     <script src="bower_components/bootstrap-sidebar/dist/js/sidebar.js"></script>
     <script src="bower_components/bootstrap-map-js/dist/js/bootstrapmap.min.js"></script>
     <script src="bower_components/moment/moment.js"></script>
-    <script src="bower_components/bootstrap/js/tooltip.js"></script>
+    <!-- <script src="bower_components/bootstrap/js/tooltip.js"></script> -->
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -300,14 +300,17 @@
                         </div>
                         <div id="legendCollapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" style="height: 350px;max-height: 350px;">
                             <div id="legendDiv" class="panel-body">
-                                <h5 style="padding-top: 10px;font-weight:bold;">Existing CBRS Units<span class="glyphicon glyphicon-info-sign small" style="padding-left: 5px;" data-toggle="tooltip" data-placement="top" title="show the current boundaries of the CBRS that are depicted on the official set of CBRS maps maintained by the U.S. Fish and Wildlife Service"></span></h5>
+                                <h5 style="padding-top: 10px;font-weight:bold;">Existing CBRS Units
+                                    <span class="glyphicon glyphicon-question-sign small" data-toggle="tooltip" title="Click for more info" id="existingInfo" style="padding-left: 5px;cursor: pointer"></span></h5>
                                 <p class="legendSpacing">
                                     <div class="squareDiv sysUnit"></div> System Unit</p>
                                 <p class="legendSpacing">
                                     <div class="squareDiv opa"></div> Otherwise Protected Area</p>
                                 <p class="legendSpacing">
                                     <div class="squareDiv otherExistingProjects"></div> Unit Outside Project Area</p>
-                                <h5 style="padding-top: 10px;font-weight:bold;">Revised CBRS Units</h5>
+                                <h5 style="padding-top: 10px;font-weight:bold;">Revised CBRS Units
+                                    <span class="glyphicon glyphicon-question-sign small" data-toggle="tooltip" title="Click for more info" id="revisedInfo" style="padding-left: 5px;cursor: pointer"></span>
+                                </h5>
                                 <p class="legendSpacing">
                                     <div class="squareDiv sysUnitRevised"></div> System Unit</p>
                                 <p class="legendSpacing">
@@ -573,6 +576,42 @@
         </div>
     </div>
     <!-- End Other Existing CBRS modal -->
+
+<!-- Existing Units information modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="existingModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Existing CBRS Units</h4>
+        </div>
+        <div class="modal-body">
+          <p>"Existing CBRS Units" show the current boundaries of the CBRS that are depicted on the official set of CBRS maps maintained by the U.S. Fish and Wildlife Service.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Dismiss</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+<!-- Revised Units information modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="revisedModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Revised CBRS Units</h4>
+        </div>
+        <div class="modal-body">
+          <p>"Revised CBRS Units" show the draft boundaries that are prepared by the U.S. Fish and Wildlife Service (Service) through the comprehensive map modernization process. Revised boundaries that have been prepared for public review are referred to as "proposed." Following the public review process, the Service considers all submitted comments and prepares "final recommended boundaries," which are then transmitted to Congress for consideration. Revised CBRS boundaries that are produced through this process only become effective if adopted by Congress through legislation.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Dismiss</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 
     <div class="modal fade overflow-y-hidden" id="geosearchModal" style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
