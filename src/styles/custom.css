@@ -562,3 +562,36 @@
   padding: 0 0 0 5px !important;
   font-size: 14px !important;
 }
+
+.tooltip {
+  max-width: 350px;
+  width: 350px;
+  pointer-events: none; 
+  position: relative;
+  float: left;
+}
+.tooltip-inner {
+  max-width: 350px;
+  width: 350px;
+  pointer-events: none; 
+  position: relative;
+  float: left;
+}
+.tooltip-arrow{
+  position: relative;
+}
+
+/* .tooltip fade left in {
+  max-width: 350px;
+}
+ */
+/* .tooltip-inner {
+  width: 350px;
+  left: 80px;
+  pointer-events: none; 
+}
+.tooltip-inner .tooltip-arrow {
+  width: 350px;
+  left: 80px;
+  pointer-events: none; 
+} */

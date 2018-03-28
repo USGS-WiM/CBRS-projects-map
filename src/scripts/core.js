@@ -263,6 +263,13 @@ require([
                 $('#disclaimerModal').modal('show');
             });
 
+            $("#existingInfo").click(function () {
+                $('#existingModal').modal('show');
+            });
+            $("#revisedInfo").click(function () {
+                $('#revisedModal').modal('show');
+            });
+
             if(navigator.userAgent.indexOf('MSIE')!==-1 || navigator.appVersion.indexOf('Trident/') > 0){
                 $("#IEwarningModal").modal('show');
             } else {
@@ -1017,6 +1024,8 @@ require([
         $(document).ready(function () {
             function showModal() {
                 $('#cbrsModal').modal('show');
+
+                
 
                 /* $('#search_input').text(function(i, oldText) {
                     return oldText === 'Find address or place' ? 'Enter CBRS unit number (e.g Q01P)' : oldText;
