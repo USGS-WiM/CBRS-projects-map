@@ -136,6 +136,54 @@ require([
 
         esriConfig.defaults.geometryService = new GeometryService("https://fwsmapper.wim.usgs.gov/arcgis/rest/services/Utilities/Geometry/GeometryServer");
 
+        var search = new Search({
+            enableButtonMode: false, //this enables the search widget to display as a single button
+            enableLabel: false,
+            enableSearchingAll: false,
+            enableInfoWindow: false,
+            showInfoWindowOnSelect: false,
+            map: map,
+            allPlaceholder: 'Enter CBRS unit number (e.g Q01P)',
+            sources: []
+        }, "search");
+
+        var sources = search.get("sources");
+
+        sources.push({
+            featureLayer: swipeLayerRevised,
+            searchFields: ["Unit"],
+            displayField: "Unit",
+            exactMatch: false,
+            outFields: ["Unit"],
+            name: "Revised Units",
+            placeholder: "Enter CBRS unit number (e.g Q01P)",
+            highlightSymbol: new PictureMarkerSymbol("https://js.arcgis.com/3.21/esri/dijit/Search/images/search-pointer.png", 40, 40).setOffset(9, 18),
+            maxResults: 6,
+            maxSuggestions: 6,
+        });
+
+        sources.push({
+            featureLayer: underLayerExist,
+            searchFields: ["Unit"],
+            displayField: "Unit",
+            exactMatch: false,
+            outFields: ["Unit"],
+            name: "Existing Units",
+            placeholder: "Enter CBRS unit number (e.g Q01P)",
+            highlightSymbol: new PictureMarkerSymbol("https://js.arcgis.com/3.21/esri/dijit/Search/images/search-pointer.png", 40, 40).setOffset(9, 18),
+            maxResults: 6,
+            maxSuggestions: 6,
+        });
+
+        search.set("sources", sources);
+
+        on(search, 'select-result', function (e) {
+            var unitSearched = $("#search_input").val();
+            gtag('event', 'click', { 'event_category': 'Find CBRS', 'event_label': unitSearched });
+
+            $("#btnunitDismiss").trigger("click");
+        });
+
         /*urlUtils.addProxyRule({
                                 proxyUrl: "http://52.70.106.103/serviceProxy/proxy.ashx",
                                 urlPrefix: "http://52.70.106.103/arcgis/rest/services/SecurePrinting/"
@@ -194,53 +242,7 @@ require([
         }, dom.byId("measurementDiv"));
         measurement.startup();
 
-        var search = new Search({
-            enableButtonMode: false, //this enables the search widget to display as a single button
-            enableLabel: false,
-            enableSearchingAll: false,
-            enableInfoWindow: false,
-            showInfoWindowOnSelect: false,
-            map: map,
-            allPlaceholder: 'Enter CBRS unit number (e.g Q01P)',
-            sources: []
-        }, "search");
-
-        var sources = search.get("sources");
-
-        sources.push({
-            featureLayer: swipeLayerRevised,
-            searchFields: ["Unit"],
-            displayField: "Unit",
-            exactMatch: false,
-            outFields: ["Unit"],
-            name: "Revised Units",
-            placeholder: "Enter CBRS unit number (e.g Q01P)",
-            highlightSymbol: new PictureMarkerSymbol("https://js.arcgis.com/3.21/esri/dijit/Search/images/search-pointer.png", 40, 40).setOffset(9, 18),
-            maxResults: 6,
-            maxSuggestions: 6,
-        });
-
-        sources.push({
-            featureLayer: underLayerExist,
-            searchFields: ["Unit"],
-            displayField: "Unit",
-            exactMatch: false,
-            outFields: ["Unit"],
-            name: "Existing Units",
-            placeholder: "Enter CBRS unit number (e.g Q01P)",
-            highlightSymbol: new PictureMarkerSymbol("https://js.arcgis.com/3.21/esri/dijit/Search/images/search-pointer.png", 40, 40).setOffset(9, 18),
-            maxResults: 6,
-            maxSuggestions: 6,
-        });
-
-        search.set("sources", sources);
-
-        on(search, 'select-result', function (e) {
-            var unitSearched = $("#search_input").val();
-            gtag('event', 'click', { 'event_category': 'Find CBRS', 'event_label': unitSearched });
-
-            $("#btnunitDismiss").trigger("click");
-        });
+        
 
         $('#cbrsNav').click(function () {
             search.startup();
@@ -1036,14 +1038,14 @@ require([
                 showModal();
             });
 
-            function secondClick() {
+            /* function secondClick() {
                 if (!(count++ % 2)) {
                     measuring = false;
                 }
-            }
+            } */
 
             var count = 0;
-            var widget = dijit.byId(dijit_form_ToggleButton_1);
+           /*  var widget = dijit.byId(dijit_form_ToggleButton_1); */
 
             $('#dijit_form_ToggleButton_1').click(function () {
 
