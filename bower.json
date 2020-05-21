@@ -6,10 +6,10 @@
     "fontawesome": "^4.3.0",
     "jquery.nicescroll": "inuyaksa/jquery.nicescroll#~3.6.0",
     "wim-styles": "USGS-WiM/wim-styles#v0.0.1",
-    "bootstrap": "latest",
+    "bootstrap": "3.4.1",
     "bootstrap-sidebar": "^0.2.2",
-    "bootstrap-map-js": "latest",
-    "lobipanel": "latest",
+    "bootstrap-map-js": "0.0.2",
+    "lobipanel": "1.0.0",
     "moment": "^2.18.1"
   }
 }
