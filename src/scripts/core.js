@@ -695,7 +695,7 @@ require([
             map.addLayer(swipeLayerRevised);
             map.addLayer(underLayerExist);
             map.addLayer(changeLayer);
-            map.addLayer(otherProjectsLayer);
+            map.addLayer(otherProjectsLayer, 0);
 
             mapLayersTwo.push(completedUnderLayer, supersededLayer, swipeLayerRevised, underLayerExist, changeLayer, otherProjectsLayer);
             /*map.reorderLayer(swipeLayer,1);*/
@@ -820,7 +820,7 @@ require([
         });
 
         on(map, "click", function (evt) {
-            if (evt.graphic != undefined && evt.graphic._graphicsLayer.layerId == 3) {
+            if (evt.graphic != undefined && evt.graphic._graphicsLayer.layerId == 5) {
 
                 queryTwo = new Query();
                 queryTwo.returnGeometry = true;
