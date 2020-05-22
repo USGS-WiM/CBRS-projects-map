@@ -280,6 +280,42 @@
   opacity: 0.5;
 }
 
+.completedSysUnit {
+  /* background: #bee8ff; */
+  border-color: #bee8ff;
+  border-width: 1.5px;
+}
+
+.completedOpa {
+  /* background: #ffebaf; */
+  fill-opacity: 1;
+  /* stroke: #000000;
+  stroke-width: 0.53em;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  stroke-miterlimit: 4;
+  stroke-dasharray: none;
+  fill-rule: evenodd; */
+  border-color: #ffebaf;
+  border-width: 1.5px;
+}
+
+.sysUnitSuperseded {
+  /* background: #8400a8; */
+  border-color: #8400a8;
+  border-width: 2px;
+  border-style: dashed;
+  opacity: 0.5;
+}
+
+.opaSuperseded {
+  /* background: #e64c00; */
+  border-color: #e64c00;
+  border-width: 2px;
+  border-style: dashed;
+  opacity: 0.5;
+}
+
 .otherExistingProjects {
   background: #999999;
   border-style: solid;

@@ -289,7 +289,7 @@
                     </div>
                     <!-- End PopUp -->
 
-                    <div id="legendElement" class="panel panel-default legendClass" style="height: 350px;max-height: 350px;">
+                    <div id="legendElement" class="panel panel-default legendClass" >
                         <div id="legendHeading" class="legendHeading" role="tab">
                             <h4 class="panel-title" id="work">
                                 <a data-toggle="collapse" style="text-decoration: none" href="#legendCollapse" aria-expanded="true" aria-controls="collapseOne">
@@ -298,23 +298,68 @@
                                 </a>
                             </h4>
                         </div>
-                        <div id="legendCollapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" style="height: 350px;max-height: 350px;">
+                        <div id="legendCollapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" >
                             <div id="legendDiv" class="panel-body">
-                                <h5 style="padding-top: 10px;font-weight:bold;">Existing CBRS Units
-                                    <span class="glyphicon glyphicon-question-sign small" data-toggle="tooltip" title="Click for more info" id="existingInfo" style="padding-left: 5px;cursor: pointer"></span></h5>
+                                <h5 style="padding-top: 10px;font-weight:bold;"> Units in Active Projects
+                                    <span class="glyphicon glyphicon-question-sign small" data-toggle="tooltip" title="Click for more info" id="activeInfo" style="padding-left: 5px;cursor: pointer"></span>
+                                </h5>
+                                <p class="legendSpacing">
+                                    <div class="squareDiv sysUnit"></div>Existing System Unit
+                                </p>
+                                <p class="legendSpacing">
+                                    <div class="squareDiv opa"></div>Existing Otherwise Protected Area
+                                </p>
+                                <p class="legendSpacing">
+                                    <div class="squareDiv sysUnitRevised"></div>Revised System Unit
+                                </p>
+                                <p class="legendSpacing">
+                                    <div class="squareDiv opaRevised"></div>Revised Otherwise Protected Area
+                                </p>
+
+                                <h5 style="padding-top: 10px;font-weight:bold;"> Units in Completed Projects
+                                    <span class="glyphicon glyphicon-question-sign small" data-toggle="tooltip" title="Click for more info" id="completedInfo" style="padding-left: 5px;cursor: pointer"></span>
+                                </h5>
+                                <p class="legendSpacing">
+                                    <div class="squareDiv completedSysUnit"></div>Existing System Unit
+                                </p>
+                                <p class="legendSpacing">
+                                    <div class="squareDiv completedOpa"></div>Existing Otherwise Protected Area
+                                </p>
+                                <p class="legendSpacing">
+                                    <div class="squareDiv sysUnitSuperseded"></div>Superseded System Unit
+                                </p>
+                                <p class="legendSpacing">
+                                    <div class="squareDiv opaSuperseded"></div>Superseded Otherwise Protected Area
+                                </p>
+
+                                <h5 style="padding-top: 10px;font-weight:bold;"> Units Outside Project Area
+                                    <span class="glyphicon glyphicon-question-sign small" data-toggle="tooltip" title="Click for more info" id="outsideInfo" style="padding-left: 5px;cursor: pointer"></span>
+                                </h5>
+                                <p class="legendSpacing">
+                                    <div class="squareDiv otherExistingProjects"></div>Unit Outside Project Area
+                                </p>
+
+
+
+                                <!-- <h5 style="padding-top: 10px;font-weight:bold;">Existing CBRS Units
+                                    <span class="glyphicon glyphicon-question-sign small" data-toggle="tooltip" title="Click for more info" id="existingInfo" style="padding-left: 5px;cursor: pointer"></span>
+                                </h5>
+
                                 <p class="legendSpacing">
                                     <div class="squareDiv sysUnit"></div> System Unit</p>
                                 <p class="legendSpacing">
                                     <div class="squareDiv opa"></div> Otherwise Protected Area</p>
                                 <p class="legendSpacing">
                                     <div class="squareDiv otherExistingProjects"></div> Unit Outside Project Area</p>
+
                                 <h5 style="padding-top: 10px;font-weight:bold;">Revised CBRS Units
                                     <span class="glyphicon glyphicon-question-sign small" data-toggle="tooltip" title="Click for more info" id="revisedInfo" style="padding-left: 5px;cursor: pointer"></span>
                                 </h5>
+
                                 <p class="legendSpacing">
                                     <div class="squareDiv sysUnitRevised"></div> System Unit</p>
                                 <p class="legendSpacing">
-                                    <div class="squareDiv opaRevised"></div> Otherwise Protected Area</p>
+                                    <div class="squareDiv opaRevised"></div> Otherwise Protected Area</p> -->
                             </div>
                         </div>
                     </div>
@@ -612,6 +657,61 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+
+<!-- Active Projects information modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="activeModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Existing CBRS Units</h4>
+        </div>
+        <div class="modal-body">
+          <p>"Existing CBRS Units" show the current boundaries of the CBRS that are depicted on the official set of CBRS maps maintained by the U.S. Fish and Wildlife Service.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Dismiss</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+<!-- Completed Projects information modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="completedModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Revised CBRS Units</h4>
+        </div>
+        <div class="modal-body">
+          <p>"Revised CBRS Units" show the draft boundaries that are prepared by the U.S. Fish and Wildlife Service (Service) through the comprehensive map modernization process. Revised boundaries that have been prepared for public review are referred to as "proposed." Following the public review process, the Service considers all submitted comments and prepares "final recommended boundaries," which are then transmitted to Congress for consideration. Revised CBRS boundaries that are produced through this process only become effective if adopted by Congress through legislation.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Dismiss</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+<!-- Outside Units information modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="outsideModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Revised CBRS Units</h4>
+        </div>
+        <div class="modal-body">
+          <p>"Revised CBRS Units" show the draft boundaries that are prepared by the U.S. Fish and Wildlife Service (Service) through the comprehensive map modernization process. Revised boundaries that have been prepared for public review are referred to as "proposed." Following the public review process, the Service considers all submitted comments and prepares "final recommended boundaries," which are then transmitted to Congress for consideration. Revised CBRS boundaries that are produced through this process only become effective if adopted by Congress through legislation.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Dismiss</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
 
     <div class="modal fade overflow-y-hidden" id="geosearchModal" style="display: none;" aria-hidden="true">
         <div class="modal-dialog">

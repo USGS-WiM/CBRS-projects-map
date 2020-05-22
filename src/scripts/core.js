@@ -118,16 +118,25 @@ require([
         // *** SWITCH BACK AND FORTH DEPENDING ON IF TEST OR PRODUCTION ***
         
         // TEST URLS
-        /* var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/3");
-        var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/1");
-        var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/0");
-        var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/2"); */
+        // var completedUnderLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/0")
+        // var supersededLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/1")
+        // var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/5");
+        // var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/3");
+        // var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/2");
+        // var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/4");
+
+        var completedUnderLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/0?token=2AFTEvjN4Jp3xf0j7WX9yTNWRMGDlutHsOJBZ6VkqrWuJ0rcOawRh52eYlunmpnK_AGsAQNpuONcS5ReatDjba9nIgHImTd-JcyZlULvCzXt95eDFyIuV58zqll3acuBe1d_WB7nG5MKVv5oRrkMuzOLrL39Bu4ScizUiUkjrVibcgwnTK3I28DuZIfCpWlhpUiFMFW6x7QTbNVYckvLiNEMLfiRdiCL609VUqnB8i4")
+        var supersededLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/1?token=2AFTEvjN4Jp3xf0j7WX9yTNWRMGDlutHsOJBZ6VkqrWuJ0rcOawRh52eYlunmpnK_AGsAQNpuONcS5ReatDjba9nIgHImTd-JcyZlULvCzXt95eDFyIuV58zqll3acuBe1d_WB7nG5MKVv5oRrkMuzOLrL39Bu4ScizUiUkjrVibcgwnTK3I28DuZIfCpWlhpUiFMFW6x7QTbNVYckvLiNEMLfiRdiCL609VUqnB8i4")
+        var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/5?token=2AFTEvjN4Jp3xf0j7WX9yTNWRMGDlutHsOJBZ6VkqrWuJ0rcOawRh52eYlunmpnK_AGsAQNpuONcS5ReatDjba9nIgHImTd-JcyZlULvCzXt95eDFyIuV58zqll3acuBe1d_WB7nG5MKVv5oRrkMuzOLrL39Bu4ScizUiUkjrVibcgwnTK3I28DuZIfCpWlhpUiFMFW6x7QTbNVYckvLiNEMLfiRdiCL609VUqnB8i4");
+        var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/3?token=2AFTEvjN4Jp3xf0j7WX9yTNWRMGDlutHsOJBZ6VkqrWuJ0rcOawRh52eYlunmpnK_AGsAQNpuONcS5ReatDjba9nIgHImTd-JcyZlULvCzXt95eDFyIuV58zqll3acuBe1d_WB7nG5MKVv5oRrkMuzOLrL39Bu4ScizUiUkjrVibcgwnTK3I28DuZIfCpWlhpUiFMFW6x7QTbNVYckvLiNEMLfiRdiCL609VUqnB8i4");
+        var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/2?token=2AFTEvjN4Jp3xf0j7WX9yTNWRMGDlutHsOJBZ6VkqrWuJ0rcOawRh52eYlunmpnK_AGsAQNpuONcS5ReatDjba9nIgHImTd-JcyZlULvCzXt95eDFyIuV58zqll3acuBe1d_WB7nG5MKVv5oRrkMuzOLrL39Bu4ScizUiUkjrVibcgwnTK3I28DuZIfCpWlhpUiFMFW6x7QTbNVYckvLiNEMLfiRdiCL609VUqnB8i4");
+        var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/4?token=2AFTEvjN4Jp3xf0j7WX9yTNWRMGDlutHsOJBZ6VkqrWuJ0rcOawRh52eYlunmpnK_AGsAQNpuONcS5ReatDjba9nIgHImTd-JcyZlULvCzXt95eDFyIuV58zqll3acuBe1d_WB7nG5MKVv5oRrkMuzOLrL39Bu4ScizUiUkjrVibcgwnTK3I28DuZIfCpWlhpUiFMFW6x7QTbNVYckvLiNEMLfiRdiCL609VUqnB8i4");
 
         // PROD URLS
-        var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/projectmapperlive/FeatureServer/3", {outFields:["*"]});
-        var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/1", {outFields:["*"]});
-        var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/0", {outFields:["*"]});
-        var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/2", {outFields:["*"]});
+        // var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/projectmapperlive/FeatureServer/3", {outFields:["*"]});
+        // var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/1", {outFields:["*"]});
+        // var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/0", {outFields:["*"]});
+        // var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/2", {outFields:["*"]});
 
         //bring this line back after experiment////////////////////////////
         //allLayers = mapLayers;
@@ -681,17 +690,19 @@ require([
 
         on(map, "load", function () {
 
+            map.addLayer(completedUnderLayer);
+            map.addLayer(supersededLayer);
             map.addLayer(swipeLayerRevised);
             map.addLayer(underLayerExist);
             map.addLayer(changeLayer);
             map.addLayer(otherProjectsLayer);
 
-            mapLayersTwo.push(swipeLayerRevised, underLayerExist, changeLayer, otherProjectsLayer);
+            mapLayersTwo.push(completedUnderLayer, supersededLayer, swipeLayerRevised, underLayerExist, changeLayer, otherProjectsLayer);
             /*map.reorderLayer(swipeLayer,1);*/
 
             $("#swipeDiv").on(function () {
                 if (map.graphicsLayerIds == 0) {
-                    map.removeLayer(swipeLayerRevised);
+                    map.removeLayer(swipeLayerRevised, supersededLayer);
                 }
             });
 
@@ -700,7 +711,7 @@ require([
                 type: "vertical",
                 left: 700,
                 map: map,
-                layers: [underLayerExist]
+                layers: [underLayerExist, completedUnderLayer]
             }, "swipeDiv");
 
             swipeWidget.startup();
@@ -748,6 +759,32 @@ require([
                 exactMatch: false,
                 outFields: ["Unit"],
                 name: "Existing Units",
+                placeholder: "Enter CBRS unit number (e.g Q01P)",
+                highlightSymbol: new PictureMarkerSymbol("https://js.arcgis.com/3.21/esri/dijit/Search/images/search-pointer.png", 40, 40).setOffset(9, 18),
+                maxResults: 6,
+                maxSuggestions: 6,
+            });
+
+            sources.push({
+                featureLayer: supersededLayer,
+                searchFields: ["Unit"],
+                displayField: "Unit",
+                exactMatch: false,
+                outFields: ["Unit"],
+                name: "Superseded Units",
+                placeholder: "Enter CBRS unit number (e.g Q01P)",
+                highlightSymbol: new PictureMarkerSymbol("https://js.arcgis.com/3.21/esri/dijit/Search/images/search-pointer.png", 40, 40).setOffset(9, 18),
+                maxResults: 6,
+                maxSuggestions: 6,
+            });
+
+            sources.push({
+                featureLayer: completedUnderLayer,
+                searchFields: ["Unit"],
+                displayField: "Unit",
+                exactMatch: false,
+                outFields: ["Unit"],
+                name: "Completed Units",
                 placeholder: "Enter CBRS unit number (e.g Q01P)",
                 highlightSymbol: new PictureMarkerSymbol("https://js.arcgis.com/3.21/esri/dijit/Search/images/search-pointer.png", 40, 40).setOffset(9, 18),
                 maxResults: 6,
