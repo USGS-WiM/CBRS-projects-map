@@ -54,6 +54,21 @@ var reclassSu =
         new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL,
         new Color([255,0,0,0.25])),new Color([255,0,0,0.25]));
 
+// var transferOutside = 
+//         new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL,
+//         new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL,
+//         new Color([85,255,0,1])),new Color([85,255,0,0.54]));
+
+// var transferOPA = 
+//         new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL,
+//         new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL,
+//         new Color([85,255,0,1])),new Color([85,255,0,0.54]));
+
+// var transferSu = 
+//         new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL,
+//         new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL,
+//         new Color([85,255,0,1])),new Color([85,255,0,0.54]));
+
 // create renderer
 var renderer = new UniqueValueRenderer(defaultSymbol, "Change_Type");
 
@@ -62,6 +77,9 @@ renderer.addValue('Removal', removal);
 renderer.addValue('No Change', noChange);
 renderer.addValue('Reclassification to System Unit', reclassSu);
 renderer.addValue('Reclassification to OPA', reclassOpa);
+// renderer.addValue('Transfer to OPA', transferOutside);
+// renderer.addValue('Transfer to Otherwise Protected Area', transferOPA);
+// renderer.addValue('Transfer to System Unit', transferSu);
 
 // Existing polygons symbolized
 var defaultSymbol =
