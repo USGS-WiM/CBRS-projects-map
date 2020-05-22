@@ -18,6 +18,7 @@ var queryTask, query;
 
 var polyClicked = false;
 var printing = false;
+var sources;
 var measuring = false;
 
 require([
@@ -110,20 +111,23 @@ require([
     query,
     on
 ) {
-
+    map = new Map('mapDiv', {
+        basemap: 'gray',
+        extent: new Extent(-12567000, 2726000, -5053000, 5529000, new SpatialReference({ wkid: 3857 }))
+    });
         // *** SWITCH BACK AND FORTH DEPENDING ON IF TEST OR PRODUCTION ***
         
         // TEST URLS
-        var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/3");
+        /* var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/3");
         var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/1");
         var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/0");
-        var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/2");
+        var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/2"); */
 
         // PROD URLS
-        /* var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/projectmapperlive/FeatureServer/3");
-        var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/1");
-        var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/0");
-        var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/2"); */
+        var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/projectmapperlive/FeatureServer/3", {outFields:["*"]});
+        var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/1", {outFields:["*"]});
+        var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/0", {outFields:["*"]});
+        var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/2", {outFields:["*"]});
 
         //bring this line back after experiment////////////////////////////
         //allLayers = mapLayers;
@@ -171,10 +175,10 @@ require([
                                 urlPrefix: "http://52.70.106.103/arcgis/rest/services/Historic_Wetlands"
                             });*/
 
-        map = new Map('mapDiv', {
-            basemap: 'gray',
-            extent: new Extent(-12567000, 2726000, -5053000, 5529000, new SpatialReference({ wkid: 3857 }))
-        });
+        
+
+        
+        
 
         var home = new HomeButton({
             map: map,
@@ -194,58 +198,9 @@ require([
         }, dom.byId("measurementDiv"));
         measurement.startup();
 
-        var search = new Search({
-            enableButtonMode: false, //this enables the search widget to display as a single button
-            enableLabel: false,
-            enableSearchingAll: false,
-            enableInfoWindow: false,
-            showInfoWindowOnSelect: false,
-            map: map,
-            allPlaceholder: 'Enter CBRS unit number (e.g Q01P)',
-            sources: []
-        }, "search");
+        
 
-        var sources = search.get("sources");
-
-        sources.push({
-            featureLayer: swipeLayerRevised,
-            searchFields: ["Unit"],
-            displayField: "Unit",
-            exactMatch: false,
-            outFields: ["Unit"],
-            name: "Revised Units",
-            placeholder: "Enter CBRS unit number (e.g Q01P)",
-            highlightSymbol: new PictureMarkerSymbol("https://js.arcgis.com/3.21/esri/dijit/Search/images/search-pointer.png", 40, 40).setOffset(9, 18),
-            maxResults: 6,
-            maxSuggestions: 6,
-        });
-
-        sources.push({
-            featureLayer: underLayerExist,
-            searchFields: ["Unit"],
-            displayField: "Unit",
-            exactMatch: false,
-            outFields: ["Unit"],
-            name: "Existing Units",
-            placeholder: "Enter CBRS unit number (e.g Q01P)",
-            highlightSymbol: new PictureMarkerSymbol("https://js.arcgis.com/3.21/esri/dijit/Search/images/search-pointer.png", 40, 40).setOffset(9, 18),
-            maxResults: 6,
-            maxSuggestions: 6,
-        });
-
-        search.set("sources", sources);
-
-        on(search, 'select-result', function (e) {
-            var unitSearched = $("#search_input").val();
-            gtag('event', 'click', { 'event_category': 'Find CBRS', 'event_label': unitSearched });
-
-            $("#btnunitDismiss").trigger("click");
-        });
-
-        $('#cbrsNav').click(function () {
-            search.startup();
-            search.clear();
-        });
+        
 
         $(document).ready(function () {
 
@@ -756,6 +711,61 @@ require([
 
                 gtag('event', 'click', { 'event_category': 'Slide Tool', 'event_label': 'Slider Used' });
             });
+
+
+            var search = new Search({
+                enableButtonMode: false, //this enables the search widget to display as a single button
+                enableLabel: false,
+                enableSearchingAll: false,
+                enableInfoWindow: false,
+                showInfoWindowOnSelect: false,
+                map: map,
+                allPlaceholder: 'Enter CBRS unit number (e.g Q01P)',
+                sources: []
+            }, "search");
+
+            search.startup();
+    
+            sources = search.get("sources");
+    
+            sources.push({
+                featureLayer: swipeLayerRevised,
+                searchFields: ["Unit"],
+                displayField: "Unit",
+                exactMatch: false,
+                outFields: ["Unit"],
+                name: "Revised Units",
+                placeholder: "Enter CBRS unit number (e.g Q01P)",
+                highlightSymbol: new PictureMarkerSymbol("https://js.arcgis.com/3.21/esri/dijit/Search/images/search-pointer.png", 40, 40).setOffset(9, 18),
+                maxResults: 6,
+                maxSuggestions: 6,
+            });
+    
+            sources.push({
+                featureLayer: underLayerExist,
+                searchFields: ["Unit"],
+                displayField: "Unit",
+                exactMatch: false,
+                outFields: ["Unit"],
+                name: "Existing Units",
+                placeholder: "Enter CBRS unit number (e.g Q01P)",
+                highlightSymbol: new PictureMarkerSymbol("https://js.arcgis.com/3.21/esri/dijit/Search/images/search-pointer.png", 40, 40).setOffset(9, 18),
+                maxResults: 6,
+                maxSuggestions: 6,
+            });
+
+            $('#cbrsNav').click(function () {
+                search.clear();
+            });
+    
+            on(search, 'select-result', function (e) {
+                var unitSearched = $("#search_input").val();
+                gtag('event', 'click', { 'event_category': 'Find CBRS', 'event_label': unitSearched });
+    
+                $("#btnunitDismiss").trigger("click");
+            });
+
+            search.set("sources", sources);
         });
 
         /* map.on("Click", clickHandler);
@@ -1036,14 +1046,14 @@ require([
                 showModal();
             });
 
-            function secondClick() {
+            /* function secondClick() {
                 if (!(count++ % 2)) {
                     measuring = false;
                 }
-            }
+            } */
 
             var count = 0;
-            var widget = dijit.byId(dijit_form_ToggleButton_1);
+           /*  var widget = dijit.byId(dijit_form_ToggleButton_1); */
 
             $('#dijit_form_ToggleButton_1').click(function () {
 
