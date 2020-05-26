@@ -288,14 +288,14 @@
 
 .completedOpa {
   /* background: #ffebaf; */
+
   fill-opacity: 1;
-  /* stroke: #000000;
+  stroke: #000000;
   stroke-width: 0.53em;
   stroke-linecap: butt;
   stroke-linejoin: miter;
   stroke-miterlimit: 4;
   stroke-dasharray: none;
-  fill-rule: evenodd; */
   border-color: #ffebaf;
   border-width: 1.5px;
 }
