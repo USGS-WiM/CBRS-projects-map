@@ -895,7 +895,7 @@ require([
                 query = new Query();
                 query.returnGeometry = true;
                 query.geometry = evt.mapPoint;
-                query.outFields = ["Unit", "Name", "Unit_Type", "Change_Type", "Summary_URL", "Project_name", "Project_URL", "Status", "Docket_URL", "Unit_1", "Unit_Type_1", "PR_start_date", "PR_end_date", "Transmittal_Date"];
+                query.outFields = ["Unit", "Name", "Unit_Type", "Change_Type", "Summary_URL", "Project_name", "Project_URL", "Status", "Docket_URL", "Unit_1", "Unit_Type_1", "PR_start_date", "PR_end_date", "Transmittal_Date", "Mechanism", "Mechanism_URL"];
                 //identifyTask = new esri.tasks.IdentifyTask("http://50.17.205.92/arcgis/rest/services/NAWQA/DecadalMap/MapServer");
                 queryTask = new QueryTask(changeLayer.url);
                 queryTask.execute(query);
@@ -995,33 +995,31 @@ require([
                             //Change_Type = "Addition" for area that was added
                             // ADDTIONS -- [Unit] is null and [Unit_1] is not null in the “Change_Polygons”
                             if (((feature.attributes["Unit"]) === "") && (feature.attributes["Unit_1"] !== "")) {
-                                $("#reclassification").html('You have clicked within an area that is ' + blueStatus + ' for addition to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
-                                // Where 'proposed' is in the previous statement I removed ' + feature.attributes["Status"] + ' because the P was capitalized in the data and that was not desired on the modal. I don't think the status changes at all for Addition but I'm leaving this here just incase.
+                                $("#reclassification").html('You have clicked within an area that was added to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + ' via ' + feature.attributes["Mechanism"] + '.');
                             }
 
                             //Change_Type = "Removal" for area that was removed
                             // REMOVALS -- This modal format appears when [Unit] is not null and [Unit_1] is null in the “Change_Polygons”
                             if (((feature.attributes["Unit"]) !== "") && (feature.attributes["Unit_1"] === "")) {
-                                $("#reclassification").html('You have clicked within an area that is ' + blueStatus + ' for removal from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + '.');
+                                $("#reclassification").html('You have clicked within an area that was removed from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"]  + ' via ' + feature.attributes["Mechanism"] + '.');
                             }
 
                             //Change_Type = "No Change" for area that was not modified
                             // NO CHANGE PROPOSED --  [Unit] and [Unit_1] in “Change_Polygons” are equal
                             if ((feature.attributes["Unit"]) === feature.attributes["Unit_1"]) {
-                                $("#reclassification").html('You have clicked within an area that is ' + blueStatus + ' to remain within the CBRS as ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                                $("#reclassification").html('You have clicked within an area that is in ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + ' and was not modified by ' + feature.attributes["Mechanism"] + '.');
                             }
 
                             //Change_Type = "Reclassification to System Unit" or "Reclassification to Otherwise Protected Area" for area that was reclassified
                             // RECLASSIFICATIONS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] does not equal [Unit_Type_1] in the “Change_Polygons”
                             if (((feature.attributes["Unit"]) !== feature.attributes["Unit_1"]) && (feature.attributes["Unit"] !== "") && (feature.attributes["Unit_1"]) !== "" && ((feature.attributes["Unit_Type"] !== feature.attributes["Unit_Type_1"]))) {
-                                $("#reclassification").html('You have clicked within an area that is ' + blueStatus + ' for reclassification from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                                $("#reclassification").html('You have clicked within an area that was reclassified from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + ' via ' + feature.attributes["Mechanism"] + '.');
                             }
 
                             //Change_Type = "Transfer to System Unit" or "Transfer to Otherwise Protected Area" for area that was transferred
                             // TRANSFERS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] equals [Unit_Type_1] in the “Change_Polygons”
                             if (((feature.attributes["Unit"]) !== feature.attributes["Unit_1"]) && (feature.attributes["Unit"] !== "") && (feature.attributes["Unit_1"] !== "") && ((feature.attributes["Unit_Type"] === feature.attributes["Unit_Type_1"]))) {
-                                $("#reclassification").html('You have clicked within an area that is ' + blueStatus + ' for transfer from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
-                                // took out ' + feature.attributes["Status"] + ' because the Status for these 
+                                $("#reclassification").html('You have clicked within an area that was transferred from  ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + ' via ' + feature.attributes["Mechanism"] + '.');
                             }
                         }
 
