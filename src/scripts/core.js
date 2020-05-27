@@ -952,34 +952,77 @@ require([
 
                         if (status.includes("f")) {
                             blueStatus = "recommended";
+                            console.log(blueStatus)
                         }
 
-                        // NO CHANGE PROPOSED --  [Unit] and [Unit_1] in “Change_Polygons” are equal
-
-                        if ((feature.attributes["Unit"]) === feature.attributes["Unit_1"]) {
-                            $("#reclassification").html('You have clicked within an area that is ' + blueStatus + ' to remain within the CBRS as ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                        if (status.includes("t")) {
+                            blueStatus = "completed";
+                            console.log(blueStatus)
                         }
 
-                        // ADDTIONS -- [Unit] is null and [Unit_1] is not null in the “Change_Polygons”
-                        if (((feature.attributes["Unit"]) === "") && (feature.attributes["Unit_1"] !== "")) {
-                            $("#reclassification").html('You have clicked within an area that is ' + blueStatus + ' for addition to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
-                            // Where 'proposed' is in the previous statement I removed ' + feature.attributes["Status"] + ' because the P was capitalized in the data and that was not desired on the modal. I don't think the status changes at all for Addition but I'm leaving this here just incase.
+                        if (blueStatus !== "completed" ) {
+                            // NO CHANGE PROPOSED --  [Unit] and [Unit_1] in “Change_Polygons” are equal
+                            if ((feature.attributes["Unit"]) === feature.attributes["Unit_1"]) {
+                                $("#reclassification").html('You have clicked within an area that is ' + blueStatus + ' to remain within the CBRS as ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                            }
+
+                            // ADDTIONS -- [Unit] is null and [Unit_1] is not null in the “Change_Polygons”
+                            if (((feature.attributes["Unit"]) === "") && (feature.attributes["Unit_1"] !== "")) {
+                                $("#reclassification").html('You have clicked within an area that is ' + blueStatus + ' for addition to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                                // Where 'proposed' is in the previous statement I removed ' + feature.attributes["Status"] + ' because the P was capitalized in the data and that was not desired on the modal. I don't think the status changes at all for Addition but I'm leaving this here just incase.
+                            }
+
+                            // REMOVALS -- This modal format appears when [Unit] is not null and [Unit_1] is null in the “Change_Polygons”
+                            if (((feature.attributes["Unit"]) !== "") && (feature.attributes["Unit_1"] === "")) {
+                                $("#reclassification").html('You have clicked within an area that is ' + blueStatus + ' for removal from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + '.');
+                            }
+
+                            // RECLASSIFICATIONS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] does not equal [Unit_Type_1] in the “Change_Polygons”
+                            if (((feature.attributes["Unit"]) !== feature.attributes["Unit_1"]) && (feature.attributes["Unit"] !== "") && (feature.attributes["Unit_1"]) !== "" && ((feature.attributes["Unit_Type"] !== feature.attributes["Unit_Type_1"]))) {
+                                $("#reclassification").html('You have clicked within an area that is ' + blueStatus + ' for reclassification from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                            }
+
+                            // TRANSFERS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] equals [Unit_Type_1] in the “Change_Polygons”
+                            if (((feature.attributes["Unit"]) !== feature.attributes["Unit_1"]) && (feature.attributes["Unit"] !== "") && (feature.attributes["Unit_1"] !== "") && ((feature.attributes["Unit_Type"] === feature.attributes["Unit_Type_1"]))) {
+                                $("#reclassification").html('You have clicked within an area that is ' + blueStatus + ' for transfer from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                                // took out ' + feature.attributes["Status"] + ' because the Status for these 
+                            }
                         }
 
-                        // REMOVALS -- This modal format appears when [Unit] is not null and [Unit_1] is null in the “Change_Polygons”
-                        if (((feature.attributes["Unit"]) !== "") && (feature.attributes["Unit_1"] === "")) {
-                            $("#reclassification").html('You have clicked within an area that is ' + blueStatus + ' for removal from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + '.');
-                        }
+                        //Adding new logic for new Completed status for blue boxes with Mechanism nd Mechanism_URL attributes incorporated
+                        if (blueStatus === "completed") {
 
-                        // RECLASSIFICATIONS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] does not equal [Unit_Type_1] in the “Change_Polygons”
-                        if (((feature.attributes["Unit"]) !== feature.attributes["Unit_1"]) && (feature.attributes["Unit"] !== "") && (feature.attributes["Unit_1"]) !== "" && ((feature.attributes["Unit_Type"] !== feature.attributes["Unit_Type_1"]))) {
-                            $("#reclassification").html('You have clicked within an area that is ' + blueStatus + ' for reclassification from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
-                        }
+                            //Change_Type = "Addition" for area that was added
+                            // ADDTIONS -- [Unit] is null and [Unit_1] is not null in the “Change_Polygons”
+                            if (((feature.attributes["Unit"]) === "") && (feature.attributes["Unit_1"] !== "")) {
+                                $("#reclassification").html('You have clicked within an area that is ' + blueStatus + ' for addition to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                                // Where 'proposed' is in the previous statement I removed ' + feature.attributes["Status"] + ' because the P was capitalized in the data and that was not desired on the modal. I don't think the status changes at all for Addition but I'm leaving this here just incase.
+                            }
 
-                        // TRANSFERS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] equals [Unit_Type_1] in the “Change_Polygons”
-                        if (((feature.attributes["Unit"]) !== feature.attributes["Unit_1"]) && (feature.attributes["Unit"] !== "") && (feature.attributes["Unit_1"] !== "") && ((feature.attributes["Unit_Type"] === feature.attributes["Unit_Type_1"]))) {
-                            $("#reclassification").html('You have clicked within an area that is ' + blueStatus + ' for transfer from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
-                            // took out ' + feature.attributes["Status"] + ' because the Status for these 
+                            //Change_Type = "Removal" for area that was removed
+                            // REMOVALS -- This modal format appears when [Unit] is not null and [Unit_1] is null in the “Change_Polygons”
+                            if (((feature.attributes["Unit"]) !== "") && (feature.attributes["Unit_1"] === "")) {
+                                $("#reclassification").html('You have clicked within an area that is ' + blueStatus + ' for removal from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + '.');
+                            }
+
+                            //Change_Type = "No Change" for area that was not modified
+                            // NO CHANGE PROPOSED --  [Unit] and [Unit_1] in “Change_Polygons” are equal
+                            if ((feature.attributes["Unit"]) === feature.attributes["Unit_1"]) {
+                                $("#reclassification").html('You have clicked within an area that is ' + blueStatus + ' to remain within the CBRS as ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                            }
+
+                            //Change_Type = "Reclassification to System Unit" or "Reclassification to Otherwise Protected Area" for area that was reclassified
+                            // RECLASSIFICATIONS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] does not equal [Unit_Type_1] in the “Change_Polygons”
+                            if (((feature.attributes["Unit"]) !== feature.attributes["Unit_1"]) && (feature.attributes["Unit"] !== "") && (feature.attributes["Unit_1"]) !== "" && ((feature.attributes["Unit_Type"] !== feature.attributes["Unit_Type_1"]))) {
+                                $("#reclassification").html('You have clicked within an area that is ' + blueStatus + ' for reclassification from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                            }
+
+                            //Change_Type = "Transfer to System Unit" or "Transfer to Otherwise Protected Area" for area that was transferred
+                            // TRANSFERS -- [Unit] does not equal [Unit_1], neither are null, and [Unit_Type] equals [Unit_Type_1] in the “Change_Polygons”
+                            if (((feature.attributes["Unit"]) !== feature.attributes["Unit_1"]) && (feature.attributes["Unit"] !== "") && (feature.attributes["Unit_1"] !== "") && ((feature.attributes["Unit_Type"] === feature.attributes["Unit_Type_1"]))) {
+                                $("#reclassification").html('You have clicked within an area that is ' + blueStatus + ' for transfer from ' + feature.attributes["Unit_Type"] + ' ' + feature.attributes["Unit"] + ' to ' + feature.attributes["Unit_Type_1"] + ' ' + feature.attributes["Unit_1"] + '.');
+                                // took out ' + feature.attributes["Status"] + ' because the Status for these 
+                            }
                         }
 
                         // setting project status in modal
