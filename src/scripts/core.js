@@ -239,11 +239,21 @@ require([
                 $('#disclaimerModal').modal('show');
             });
 
-            $("#existingInfo").click(function () {
-                $('#existingModal').modal('show');
+            // $("#existingInfo").click(function () {
+            //     $('#existingModal').modal('show');
+            // });
+            // $("#revisedInfo").click(function () {
+            //     $('#revisedModal').modal('show');
+            // });
+
+            $("#activeInfo").click(function () {
+                $('#activeModal').modal('show');
             });
-            $("#revisedInfo").click(function () {
-                $('#revisedModal').modal('show');
+            $("#completedInfo").click(function () {
+                $('#completedModal').modal('show');
+            });
+            $("#outsideInfo").click(function () {
+                $('#outsideModal').modal('show');
             });
 
             if(navigator.userAgent.indexOf('MSIE')!==-1 || navigator.appVersion.indexOf('Trident/') > 0){
