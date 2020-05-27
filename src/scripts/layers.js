@@ -104,7 +104,7 @@ rendererExisting.addValue('Otherwise Protected Area', otherwiseProtected);
 
 
 
-    /*allLayers = [
+/*     allLayers = [
         {
             'groupHeading': 'ESRI dynamic map services',
             'showGroupHeading': false,
@@ -162,8 +162,8 @@ rendererExisting.addValue('Otherwise Protected Area', otherwiseProtected);
                         'hasOpacitySlider': true,
                         'includeLegend' : true,
                     }
-                }
-                    /*'polygons' : {
+                },
+                    'polygons' : {
                     'url': 'https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/Project_Mapper_data/FeatureServer?token=lS6bN793606uN_Bcn5h3C1SxZ3cSRF-FlgS6c4daB42BgvSgmJOiFC3A0wZqO05gnPXYN2oZYvKxac79HW28sCB0DjJdootDbIBDtRmOE7jBdIHNxbyxU0lEQ2M4xCVYeI89wOC2jthE4kH3gUpFBXg72TRbK0IMxe9kUuDNC15wo7YeaBEoxhBL-hek6u_dmrMPZPdy6kN8VXXFZ2XyW70-gf6yGSbidYzYpWxe6Tc.',
                     'visibleLayers': [0],
                     'options': {
@@ -184,7 +184,7 @@ rendererExisting.addValue('Otherwise Protected Area', otherwiseProtected);
                 }
             }   
         }
-    ];*/
+    ]; */
  
 });
 

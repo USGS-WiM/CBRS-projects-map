@@ -281,27 +281,19 @@
 }
 
 .completedSysUnit {
-  /* background: #bee8ff; */
+  background-image: repeating-linear-gradient(45deg, transparent 20%, transparent 40%, #000 40%, #000 45%);
   border-color: #bee8ff;
   border-width: 1.5px;
 }
 
 .completedOpa {
-  /* background: #ffebaf; */
-  fill-opacity: 1;
-  /* stroke: #000000;
-  stroke-width: 0.53em;
-  stroke-linecap: butt;
-  stroke-linejoin: miter;
-  stroke-miterlimit: 4;
-  stroke-dasharray: none;
-  fill-rule: evenodd; */
+  background-image: repeating-linear-gradient(45deg, transparent 20%, transparent 40%, #000 40%, #000 45%);
   border-color: #ffebaf;
-  border-width: 1.5px;
+  border-width: 1px;
 }
 
 .sysUnitSuperseded {
-  /* background: #8400a8; */
+  background-image: repeating-linear-gradient(-45deg, transparent 20%, transparent 40%, #000 40%, #000 45%);
   border-color: #8400a8;
   border-width: 2px;
   border-style: dashed;
@@ -309,7 +301,7 @@
 }
 
 .opaSuperseded {
-  /* background: #e64c00; */
+  background-image: repeating-linear-gradient(-45deg, transparent 20%, transparent 40%, #000 40%, #000 45%);
   border-color: #e64c00;
   border-width: 2px;
   border-style: dashed;

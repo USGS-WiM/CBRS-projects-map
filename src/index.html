@@ -172,12 +172,12 @@
                 <div class="panel panel-default wim-sidebar-panel">
                     <div class="panel-heading" id="basemapsHeader">
                         <h4 class="panel-title">
-                            <a class="accordion-toggle collapse" data-toggle="collapse" href="#basemapsPanel" aria-expanded="true" aria-controls="basemapsPanel">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#basemapsPanel" aria-expanded="false" aria-controls="basemapsPanel">
                                 Basemaps
                             </a>
                         </h4>
                     </div>
-                    <div id="basemapsPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="basemapsHeader">
+                    <div id="basemapsPanel" class="panel-collapse collapse" role="tabpanel" aria-labelledby="basemapsHeader">
                         <div class="panel-body collapse in">
                             <button id="btnStreets" class="btn btn-default basemapBtn equalize">
                                 <img class="basemapThumb" alt="" src="images/streets.jpg">
@@ -205,18 +205,41 @@
                     </div>
                 </div>
                 <div class="panel panel-default wim-sidebar-panel">
-                    <!--<div class="panel-heading" id="layersPanelHeader">
+                    <div class="panel-heading" id="layersPanelHeader">
                             <h4 class="panel-title">
-                                <a class="collapsed" data-toggle="collapse" href="#layersPanel" aria-expanded="true" aria-controls="layersPanel">
+                                <a class="accordion-toggle collapsed" data-toggle="collapse" href="#layersPanel" aria-expanded="true" aria-controls="layersPanel">
                                     Map Layers
                                 </a>
                             </h4>
-                        </div>-->
-                    <div id="layersPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="layersPanelHeader">
+                        </div>
+                    <!-- <div id="layersPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="layersPanelHeader">
                         <button id="showHelp" class="btn btn-info btn-block" style="margin-top:5px;">Layer Help</button>
-                        <div id="toggle" style="padding: 2px 2px;"></div>
+                        <div id="toggle" style="padding: 2px 2px;"></div> -->
                         <!--<div class="layerHelp">Click <a id="showWelcomeModal" style="cursor:pointer;">here</a> for a quick walkthrough.</div>-->
+                    <!-- </div> -->
+                </div>
+                <div id="layersPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="layersPanelHeader">
+                    <div id="toggle" style="padding: 2px 2px;">
+                        <div id="eSRIDynamicMapServices">
+                            <div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons">
+                                <button id="activeProjects" type="button" class="btn btn-default" aria-pressed="true" style="font-weight: bold; text-align: left;">
+                                    <i class="glyphspan fa fa-check-square-o"></i> &nbsp;&nbsp;Active Projects
+                                    <!-- <span id="infoActive" title="More info" class="glyphspan glyphicon glyphicon-question-sign pull-right"></span> -->
+                                </button>
+                            </div>
+                            <div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons">
+                                <button id="completedProjects" type="button" class="btn btn-default" aria-pressed="true" style="font-weight: bold; text-align: left;">
+                                    <i class="glyphspan fa fa-check-square-o"></i> &nbsp;&nbsp;Completed Projects
+                                    <!-- <span id="infoActive" title="More info" class="glyphspan glyphicon glyphicon-question-sign pull-right"></span> -->
+                                </button>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <div>
+                    <button id="showHelp" class="btn btn-info btn-block" style="margin-top:5px;">Layer Help</button>
+                    <div style="padding: 2px 2px;"></div>
+                    <!--<div class="layerHelp">Click <a id="showWelcomeModal" style="cursor:pointer;">here</a> for a quick walkthrough.</div>-->
                 </div>
                 <!-- # closing div tag for accordion style panels -->
                 <!--</div>-->

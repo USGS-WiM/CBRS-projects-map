@@ -38,7 +38,10 @@ require([
     'esri/geometry/Multipoint',
     'esri/geometry/Point',
     'esri/geometry/Polygon',
+    'esri/layers/ArcGISDynamicMapServiceLayer',
+    'esri/layers/ArcGISImageServiceLayer',
     'esri/layers/ArcGISTiledMapServiceLayer',
+    'esri/layers/ImageParameters',
     'esri/layers/FeatureLayer',
     'esri/dijit/LayerSwipe',
     'esri/renderers/UniqueValueRenderer',
@@ -59,6 +62,9 @@ require([
     'esri/tasks/PrintTemplate',
     'esri/geometry/webMercatorUtils',
     'esri/urlUtils',
+    'dijit/form/CheckBox',
+    'dijit/form/RadioButton',
+    'dijit/form/ToggleButton',
     'dojo/_base/array',
     'dojo/dom',
     'dojo/dom-class',
@@ -83,7 +89,10 @@ require([
     Multipoint,
     Point,
     Polygon,
+    ArcGISDynamicMapServiceLayer,
+    ArcGISImageServiceLayer,
     ArcGISTiledMapServiceLayer,
+    ImageParameters,
     FeatureLayer,
     LayerSwipe,
     UniqueValueRenderer,
@@ -104,6 +113,9 @@ require([
     PrintTemplate,
     webMercatorUtils,
     urlUtils,
+    CheckBox,
+    RadioButton,
+    ToggleButton,
     array,
     dom,
     domClass,
@@ -125,12 +137,12 @@ require([
         // var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/2");
         // var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/4");
 
-        var completedUnderLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/0?token=2AFTEvjN4Jp3xf0j7WX9yTNWRMGDlutHsOJBZ6VkqrWuJ0rcOawRh52eYlunmpnK_AGsAQNpuONcS5ReatDjba9nIgHImTd-JcyZlULvCzXt95eDFyIuV58zqll3acuBe1d_WB7nG5MKVv5oRrkMuzOLrL39Bu4ScizUiUkjrVibcgwnTK3I28DuZIfCpWlhpUiFMFW6x7QTbNVYckvLiNEMLfiRdiCL609VUqnB8i4")
-        var supersededLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/1?token=2AFTEvjN4Jp3xf0j7WX9yTNWRMGDlutHsOJBZ6VkqrWuJ0rcOawRh52eYlunmpnK_AGsAQNpuONcS5ReatDjba9nIgHImTd-JcyZlULvCzXt95eDFyIuV58zqll3acuBe1d_WB7nG5MKVv5oRrkMuzOLrL39Bu4ScizUiUkjrVibcgwnTK3I28DuZIfCpWlhpUiFMFW6x7QTbNVYckvLiNEMLfiRdiCL609VUqnB8i4")
-        var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/5?token=2AFTEvjN4Jp3xf0j7WX9yTNWRMGDlutHsOJBZ6VkqrWuJ0rcOawRh52eYlunmpnK_AGsAQNpuONcS5ReatDjba9nIgHImTd-JcyZlULvCzXt95eDFyIuV58zqll3acuBe1d_WB7nG5MKVv5oRrkMuzOLrL39Bu4ScizUiUkjrVibcgwnTK3I28DuZIfCpWlhpUiFMFW6x7QTbNVYckvLiNEMLfiRdiCL609VUqnB8i4");
-        var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/3?token=2AFTEvjN4Jp3xf0j7WX9yTNWRMGDlutHsOJBZ6VkqrWuJ0rcOawRh52eYlunmpnK_AGsAQNpuONcS5ReatDjba9nIgHImTd-JcyZlULvCzXt95eDFyIuV58zqll3acuBe1d_WB7nG5MKVv5oRrkMuzOLrL39Bu4ScizUiUkjrVibcgwnTK3I28DuZIfCpWlhpUiFMFW6x7QTbNVYckvLiNEMLfiRdiCL609VUqnB8i4");
-        var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/2?token=2AFTEvjN4Jp3xf0j7WX9yTNWRMGDlutHsOJBZ6VkqrWuJ0rcOawRh52eYlunmpnK_AGsAQNpuONcS5ReatDjba9nIgHImTd-JcyZlULvCzXt95eDFyIuV58zqll3acuBe1d_WB7nG5MKVv5oRrkMuzOLrL39Bu4ScizUiUkjrVibcgwnTK3I28DuZIfCpWlhpUiFMFW6x7QTbNVYckvLiNEMLfiRdiCL609VUqnB8i4");
-        var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/4?token=2AFTEvjN4Jp3xf0j7WX9yTNWRMGDlutHsOJBZ6VkqrWuJ0rcOawRh52eYlunmpnK_AGsAQNpuONcS5ReatDjba9nIgHImTd-JcyZlULvCzXt95eDFyIuV58zqll3acuBe1d_WB7nG5MKVv5oRrkMuzOLrL39Bu4ScizUiUkjrVibcgwnTK3I28DuZIfCpWlhpUiFMFW6x7QTbNVYckvLiNEMLfiRdiCL609VUqnB8i4");
+        var completedUnderLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/0?token=OSPm3K6U8xNWNQiFWvWxnpqBXH87ZATmehYaaKMvtdUID7l9mwuyxpAYixrzrx8W3BQ0gytcs6RPv03HuXVIsfiCmPTq8d_R68PxPXnhLBacxCKT8PkNVQgXGuRfgC0weuhpg0TR1dAfhvaBy0PwYU4yP9uR_h3irMd0l6M46v0GR_fufBRJDaTAkFPn_yo8OAx-z2xa_uGGrYznr7s811zZNLGvDvor5ptlQzWMcTU.")
+        var supersededLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/1?token=OSPm3K6U8xNWNQiFWvWxnpqBXH87ZATmehYaaKMvtdUID7l9mwuyxpAYixrzrx8W3BQ0gytcs6RPv03HuXVIsfiCmPTq8d_R68PxPXnhLBacxCKT8PkNVQgXGuRfgC0weuhpg0TR1dAfhvaBy0PwYU4yP9uR_h3irMd0l6M46v0GR_fufBRJDaTAkFPn_yo8OAx-z2xa_uGGrYznr7s811zZNLGvDvor5ptlQzWMcTU.")
+        var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/5?token=OSPm3K6U8xNWNQiFWvWxnpqBXH87ZATmehYaaKMvtdUID7l9mwuyxpAYixrzrx8W3BQ0gytcs6RPv03HuXVIsfiCmPTq8d_R68PxPXnhLBacxCKT8PkNVQgXGuRfgC0weuhpg0TR1dAfhvaBy0PwYU4yP9uR_h3irMd0l6M46v0GR_fufBRJDaTAkFPn_yo8OAx-z2xa_uGGrYznr7s811zZNLGvDvor5ptlQzWMcTU.");
+        var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/3?token=OSPm3K6U8xNWNQiFWvWxnpqBXH87ZATmehYaaKMvtdUID7l9mwuyxpAYixrzrx8W3BQ0gytcs6RPv03HuXVIsfiCmPTq8d_R68PxPXnhLBacxCKT8PkNVQgXGuRfgC0weuhpg0TR1dAfhvaBy0PwYU4yP9uR_h3irMd0l6M46v0GR_fufBRJDaTAkFPn_yo8OAx-z2xa_uGGrYznr7s811zZNLGvDvor5ptlQzWMcTU.");
+        var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/2?token=OSPm3K6U8xNWNQiFWvWxnpqBXH87ZATmehYaaKMvtdUID7l9mwuyxpAYixrzrx8W3BQ0gytcs6RPv03HuXVIsfiCmPTq8d_R68PxPXnhLBacxCKT8PkNVQgXGuRfgC0weuhpg0TR1dAfhvaBy0PwYU4yP9uR_h3irMd0l6M46v0GR_fufBRJDaTAkFPn_yo8OAx-z2xa_uGGrYznr7s811zZNLGvDvor5ptlQzWMcTU.");
+        var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/4?token=OSPm3K6U8xNWNQiFWvWxnpqBXH87ZATmehYaaKMvtdUID7l9mwuyxpAYixrzrx8W3BQ0gytcs6RPv03HuXVIsfiCmPTq8d_R68PxPXnhLBacxCKT8PkNVQgXGuRfgC0weuhpg0TR1dAfhvaBy0PwYU4yP9uR_h3irMd0l6M46v0GR_fufBRJDaTAkFPn_yo8OAx-z2xa_uGGrYznr7s811zZNLGvDvor5ptlQzWMcTU.");
 
         // PROD URLS
         // var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/projectmapperlive/FeatureServer/3", {outFields:["*"]});
@@ -492,7 +504,7 @@ require([
             map.removeLayer(nationalMapBasemap);
             map.removeLayer(usgsImageryTopo);
             gtag('event', 'click', { 'event_category': 'Basemap', 'event_label': 'basemap: USGS Topo' });
-        })
+        });
 
         //start LobiPanel
         $("#siteInfoDiv").lobiPanel({
@@ -1513,32 +1525,32 @@ require([
             });
 
 
-            $("#layersPanel").click(function () {
-                setTimeout(function () {
-                    var esriClass = 0;
-                    console.log("checking for esri table class")
-                    $('table.esriLegendLayer').each(function () {
-                        esriClass++;
-                        if (esriClass == 1) {
-                            console.log("found esri labels")
-                        }
-                        if (esriClass == 2) {
-                            $(this).addClass("esriLegendOther");
-                            console.log("Found the Other class");
-                        }
-                    });
-                    $("<style>")
-                        .prop("type", "text/css")
-                        .html("\
-                            {\
-                            .esriLegendOther {\
-                                display: none !important\
-                            }\
-                        }\
-                        ")
-                        .appendTo("head");
-                });
-            });
+            // $("#layersPanel").click(function () {
+            //     setTimeout(function () {
+            //         var esriClass = 0;
+            //         console.log("checking for esri table class")
+            //         $('table.esriLegendLayer').each(function () {
+            //             esriClass++;
+            //             if (esriClass == 1) {
+            //                 console.log("found esri labels")
+            //             }
+            //             if (esriClass == 2) {
+            //                 $(this).addClass("esriLegendOther");
+            //                 console.log("Found the Other class");
+            //             }
+            //         });
+            //         $("<style>")
+            //             .prop("type", "text/css")
+            //             .html("\
+            //                 {\
+            //                 .esriLegendOther {\
+            //                     display: none !important\
+            //                 }\
+            //             }\
+            //             ")
+            //             .appendTo("head");
+            //     });
+            // });
 
             maxLegendHeight = ($('#mapDiv').height()) * 0.90;
             $('#legendElement').css('max-height', maxLegendHeight);
@@ -1580,6 +1592,44 @@ require([
             });
 
         });
+
+        //var button = $("#eSRIDynamicMapServices");
+        var buttonActiveProjects = $("#activeProjects");
+        var buttonCompletedProjects = $("#completedProjects");
+
+        buttonCompletedProjects.click(function (e) {
+            //toggle checkmark
+            $(this).find('i.glyphspan').toggleClass('fa-check-square-o fa-square-o');
+            $(this).find('button').button('toggle');
+            //layer toggle
+            if (allLayers[0].visible) {
+                allLayers[0].setVisibility(false);
+            } else {
+                allLayers[0].setVisibility(true);
+            }
+            if (allLayers[1].visible) {
+                allLayers[1].setVisibility(false);
+            } else {
+                allLayers[1].setVisibility(true);
+            }
+        });
+        buttonActiveProjects.click(function (e) {
+            //toggle checkmark
+            $(this).find('i.glyphspan').toggleClass('fa-check-square-o fa-square-o');
+            $(this).find('button').button('toggle');
+            //layer toggle
+            if (allLayers[2].visible) {
+                allLayers[2].setVisibility(false);
+            } else {
+                allLayers[2].setVisibility(true);
+            }
+            if (allLayers[3].visible) {
+                allLayers[3].setVisibility(false);
+            } else {
+                allLayers[3].setVisibility(true);
+            }
+        });
+
 
         require([
             'esri/InfoTemplate',
