@@ -1055,6 +1055,9 @@ require([
 
                             $("#status").css("font-weight", "normal");
 
+                            $("#website").css("font-weight", "normal");
+                            $("#website").show();
+
                             $("#finalRecText").hide();
 
                         } if (feature.attributes["Status"].includes("F")) { // Final recommended status
@@ -1074,6 +1077,9 @@ require([
 
                             $("#status").css("font-weight", "normal");
 
+                            $("#website").css("font-weight", "normal");
+                            $("#website").show();
+
                             $("#finalRecText").html("View other information related to this project, including final recommended maps and responses to public comments: " + '<a href="' + projURL + '" target="_blank">' + projURL + '</a>')
 
                             $("#finalRecText").css("font-weight", "normal");
@@ -1090,6 +1096,23 @@ require([
 
                         $("#summaryUrl").css("font-weight", "normal");
 
+                        var websiteURL = "https://www.fws.gov/cbra/change-types.html";
+
+                        if (feature.attributes["Status"].includes("t")) { // Completed status
+
+                            $("#status").html('<strong>' + feature.attributes["Status"] + '</strong>' + " (effective). The boundaries of this unit were revised via " + feature.attributes["Mechanism"] + '.' );
+
+                            $("#status").css("font-weight", "normal");
+
+                            $("#website").hide();
+                            $("#websiteCompleted").html("Please see our " + '<a href="' + websiteURL + '" target="_blank">' + "website" + '</a>' + " for a description of the types of changes that can be made to the CBRS (e.g., additions, removals, reclassifications).");
+                            $("#websiteCompleted").css("font-weight", "normal")
+
+                            $("#summaryUrl").hide();
+
+                            $("#finalRecText").hide();
+
+                        }
 
 
                         $("#siteInfoDiv").css("visibility", "visible");
