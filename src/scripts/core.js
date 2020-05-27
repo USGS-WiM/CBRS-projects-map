@@ -1095,6 +1095,7 @@ require([
                         $("#summaryUrl").html("View the Service&#146s Summary of " + feature.attributes["Status"] + " Changes for this unit: " + '<a href="' + sumURL + '" target="_blank">' + sumURL + '</a>');
 
                         $("#summaryUrl").css("font-weight", "normal");
+                        
 
                         var websiteURL = "https://www.fws.gov/cbra/change-types.html";
 
