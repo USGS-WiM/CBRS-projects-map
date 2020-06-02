@@ -1037,6 +1037,15 @@ require([
                         var prDate = "";
                         var transmittalDate = "";
 
+                        $("#unitName").text(feature.attributes["Name"]);
+                        $("#changeTyp").text(feature.attributes["Change_Type"]);
+                        $("#siteUnit").text(feature.attributes["Unit"]);
+
+                        var sumURL = feature.attributes["Summary_URL"];
+                        $("#summaryUrl").html("View the Service&#146s Summary of " + feature.attributes["Status"] + " Changes for this unit: " + '<a href="' + sumURL + '" target="_blank">' + sumURL + '</a>');
+                        $("#summaryUrl").css("font-weight", "normal");
+
+
                         if (feature.attributes["Status"].includes("P")) { // Proposed status
 
                             var startStamp = feature.attributes["PR_start_date"];
@@ -1062,18 +1071,21 @@ require([
                             prDates = startDate + ' &#8211; ' + endDate;
 
                             $("#status").html('<strong>' + feature.attributes["Status"] + '</strong>' + "&#8211; Public review open from " + prDates + ". Visit: " + '<a href="' + feature.attributes["Docket_URL"] + '" target="_blank">' + feature.attributes["Docket_URL"] + '</a>' + " to make comments during the comment period and/or view submitted comments.");
-
                             $("#status").css("font-weight", "normal");
 
                             $("#website").css("font-weight", "normal");
                             $("#website").show();
 
-                            $("#finalRecText").hide();
+                            $("#websiteCompleted").hide();
 
-                        } if (feature.attributes["Status"].includes("F")) { // Final recommended status
+                            $("#summaryUrl").show();
+
+                            $("#finalRecText").hide();
+                        } 
+                        
+                        if (feature.attributes["Status"].includes("F")) { // Final recommended status
 
                             var timeStamp = feature.attributes["Transmittal_Date"];
-
                             transmittalDate = moment(timeStamp).calendar(null,{
                                 lastDay : 'L',
                                 sameDay : 'L',
@@ -1084,45 +1096,36 @@ require([
                             });
 
                             $("#status").html('<strong>' + feature.attributes["Status"] + '</strong>' + "&#8211; The final recommended boundaries for this project were transmitted to Congress on " + transmittalDate + ". These boundaries will become effective only if adopted by Congress through legislation.");
-
                             $("#status").css("font-weight", "normal");
 
                             $("#website").css("font-weight", "normal");
                             $("#website").show();
 
-                            $("#finalRecText").html("View other information related to this project, including final recommended maps and responses to public comments: " + '<a href="' + projURL + '" target="_blank">' + projURL + '</a>')
+                            $("#websiteCompleted").hide();
 
+                            $("#summaryUrl").show();
+
+                            $("#finalRecText").html("View other information related to this project, including final recommended maps and responses to public comments: " + '<a href="' + projURL + '" target="_blank">' + projURL + '</a>');
                             $("#finalRecText").css("font-weight", "normal");
                             $("#finalRecText").show();
-
                         }
-
-                        $("#unitName").text(feature.attributes["Name"]);
-                        $("#changeTyp").text(feature.attributes["Change_Type"]);
-                        $("#siteUnit").text(feature.attributes["Unit"]);
-
-                        var sumURL = feature.attributes["Summary_URL"];
-                        $("#summaryUrl").html("View the Service&#146s Summary of " + feature.attributes["Status"] + " Changes for this unit: " + '<a href="' + sumURL + '" target="_blank">' + sumURL + '</a>');
-
-                        $("#summaryUrl").css("font-weight", "normal");
-                        
 
                         var websiteURL = "https://www.fws.gov/cbra/change-types.html";
 
-                        if (feature.attributes["Status"].includes("t")) { // Completed status
+                        if (feature.attributes["Status"].includes("Com")) { // Completed status
 
-                            $("#status").html('<strong>' + feature.attributes["Status"] + '</strong>' + " (effective). The boundaries of this unit were revised via " + feature.attributes["Mechanism"] + '.' );
-
+                            $("#status").html('<strong>' + feature.attributes["Status"] + '</strong>' + " (effective). The boundaries of this unit were revised via " + feature.attributes["Mechanism"] + ". Information about changes in the acreage of this unit and other details are available in the Service's " + '<a href="' + feature.attributes["Mechanism_URL"] + '" target="_blank">' + "archive" + '</a>' + " for this map revision.");
                             $("#status").css("font-weight", "normal");
 
                             $("#website").hide();
+
                             $("#websiteCompleted").html("Please see our " + '<a href="' + websiteURL + '" target="_blank">' + "website" + '</a>' + " for a description of the types of changes that can be made to the CBRS (e.g., additions, removals, reclassifications).");
                             $("#websiteCompleted").css("font-weight", "normal")
+                            $("#websiteCompleted").show();
 
                             $("#summaryUrl").hide();
 
                             $("#finalRecText").hide();
-
                         }
 
 
