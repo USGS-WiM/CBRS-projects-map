@@ -130,15 +130,15 @@ require([
         // *** SWITCH BACK AND FORTH DEPENDING ON IF TEST OR PRODUCTION ***
         
         // TEST URLS
-        // var completedUnderLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/0")
-        // var supersededLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/1")
+        // var completedLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/0")
+        // var supersededUnderLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/1")
         // var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/5");
         // var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/3");
         // var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/2");
         // var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/4");
 
-        var completedUnderLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/0?token=OSPm3K6U8xNWNQiFWvWxnpqBXH87ZATmehYaaKMvtdUID7l9mwuyxpAYixrzrx8W3BQ0gytcs6RPv03HuXVIsfiCmPTq8d_R68PxPXnhLBacxCKT8PkNVQgXGuRfgC0weuhpg0TR1dAfhvaBy0PwYU4yP9uR_h3irMd0l6M46v0GR_fufBRJDaTAkFPn_yo8OAx-z2xa_uGGrYznr7s811zZNLGvDvor5ptlQzWMcTU.")
-        var supersededLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/1?token=OSPm3K6U8xNWNQiFWvWxnpqBXH87ZATmehYaaKMvtdUID7l9mwuyxpAYixrzrx8W3BQ0gytcs6RPv03HuXVIsfiCmPTq8d_R68PxPXnhLBacxCKT8PkNVQgXGuRfgC0weuhpg0TR1dAfhvaBy0PwYU4yP9uR_h3irMd0l6M46v0GR_fufBRJDaTAkFPn_yo8OAx-z2xa_uGGrYznr7s811zZNLGvDvor5ptlQzWMcTU.")
+        var completedLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/0?token=OSPm3K6U8xNWNQiFWvWxnpqBXH87ZATmehYaaKMvtdUID7l9mwuyxpAYixrzrx8W3BQ0gytcs6RPv03HuXVIsfiCmPTq8d_R68PxPXnhLBacxCKT8PkNVQgXGuRfgC0weuhpg0TR1dAfhvaBy0PwYU4yP9uR_h3irMd0l6M46v0GR_fufBRJDaTAkFPn_yo8OAx-z2xa_uGGrYznr7s811zZNLGvDvor5ptlQzWMcTU.")
+        var supersededUnderLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/1?token=OSPm3K6U8xNWNQiFWvWxnpqBXH87ZATmehYaaKMvtdUID7l9mwuyxpAYixrzrx8W3BQ0gytcs6RPv03HuXVIsfiCmPTq8d_R68PxPXnhLBacxCKT8PkNVQgXGuRfgC0weuhpg0TR1dAfhvaBy0PwYU4yP9uR_h3irMd0l6M46v0GR_fufBRJDaTAkFPn_yo8OAx-z2xa_uGGrYznr7s811zZNLGvDvor5ptlQzWMcTU.")
         var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/testprojectmapper/FeatureServer/5?token=OSPm3K6U8xNWNQiFWvWxnpqBXH87ZATmehYaaKMvtdUID7l9mwuyxpAYixrzrx8W3BQ0gytcs6RPv03HuXVIsfiCmPTq8d_R68PxPXnhLBacxCKT8PkNVQgXGuRfgC0weuhpg0TR1dAfhvaBy0PwYU4yP9uR_h3irMd0l6M46v0GR_fufBRJDaTAkFPn_yo8OAx-z2xa_uGGrYznr7s811zZNLGvDvor5ptlQzWMcTU.");
         var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/3?token=OSPm3K6U8xNWNQiFWvWxnpqBXH87ZATmehYaaKMvtdUID7l9mwuyxpAYixrzrx8W3BQ0gytcs6RPv03HuXVIsfiCmPTq8d_R68PxPXnhLBacxCKT8PkNVQgXGuRfgC0weuhpg0TR1dAfhvaBy0PwYU4yP9uR_h3irMd0l6M46v0GR_fufBRJDaTAkFPn_yo8OAx-z2xa_uGGrYznr7s811zZNLGvDvor5ptlQzWMcTU.");
         var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/2?token=OSPm3K6U8xNWNQiFWvWxnpqBXH87ZATmehYaaKMvtdUID7l9mwuyxpAYixrzrx8W3BQ0gytcs6RPv03HuXVIsfiCmPTq8d_R68PxPXnhLBacxCKT8PkNVQgXGuRfgC0weuhpg0TR1dAfhvaBy0PwYU4yP9uR_h3irMd0l6M46v0GR_fufBRJDaTAkFPn_yo8OAx-z2xa_uGGrYznr7s811zZNLGvDvor5ptlQzWMcTU.");
@@ -712,19 +712,19 @@ require([
 
         on(map, "load", function () {
 
-            map.addLayer(completedUnderLayer);
-            map.addLayer(supersededLayer);
+            map.addLayer(completedLayer);
+            map.addLayer(supersededUnderLayer);
             map.addLayer(swipeLayerRevised);
             map.addLayer(underLayerExist);
             map.addLayer(changeLayer);
             map.addLayer(otherProjectsLayer, 0);
 
-            mapLayersTwo.push(completedUnderLayer, supersededLayer, swipeLayerRevised, underLayerExist, changeLayer, otherProjectsLayer);
+            mapLayersTwo.push(completedLayer, supersededUnderLayer, swipeLayerRevised, underLayerExist, changeLayer, otherProjectsLayer);
             /*map.reorderLayer(swipeLayer,1);*/
 
             $("#swipeDiv").on(function () {
                 if (map.graphicsLayerIds == 0) {
-                    map.removeLayer(swipeLayerRevised, supersededLayer);
+                    map.removeLayer(swipeLayerRevised, completedLayer);
                 }
             });
 
@@ -733,7 +733,7 @@ require([
                 type: "vertical",
                 left: 700,
                 map: map,
-                layers: [underLayerExist, completedUnderLayer]
+                layers: [underLayerExist, supersededUnderLayer]
             }, "swipeDiv");
 
             swipeWidget.startup();
@@ -788,7 +788,7 @@ require([
             });
 
             sources.push({
-                featureLayer: supersededLayer,
+                featureLayer: supersededUnderLayer,
                 searchFields: ["Unit"],
                 displayField: "Unit",
                 exactMatch: false,
@@ -801,7 +801,7 @@ require([
             });
 
             sources.push({
-                featureLayer: completedUnderLayer,
+                featureLayer: completedLayer,
                 searchFields: ["Unit"],
                 displayField: "Unit",
                 exactMatch: false,
