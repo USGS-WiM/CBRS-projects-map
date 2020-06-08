@@ -302,17 +302,17 @@ require([
             showPrintModal();
         });
 
-        $('#printDismissButton').click(function(){
-            if (printing == true) {
-                var x = document.getElementById("toast")
-                x.className = "show";
-                setTimeout(function () {
-                    x.className = x.className.replace("show", "");
-                }, 7000);
-            } else {
+        // $('#printDismissButton').click(function(){
+        //     if (printing == true) {
+        //         var x = document.getElementById("toast")
+        //         x.className = "show";
+        //         setTimeout(function () {
+        //             x.className = x.className.replace("show", "");
+        //         }, 7000);
+        //     } else {
 
-            }
-        });
+        //     }
+        // });
 
         
 
@@ -1442,7 +1442,7 @@ require([
                 dpi: 300
             };
             template.format = "PDF";
-            template.layout = "Letter ANSI A Landscape cbrs projects";
+            template.layout = "Letter ANSI A Landscape June 2020";
             template.preserveScale = false;
 
             /* var existingLegendLayer = new LegendLayer();
