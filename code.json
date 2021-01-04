@@ -3,7 +3,7 @@
       "name": "CBRS-projects-map",
       "organization": "U.S. Geological Survey",
       "description": "The Coastal Barrier Resources System (CBRS) mapper can be used to help property owners, local, State, and Federal stakeholders, and the public determine whether or not properties or project sites may be affected by CBRA.",
-      "version": "v2.2.0",
+      "version": "v2.2.1",
       "status": "Development",
   
       "permissions": {
