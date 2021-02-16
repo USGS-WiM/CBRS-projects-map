@@ -124,16 +124,16 @@ require([
         var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/2"); */
 
         // PROD URLS
-        var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/projectmapperlive/FeatureServer/3", {outFields:["*"]});
+        /* var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/projectmapperlive/FeatureServer/3", {outFields:["*"]});
         var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/1", {outFields:["*"]});
         var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/0", {outFields:["*"]});
-        var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/2", {outFields:["*"]});
+        var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/2", {outFields:["*"]}); */
 
         // INTERNAL PROD URLS
-        /* var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/3", {outFields:["*"]});
+        var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/3", {outFields:["*"]});
         var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/1", {outFields:["*"]});
         var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/0", {outFields:["*"]});
-        var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/2", {outFields:["*"]}); */
+        var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/2", {outFields:["*"]});
 
         //bring this line back after experiment////////////////////////////
         //allLayers = mapLayers;
@@ -1129,79 +1129,6 @@ require([
             map.infoWindow.set('titleInBody', false);
         });
 
-        // create search_api widget in element "geosearch"
-        var isItUP = true;
-        try { 
-            search_api 
-        } 
-        catch(err) {  
-            isItUP = false 
-            console.log("did not work")
-        }
-
-        if (isItUP) {
-            console.log('init');
-            search_api.create("geosearch", {
-                on_result: function (o) {
-                    // what to do when a location is found
-                    // o.result is geojson point feature of location with properties
-    
-                    // zoom to location
-                    require(["esri/geometry/Extent"], function (Extent) {
-                        var noExtents = ["GNIS_MAJOR", "GNIS_MINOR", "ZIPCODE", "AREACODE"];
-                        var noExtentCheck = noExtents.indexOf(o.result.properties["Source"])
-                        $("#geosearchModal").modal('hide');
-                        if (noExtentCheck == -1) {
-                            map.setExtent(
-                                new esri.geometry.Extent({
-                                    xmin: o.result.properties.LonMin,
-                                    ymin: o.result.properties.LatMin,
-                                    xmax: o.result.properties.LonMax,
-                                    ymax: o.result.properties.LatMax,
-                                    spatialReference: { "wkid": 4326 }
-                                }),
-                                true
-                            );
-                        } else {
-                            //map.setCenter();
-                            require(["esri/geometry/Point"], function (Point) {
-                                map.centerAndZoom(
-                                    new Point(o.result.properties.Lon, o.result.properties.Lat),
-                                    12
-                                );
-                            });
-                        }
-                        gtag('event', 'click', { 'event_category': 'Find Location', 'event_label': o.result.properties.Name + ", " + o.result.properties.Lon + ", " + o.result.properties.Lat  });
-                    });
-    
-                },
-                "include_usgs_sw": true,
-                "include_usgs_gw": true,
-                "include_usgs_sp": true,
-                "include_usgs_at": true,
-                "include_usgs_ot": true,
-                "include_huc2": true,
-                "include_huc4": true,
-                "include_huc6": true,
-                "include_huc8": true,
-                "include_huc10": true,
-                "include_huc12": true,
-    
-                on_failure: function (o) {
-                    $("#test").html("Sorry, a location could not be found in search for '" + o.val() + "'");
-                    $("#invalidSearchLocationModal").modal('show');
-                }
-            });
-            
-        } else {
-            showsearchDownModal();
-        }
-
-        function showsearchDownModal() {
-            $('#searchDownModal').modal('show');
-        }
-        
-
         $(document).ready(function () {
             function showModal() {
                 $('#invalidSearchLocationModal').modal('show');
@@ -1445,7 +1372,79 @@ require([
             }
             // Geosearch nav menu is selected
             $('#geosearchNav').click(function () {
-                showModal();
+                // create search_api widget in element "geosearch"
+                var isItUP = true;
+                try {
+                    search_api
+                }
+                catch (err) {
+                    isItUP = false;
+                    console.log("did not work")
+                }
+
+                if (isItUP) {
+                    showModal();
+                    console.log('init');
+                    search_api.create("geosearch", {
+                        on_result: function (o) {
+                            // what to do when a location is found
+                            // o.result is geojson point feature of location with properties
+
+                            // zoom to location
+                            require(["esri/geometry/Extent"], function (Extent) {
+                                var noExtents = ["GNIS_MAJOR", "GNIS_MINOR", "ZIPCODE", "AREACODE"];
+                                var noExtentCheck = noExtents.indexOf(o.result.properties["Source"])
+                                $("#geosearchModal").modal('hide');
+                                if (noExtentCheck == -1) {
+                                    map.setExtent(
+                                        new esri.geometry.Extent({
+                                            xmin: o.result.properties.LonMin,
+                                            ymin: o.result.properties.LatMin,
+                                            xmax: o.result.properties.LonMax,
+                                            ymax: o.result.properties.LatMax,
+                                            spatialReference: { "wkid": 4326 }
+                                        }),
+                                        true
+                                    );
+                                } else {
+                                    //map.setCenter();
+                                    require(["esri/geometry/Point"], function (Point) {
+                                        map.centerAndZoom(
+                                            new Point(o.result.properties.Lon, o.result.properties.Lat),
+                                            12
+                                        );
+                                    });
+                                }
+                                gtag('event', 'click', { 'event_category': 'Find Location', 'event_label': o.result.properties.Name + ", " + o.result.properties.Lon + ", " + o.result.properties.Lat });
+                            });
+
+                        },
+                        "include_usgs_sw": true,
+                        "include_usgs_gw": true,
+                        "include_usgs_sp": true,
+                        "include_usgs_at": true,
+                        "include_usgs_ot": true,
+                        "include_huc2": true,
+                        "include_huc4": true,
+                        "include_huc6": true,
+                        "include_huc8": true,
+                        "include_huc10": true,
+                        "include_huc12": true,
+
+                        on_failure: function (o) {
+                            $("#test").html("Sorry, a location could not be found in search for '" + o.val() + "'");
+                            $("#invalidSearchLocationModal").modal('show');
+                        }
+                    });
+
+                } else {
+                    showsearchDownModal();
+                }
+
+                function showsearchDownModal() {
+                    $('#searchDownModal').modal('show');
+                }
+
             });
 
             
