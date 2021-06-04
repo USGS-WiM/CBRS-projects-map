@@ -128,6 +128,7 @@ require([
         var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/1", {outFields:["*"]});
         var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/0", {outFields:["*"]});
         var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/2", {outFields:["*"]});
+        var districtLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/CBRSCongressionalDistricts/FeatureServer/0", {outFields:["*"]});
 
         // INTERNAL PROD URLS
         /* var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/3", {outFields:["*"]});
@@ -691,8 +692,9 @@ require([
             map.addLayer(underLayerExist);
             map.addLayer(changeLayer);
             map.addLayer(otherProjectsLayer);
+            map.addLayer(districtLayer);
 
-            mapLayersTwo.push(swipeLayerRevised, underLayerExist, changeLayer, otherProjectsLayer);
+            mapLayersTwo.push(swipeLayerRevised, underLayerExist, changeLayer, otherProjectsLayer, districtLayer);
             /*map.reorderLayer(swipeLayer,1);*/
 
             $("#swipeDiv").on(function () {
@@ -831,8 +833,6 @@ require([
             }
         });
 
-
-
         //map click handler
         on(map, "click", function (evt) {
 
@@ -849,6 +849,8 @@ require([
 
             if (evt.graphic != undefined) {
 
+                // creating array to house congresstional district data from click evt
+                var districtData = evt.graphic.attributes;
                 query = new Query();
                 query.returnGeometry = true;
                 query.geometry = evt.mapPoint;
@@ -900,6 +902,8 @@ require([
                         var projectName = feature.attributes["Project_name"];
 
                         $("#projName").html('<a href="' + projURL + '" target="_blank">' + projectName + '</a>');
+
+                        $("#district").html(districtData["Cong_Dist"]);
 
                         //creating value for blue box
                         var blueStatus;
