@@ -128,6 +128,7 @@ require([
         var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/1", {outFields:["*"]});
         var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/0", {outFields:["*"]});
         var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/2", {outFields:["*"]});
+        var districtsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/CBRSCongressionalDistricts/FeatureServer/0", {outFields:["*"], opacity: 0});
 
         // INTERNAL PROD URLS
         /* var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/3", {outFields:["*"]});
@@ -691,8 +692,9 @@ require([
             map.addLayer(underLayerExist);
             map.addLayer(changeLayer);
             map.addLayer(otherProjectsLayer);
+            map.addLayer(districtsLayer);
 
-            mapLayersTwo.push(swipeLayerRevised, underLayerExist, changeLayer, otherProjectsLayer);
+            mapLayersTwo.push(swipeLayerRevised, underLayerExist, changeLayer, otherProjectsLayer, districtsLayer);
             /*map.reorderLayer(swipeLayer,1);*/
 
             $("#swipeDiv").on(function () {
@@ -849,6 +851,7 @@ require([
 
             if (evt.graphic != undefined) {
 
+                var congressionalData = evt.graphic.attributes;
                 query = new Query();
                 query.returnGeometry = true;
                 query.geometry = evt.mapPoint;
@@ -900,6 +903,9 @@ require([
                         var projectName = feature.attributes["Project_name"];
 
                         $("#projName").html('<a href="' + projURL + '" target="_blank">' + projectName + '</a>');
+
+                        $("#congressional").text(congressionalData["Cong_Dist"]);
+                        $("#congressional").css("font-weight", "normal");
 
                         //creating value for blue box
                         var blueStatus;
@@ -1033,7 +1039,6 @@ require([
                         }
                     }
                 }
-
             }
         });
 
