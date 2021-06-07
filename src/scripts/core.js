@@ -128,11 +128,7 @@ require([
         var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/1", {outFields:["*"]});
         var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/0", {outFields:["*"]});
         var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/2", {outFields:["*"]});
-<<<<<<< HEAD
-        var districtLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/CBRSCongressionalDistricts/FeatureServer/0", {outFields:["*"]});
-=======
         var districtsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/CBRSCongressionalDistricts/FeatureServer/0", {outFields:["*"], opacity: 0});
->>>>>>> 4bd9598a2f5ff3b8068c4e572f3fb9786e327886
 
         // INTERNAL PROD URLS
         /* var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/3", {outFields:["*"]});
@@ -696,15 +692,9 @@ require([
             map.addLayer(underLayerExist);
             map.addLayer(changeLayer);
             map.addLayer(otherProjectsLayer);
-<<<<<<< HEAD
-            map.addLayer(districtLayer);
-
-            mapLayersTwo.push(swipeLayerRevised, underLayerExist, changeLayer, otherProjectsLayer, districtLayer);
-=======
             map.addLayer(districtsLayer);
 
             mapLayersTwo.push(swipeLayerRevised, underLayerExist, changeLayer, otherProjectsLayer, districtsLayer);
->>>>>>> 4bd9598a2f5ff3b8068c4e572f3fb9786e327886
             /*map.reorderLayer(swipeLayer,1);*/
 
             $("#swipeDiv").on(function () {
@@ -859,12 +849,7 @@ require([
 
             if (evt.graphic != undefined) {
 
-<<<<<<< HEAD
-                // creating array to house congresstional district data from click evt
-                var districtData = evt.graphic.attributes;
-=======
                 var congressionalData = evt.graphic.attributes;
->>>>>>> 4bd9598a2f5ff3b8068c4e572f3fb9786e327886
                 query = new Query();
                 query.returnGeometry = true;
                 query.geometry = evt.mapPoint;
@@ -917,12 +902,8 @@ require([
 
                         $("#projName").html('<a href="' + projURL + '" target="_blank">' + projectName + '</a>');
 
-<<<<<<< HEAD
-                        $("#district").html(districtData["Cong_Dist"]);
-=======
                         $("#congressional").text(congressionalData["Cong_Dist"]);
                         $("#congressional").css("font-weight", "normal");
->>>>>>> 4bd9598a2f5ff3b8068c4e572f3fb9786e327886
 
                         //creating value for blue box
                         var blueStatus;
