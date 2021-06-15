@@ -59,6 +59,9 @@ require([
     'esri/tasks/PrintTemplate',
     'esri/geometry/webMercatorUtils',
     'esri/urlUtils',
+    'esri/layers/LabelClass',
+    'esri/symbols/TextSymbol',
+    'esri/Color',
     'dojo/_base/array',
     'dojo/dom',
     'dojo/dom-class',
@@ -104,6 +107,9 @@ require([
     PrintTemplate,
     webMercatorUtils,
     urlUtils,
+    LabelClass,
+    TextSymbol,
+    Color,
     array,
     dom,
     domClass,
@@ -113,7 +119,8 @@ require([
 ) {
     map = new Map('mapDiv', {
         basemap: 'gray',
-        extent: new Extent(-12567000, 2726000, -5053000, 5529000, new SpatialReference({ wkid: 3857 }))
+        extent: new Extent(-12567000, 2726000, -5053000, 5529000, new SpatialReference({ wkid: 3857 })),
+        showLabels: true
     });
         // *** SWITCH BACK AND FORTH DEPENDING ON IF TEST OR PRODUCTION ***
         
@@ -135,9 +142,22 @@ require([
         var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/1", {outFields:["*"]});
         var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/0", {outFields:["*"]});
         var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/2", {outFields:["*"]});
-        var districtsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/4", {outFields:["*"], opacity: 0});
+        var districtsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/4", {outFields:["*"], opacity: 1});
 
+        var fontColor = new Color("#000080");
+
+        var fontLabel = new TextSymbol().setColor(fontColor);
+        fontLabel.font.setSize("9pt");
+        fontLabel.font.setFamily("sans-serif");
         
+        var congLabel = {
+            "labelExpressionInfo": {"value": "{Cong_Dist}"}
+        };
+
+        var labelClass = new LabelClass(congLabel);
+        labelClass.symbol = fontLabel;
+        districtsLayer.setLabelingInfo([ labelClass ]);
+
         //bring this line back after experiment////////////////////////////
         //allLayers = mapLayers;
 
