@@ -710,13 +710,13 @@ require([
 
         on(map, "load", function () {
 
+            map.addLayer(districtsLayer);
             map.addLayer(swipeLayerRevised);
             map.addLayer(underLayerExist);
             map.addLayer(changeLayer);
             map.addLayer(otherProjectsLayer);
-            map.addLayer(districtsLayer);
 
-            mapLayersTwo.push(swipeLayerRevised, underLayerExist, changeLayer, otherProjectsLayer, districtsLayer);
+            mapLayersTwo.push(districtsLayer, swipeLayerRevised, underLayerExist, changeLayer, otherProjectsLayer);
             /*map.reorderLayer(swipeLayer,1);*/
 
             $("#swipeDiv").on(function () {
