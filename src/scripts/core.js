@@ -924,7 +924,12 @@ require([
 
                         $("#projName").html('<a href="' + projURL + '" target="_blank">' + projectName + '</a>');
 
-                        $("#congressional").text(congressionalData["Cong_Dist"]);
+                        if (congressionalData["Cong_Dist"] != undefined) {
+
+                            $("#congressional").text(congressionalData["Cong_Dist"])
+                        } else {
+                            $("#congressional").text("no district in this location")
+                        };
                         $("#congressional").css("font-weight", "normal");
 
                         //creating value for blue box
