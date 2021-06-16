@@ -151,7 +151,7 @@ require([
         fontLabel.font.setFamily("sans-serif");
         
         var congLabel = {
-            "labelExpressionInfo": {"value": "{Cong_Dist}"}
+            "labelExpressionInfo": {"value": "CD: {Cong_Dist}"}
         };
 
         var labelClass = new LabelClass(congLabel);
