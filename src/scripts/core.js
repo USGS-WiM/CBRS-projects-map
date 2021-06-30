@@ -61,6 +61,7 @@ require([
     'esri/urlUtils',
     'esri/layers/LabelClass',
     'esri/symbols/TextSymbol',
+    'esri/symbols/Font',
     'esri/Color',
     'dojo/_base/array',
     'dojo/dom',
@@ -109,6 +110,7 @@ require([
     urlUtils,
     LabelClass,
     TextSymbol,
+    Font,
     Color,
     array,
     dom,
@@ -142,13 +144,17 @@ require([
         var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/1", {outFields:["*"]});
         var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/0", {outFields:["*"]});
         var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/2", {outFields:["*"]});
-        var districtsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/4", {outFields:["*"], opacity: 0.25});
-
-        var fontColor = new Color("#94A9C6");
+        var districtsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/4", {outFields:["*"], opacity: 0.6, dataAttributes:["Cong_Dist"]});
+        var districtsData = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/5", {outFields:["*"], opacity: 0});
+        
+        var fontColor = new Color("black");
 
         var fontLabel = new TextSymbol().setColor(fontColor);
-        fontLabel.font.setSize("9pt");
+        fontLabel.font.setSize("10pt");
         fontLabel.font.setFamily("sans-serif");
+        fontLabel.font.setWeight(Font.WEIGHT_BOLD);
+        fontLabel.setHaloColor(new Color("#f0c0bb"));
+        fontLabel.setHaloSize(2);
         
         var congLabel = {
             "labelExpressionInfo": {"value": "CD: {Cong_Dist}"}
@@ -710,13 +716,14 @@ require([
 
         on(map, "load", function () {
 
+            map.addLayer(districtsLayer);
             map.addLayer(swipeLayerRevised);
             map.addLayer(underLayerExist);
             map.addLayer(changeLayer);
             map.addLayer(otherProjectsLayer);
-            map.addLayer(districtsLayer);
+            map.addLayer(districtsData);
 
-            mapLayersTwo.push(swipeLayerRevised, underLayerExist, changeLayer, otherProjectsLayer, districtsLayer);
+            mapLayersTwo.push(swipeLayerRevised, underLayerExist, changeLayer, otherProjectsLayer, districtsLayer, districtsData);
             /*map.reorderLayer(swipeLayer,1);*/
 
             $("#swipeDiv").on(function () {
@@ -928,7 +935,7 @@ require([
 
                             $("#congressional").text(congressionalData["Cong_Dist"])
                         } else {
-                            $("#congressional").text("no district in this location")
+                            $("#congressional").text("District boundaries do not cover all open water areas. Click another area for the district.")
                         };
                         $("#congressional").css("font-weight", "normal");
 
@@ -1062,6 +1069,7 @@ require([
                         if (instance.isPinned() == true) {
                             instance.unpin();
                         }
+                        map.graphics.clear();
                     }
                 }
             }

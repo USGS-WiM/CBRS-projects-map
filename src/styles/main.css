@@ -566,3 +566,9 @@ input[type="checkbox"], input[type="radio"] {
     margin: 0.5em;
     list-style: none;
 }
+
+path[data-Cong_Dist] {
+    stroke: #fb8072;
+    stroke-width: 3.25pt;
+    opacity: 1;
+}

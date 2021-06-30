@@ -290,10 +290,10 @@
 
 .congDist {
   background: #ffffff;
-  border-color: #94A9C6;
-  border-width: 2px;
+  border-color: #fb8072;
+  border-width: 3px;
   border-style: dashed;
-  opacity: 0.5;
+  opacity: 0.75;
 }
 
 .legendSpacing {
