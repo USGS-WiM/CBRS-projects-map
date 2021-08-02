@@ -20,8 +20,8 @@
     <!-- endbower -->
     <!-- endbuild -->
     <!-- CSS for the mapping components -->
-    <link rel="stylesheet" href="https://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
-    <link rel="stylesheet" href="https://js.arcgis.com/3.14/esri/css/esri.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.15/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.15/esri/css/esri.css">
     <link rel="stylesheet" href="https://txpub.usgs.gov/DSS/search_api/2.0/api/search_api.css" />
 
     <!-- build:css styles/main.css -->
@@ -50,7 +50,7 @@
     <!-- endbuild -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <script src="https://js.arcgis.com/3.14/"></script>
+    <script src="https://js.arcgis.com/3.15/"></script>
     <script type="text/javascript" src="https://txpub.usgs.gov/DSS/search_api/2.0/api/search_api.min.js"></script>
 
 
@@ -280,6 +280,9 @@
                                             in this mapper. For additional information, please contact
                                             <a href="mailto:CBRA@fws.gov"
                                                 target="_blank">CBRA@fws.gov</a>.</p>
+                                        <p>Congressional District:
+                                            <label id="congressional"></label>
+                                        </p>
                                         <br>
                                     </ul>
                                 </div>
@@ -289,7 +292,7 @@
                     </div>
                     <!-- End PopUp -->
 
-                    <div id="legendElement" class="panel panel-default legendClass" style="height: 350px;max-height: 350px;">
+                    <div id="legendElement" class="panel panel-default legendClass" style="height: 400px;max-height: 400px;">
                         <div id="legendHeading" class="legendHeading" role="tab">
                             <h4 class="panel-title" id="work">
                                 <a data-toggle="collapse" style="text-decoration: none" href="#legendCollapse" aria-expanded="true" aria-controls="collapseOne">
@@ -315,6 +318,9 @@
                                     <div class="squareDiv sysUnitRevised"></div> System Unit</p>
                                 <p class="legendSpacing">
                                     <div class="squareDiv opaRevised"></div> Otherwise Protected Area</p>
+                                <h5 style="padding-top: 10px;font-weight:bold;">Supporting Layers</h5>
+                                <p class="legendSpacing">
+                                    <div class="squareDiv congDist"></div> Congressional District</p>
                             </div>
                         </div>
                     </div>

@@ -288,6 +288,14 @@
   opacity: 0.8;
 }
 
+.congDist {
+  background: #ffffff;
+  border-color: #fb8072;
+  border-width: 3px;
+  border-style: dashed;
+  opacity: 0.75;
+}
+
 .legendSpacing {
   margin-bottom: 15px;
 }

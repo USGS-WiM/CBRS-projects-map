@@ -59,6 +59,10 @@ require([
     'esri/tasks/PrintTemplate',
     'esri/geometry/webMercatorUtils',
     'esri/urlUtils',
+    'esri/layers/LabelClass',
+    'esri/symbols/TextSymbol',
+    'esri/symbols/Font',
+    'esri/Color',
     'dojo/_base/array',
     'dojo/dom',
     'dojo/dom-class',
@@ -104,6 +108,10 @@ require([
     PrintTemplate,
     webMercatorUtils,
     urlUtils,
+    LabelClass,
+    TextSymbol,
+    Font,
+    Color,
     array,
     dom,
     domClass,
@@ -113,7 +121,8 @@ require([
 ) {
     map = new Map('mapDiv', {
         basemap: 'gray',
-        extent: new Extent(-12567000, 2726000, -5053000, 5529000, new SpatialReference({ wkid: 3857 }))
+        extent: new Extent(-12567000, 2726000, -5053000, 5529000, new SpatialReference({ wkid: 3857 })),
+        showLabels: true
     });
         // *** SWITCH BACK AND FORTH DEPENDING ON IF TEST OR PRODUCTION ***
         
@@ -124,16 +133,36 @@ require([
         var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/2"); */
 
         // PROD URLS
-        var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/projectmapperlive/FeatureServer/3", {outFields:["*"]});
+        /* var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/projectmapperlive/FeatureServer/3", {outFields:["*"]});
         var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/1", {outFields:["*"]});
         var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/0", {outFields:["*"]});
         var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/2", {outFields:["*"]});
+        var districtsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/CBRSCongressionalDistricts/FeatureServer/0", {outFields:["*"], opacity: 0}); */
 
         // INTERNAL PROD URLS
-        /* var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/3", {outFields:["*"]});
+        var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/3", {outFields:["*"]});
         var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/1", {outFields:["*"]});
         var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/0", {outFields:["*"]});
-        var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/2", {outFields:["*"]}); */
+        var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/2", {outFields:["*"]});
+        var districtsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/4", {outFields:["*"], opacity: 0.6, dataAttributes:["Cong_Dist"]});
+        var districtsData = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/5", {outFields:["*"], opacity: 0});
+        
+        var fontColor = new Color("black");
+
+        var fontLabel = new TextSymbol().setColor(fontColor);
+        fontLabel.font.setSize("10pt");
+        fontLabel.font.setFamily("sans-serif");
+        fontLabel.font.setWeight(Font.WEIGHT_BOLD);
+        fontLabel.setHaloColor(new Color("#f0c0bb"));
+        fontLabel.setHaloSize(2);
+        
+        var congLabel = {
+            "labelExpressionInfo": {"value": "CD: {Cong_Dist}"}
+        };
+
+        var labelClass = new LabelClass(congLabel);
+        labelClass.symbol = fontLabel;
+        districtsLayer.setLabelingInfo([ labelClass ]);
 
         //bring this line back after experiment////////////////////////////
         //allLayers = mapLayers;
@@ -687,12 +716,14 @@ require([
 
         on(map, "load", function () {
 
+            map.addLayer(districtsLayer);
             map.addLayer(swipeLayerRevised);
             map.addLayer(underLayerExist);
             map.addLayer(changeLayer);
             map.addLayer(otherProjectsLayer);
+            map.addLayer(districtsData);
 
-            mapLayersTwo.push(swipeLayerRevised, underLayerExist, changeLayer, otherProjectsLayer);
+            mapLayersTwo.push(swipeLayerRevised, underLayerExist, changeLayer, otherProjectsLayer, districtsLayer, districtsData);
             /*map.reorderLayer(swipeLayer,1);*/
 
             $("#swipeDiv").on(function () {
@@ -831,8 +862,6 @@ require([
             }
         });
 
-
-
         //map click handler
         on(map, "click", function (evt) {
 
@@ -849,6 +878,7 @@ require([
 
             if (evt.graphic != undefined) {
 
+                var congressionalData = evt.graphic.attributes;
                 query = new Query();
                 query.returnGeometry = true;
                 query.geometry = evt.mapPoint;
@@ -900,6 +930,14 @@ require([
                         var projectName = feature.attributes["Project_name"];
 
                         $("#projName").html('<a href="' + projURL + '" target="_blank">' + projectName + '</a>');
+
+                        if (congressionalData["Cong_Dist"] != undefined) {
+
+                            $("#congressional").text(congressionalData["Cong_Dist"])
+                        } else {
+                            $("#congressional").text("District boundaries do not cover all open water areas. Click another area for the district.")
+                        };
+                        $("#congressional").css("font-weight", "normal");
 
                         //creating value for blue box
                         var blueStatus;
@@ -1031,9 +1069,9 @@ require([
                         if (instance.isPinned() == true) {
                             instance.unpin();
                         }
+                        map.graphics.clear();
                     }
                 }
-
             }
         });
 
