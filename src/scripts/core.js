@@ -133,19 +133,20 @@ require([
         var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/testprojectmapper/FeatureServer/2"); */
 
         // PROD URLS
-        /* var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/projectmapperlive/FeatureServer/3", {outFields:["*"]});
+        var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/projectmapperlive/FeatureServer/3", {outFields:["*"]});
         var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/1", {outFields:["*"]});
         var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/0", {outFields:["*"]});
         var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/2", {outFields:["*"]});
-        var districtsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/CBRSCongressionalDistricts/FeatureServer/0", {outFields:["*"], opacity: 0}); */
-
+        var districtsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/4", {outFields:["*"], opacity: 0.6, dataAttributes:["Cong_Dist"]});
+        var districtsData = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/ArcGIS/rest/services/projectmapperlive/FeatureServer/5", {outFields:["*"], opacity: 0});
+        
         // INTERNAL PROD URLS
-        var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/3", {outFields:["*"]});
+        /* var otherProjectsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/3", {outFields:["*"]});
         var swipeLayerRevised = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/1", {outFields:["*"]});
         var underLayerExist = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/0", {outFields:["*"]});
         var changeLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/2", {outFields:["*"]});
         var districtsLayer = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/4", {outFields:["*"], opacity: 0.6, dataAttributes:["Cong_Dist"]});
-        var districtsData = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/5", {outFields:["*"], opacity: 0});
+        var districtsData = new FeatureLayer("https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/InternalProjectsMapper/FeatureServer/5", {outFields:["*"], opacity: 0}); */
         
         var fontColor = new Color("black");
 
@@ -852,8 +853,10 @@ require([
                         feature.geometry.spatialReference = map.spatialReference;
                         var graphic = feature;
                         graphic.setSymbol(symbol);
-
-                        map.graphics.add(graphic);
+                        
+                        setTimeout(() => {
+                            map.graphics.add(graphic);    
+                        }, 200);         
 
                         $("#unitOther").text(feature.attributes["Unit"]);
                     }
@@ -912,7 +915,10 @@ require([
                         var graphic = feature;
                         graphic.setSymbol(symbol);
 
-                        map.graphics.add(graphic);
+                        // adding small timeout to allow symbol to be set. without it graphic will not show and poly not highlighted on map
+                        setTimeout(() => {
+                            map.graphics.add(graphic);
+                        }, 200);
 
                         $("#unitNum").text(feature.attributes["Unit"]);
                         $("#unitNumOne").text(feature.attributes["Unit_1"]);
