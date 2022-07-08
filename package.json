@@ -26,6 +26,6 @@
   },
   "dependencies": {
     "bower": "^1.8.12",
-    "moment": "^2.18.1"
+    "moment": "^2.29.4"
   }
 }
